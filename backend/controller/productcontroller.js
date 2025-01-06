@@ -4,7 +4,7 @@ import Property from "../models/propertymodel.js";
 
 const addproperty = async (req, res) => {
     try {
-        const { title, location, price, beds, baths, sqft, type, availability, description, amenities } = req.body;
+        const { title, location, price, beds, baths, sqft, type, availability, description, amenities,phone } = req.body;
 
         const image1 = req.files.image1 && req.files.image1[0];
         const image2 = req.files.image2 && req.files.image2[0];
@@ -51,6 +51,7 @@ const addproperty = async (req, res) => {
             description,
             amenities,
             image: imageUrls,
+            phone
         });
 
         // Save the product to the database
@@ -90,7 +91,7 @@ const removeproperty = async (req, res) => {
 
 const updateproperty = async (req, res) => {
     try {
-        const { id, title, location, price, beds, baths, sqft, type, availability, description, amenities } = req.body;
+        const { id, title, location, price, beds, baths, sqft, type, availability, description, amenities,phone } = req.body;
 
         console.log("Received ID:", id); // Debugging line
 
@@ -112,6 +113,7 @@ const updateproperty = async (req, res) => {
             property.availability = availability;
             property.description = description;
             property.amenities = amenities;
+            property.phone = phone;
             // Keep existing images
             await property.save();
             return res.json({ message: "Property updated successfully", success: true });
@@ -160,6 +162,7 @@ const updateproperty = async (req, res) => {
         property.description = description;
         property.amenities = amenities;
         property.image = imageUrls;
+        property.phone = phone;
 
         await property.save();
         res.json({ message: "Property updated successfully", success: true });

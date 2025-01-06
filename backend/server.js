@@ -4,15 +4,32 @@ dotenv.config();
 import connectdb from './config/mongodb.js'
 import cors from 'cors';
 import propertyrouter from './routes/ProductRouter.js';
+import userrouter from './routes/UserRoute.js';
 
 const app = express();
 const port = process.env.PORT || 4000;
 
+
+
 connectdb();
-app.use(cors());
+
 app.use(express.json());
 
+
+const allowedOrigins = ['http://localhost:4000','http://localhost:5174','http://localhost:5173'];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
+
 app.use('/api/products', propertyrouter);
+app.use('/api/users', userrouter);
 
 
 app.get('/', (req, res) => {

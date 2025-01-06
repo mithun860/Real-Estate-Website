@@ -45,6 +45,10 @@ const propertySchema = new mongoose.Schema({
     type: Array,
     required: true,
   },
+  phone: {
+    type: String,
+    required: true,
+  },
 });
 
 const Property = mongoose.model("Property", propertySchema);

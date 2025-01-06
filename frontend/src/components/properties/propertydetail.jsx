@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
-import { BedDouble, Bath, Maximize, ArrowLeft } from 'lucide-react';
+import { BedDouble, Bath, Maximize, ArrowLeft, Phone } from 'lucide-react';
 
 const PropertyDetails = () => {
   const { id } = useParams(); // Get the property ID from the URL
@@ -14,7 +14,6 @@ const PropertyDetails = () => {
       try {
         setLoading(true);
         const response = await axios.get(`http://localhost:4000/api/products/single/${id}`);
-        console.log("API Response:", response.data);
 
         if (response.data.success) {
           const property = response.data.property;
@@ -114,9 +113,17 @@ const PropertyDetails = () => {
               </ul>
             </div>
 
-            <div>
+            <div className="mb-6">
               <h3 className="text-xl font-semibold text-gray-800 mb-2">Availability</h3>
               <p className="text-gray-600 capitalize">{property.availability}</p>
+            </div>
+
+            <div className="mb-6">
+              <h3 className="text-xl font-semibold text-gray-800 mb-2">Contact Details</h3>
+              <div className="flex items-center text-gray-500">
+                <Phone className="w-5 h-5 mr-3" />
+                {property.phone}
+              </div>
             </div>
           </div>
         </div>

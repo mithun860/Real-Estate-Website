@@ -6,6 +6,8 @@ import Properties from './pages/Properties'
 import PropertyDetails from './components/properties/propertydetail';
 import Aboutus from './pages/About'
 import Contact from './pages/Contact'
+import Login from './components/login';
+import Signup from './components/signup';
 import Footer from './components/footer';
 
 
@@ -14,6 +16,8 @@ const App = () => {
     <Router>
       <Navbar />
       <Routes>
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />} />
         <Route path="/properties" element={<Properties />} />
         <Route path="/properties/single/:id" element={<PropertyDetails />} />

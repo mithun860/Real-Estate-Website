@@ -31,7 +31,6 @@ const PropertiesPage = () => {
     try {
       setLoading(true);
       const response = await axios.get('http://localhost:4000/api/products/list');
-      console.log(response.data);
       const data = Array.isArray(response.data.property) ? response.data.property.map(property => ({
         ...property,
         amenities: Array.isArray(property.amenities) && property.amenities.length > 0 ? JSON.parse(property.amenities[0].replace(/'/g, '"')) : []
@@ -176,7 +175,7 @@ const PropertiesPage = () => {
                   {filteredProperties.length > 0 ? (
                     filteredProperties.map((property) => (
                       <PropertyCard
-                        key={property.id}
+                        key={property._id}
                         property={property}
                         onViewDetails={handleViewDetails}
                         viewType={isGridView ? 'grid' : 'list'}
