@@ -1,12 +1,28 @@
 import React from 'react';
 import { Calendar, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { blogPosts } from '../assets/blogdata';
 
+// Animation variants
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
 
 // BlogCard component
 const BlogCard = ({ post }) => {
+  const handleReadMore = () => {
+    window.location.href = post.link;
+  };
+
   return (
-    <div className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all">
+    <motion.div
+      className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all"
+      variants={cardVariants}
+      initial="hidden"
+      animate="visible"
+      whileHover={{ scale: 1.05 }}
+    >
       <img
         src={post.image}
         alt={post.title}
@@ -19,15 +35,15 @@ const BlogCard = ({ post }) => {
         </div>
         <h3 className="text-xl font-semibold text-gray-900 mb-2">{post.title}</h3>
         <p className="text-gray-600 mb-4">{post.excerpt}</p>
-        <a
-          href={`/blog/${post.id}`}
+        <button
+          onClick={handleReadMore}
           className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
         >
           Read More
           <ArrowRight className="w-4 h-4 ml-2" />
-        </a>
+        </button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -41,11 +57,24 @@ const Blog = () => {
           <p className="text-xl text-gray-600">Expert advice and tips for your real estate journey</p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.2,
+              },
+            },
+          }}
+        >
           {blogPosts.map((post) => (
             <BlogCard key={post.id} post={post} />
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

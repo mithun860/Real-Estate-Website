@@ -1,5 +1,12 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { features } from "../assets/featuredata";
+
+// Animation variants
+const cardVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 },
+};
 
 const Features = () => {
   return (
@@ -15,11 +22,26 @@ const Features = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.2,
+              },
+            },
+          }}
+        >
           {features.map((feature, index) => (
-            <div
+            <motion.div
               key={index}
               className="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 transform hover:-translate-y-1 text-center"
+              variants={cardVariants}
+              whileHover={{ scale: 1.05 }}
             >
               <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4 mx-auto">
                 <feature.icon className="h-6 w-6 text-blue-600" />
@@ -30,9 +52,9 @@ const Features = () => {
               <p className="text-gray-600 leading-relaxed">
                 {feature.description}
               </p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

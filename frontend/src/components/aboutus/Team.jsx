@@ -20,7 +20,7 @@ export default function Team() {
         </motion.div>
 
         {/* Rendering team members without repetition */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-2 gap-8">
           {teamMembers.map((member, index) => (
             <motion.div
               key={index} // Use index for unique keys if data is repeated

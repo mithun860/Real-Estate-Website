@@ -1,10 +1,18 @@
 import React from "react";
 import { property } from '../assets/properties.js';
 import { MapPin, DollarSign } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const PropertyCard = ({ property, onViewDetails }) => {
   return (
-    <div className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-lg transition-shadow">
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-lg transition-shadow"
+    >
       <div className="relative h-64">
         <img
           src={property.image}
@@ -25,13 +33,18 @@ const PropertyCard = ({ property, onViewDetails }) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
 const PropertiesShow = ({ onViewDetails }) => {
   return (
-    <div className="py-20 bg-gray-50">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="py-20 bg-gray-50"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -50,7 +63,7 @@ const PropertiesShow = ({ onViewDetails }) => {
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

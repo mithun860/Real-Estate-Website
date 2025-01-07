@@ -2,21 +2,17 @@ import React from 'react';
 
 export default function Hero() {
   return (
-    <div className="relative h-[40vh] flex items-center justify-center">
-      {/* Background Image Section */}
+    <div className="relative h-[40vh] flex items-center justify-center my-6 mx-6 rounded-2xl">
+      {/* Radial Gradient Background Section */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 rounded-2xl"
         style={{
-          backgroundImage:
-            'url("https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80")',
+          background: 'radial-gradient(circle, rgba(255,0,249,0.4766500350140056) 12%, rgba(8,0,255,0.4458377100840336) 41%, rgba(255,26,26,0.8155856092436975) 100%)',
         }}
-      >
-        {/* Dark Overlay for Better Contrast */}
-        <div className="absolute inset-0 bg-black/50" />
-      </div>
+      />
 
       {/* Content Section */}
-      <div className="relative text-center text-white px-4 max-w-4xl mx-auto">
+      <div className="relative text-center text-stone-900 px-4 max-w-4xl mx-auto">
         <h1 className="text-5xl font-bold mb-6">Contact Us</h1>
         <p className="text-xl leading-relaxed">
           Have questions? We're here to help! Reach out for any inquiries about
