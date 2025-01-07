@@ -14,7 +14,7 @@ connectdb();
 
 app.use(express.json());
 
-const allowedOrigins = ['http://localhost:4000', 'http://localhost:5174', 'http://localhost:5173'];
+const allowedOrigins = ['http://localhost:4000', 'http://localhost:5174', 'http://localhost:5173', 'https://real-estate-website-0c9l.onrender.com', 'https://real-estate-website-frontend-hlnj.onrender.com'];
 
 app.use(cors({
   origin: function (origin, callback) {
