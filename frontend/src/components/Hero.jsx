@@ -53,6 +53,10 @@ export const AnimatedContainer = ({
 };
 
 const Hero = () => {
+  const handleSubmit = () => {
+    window.location.href = "/properties";
+  };
+
   return (
     <AnimatedContainer distance={50} direction="vertical">
       <div className="mt-20">
@@ -104,7 +108,7 @@ const Hero = () => {
                     placeholder="Enter location..."
                     className="flex-1 px-4 py-2 rounded-xl border-0 bg-white shadow-sm"
                   />
-                  <button className="md:w-auto w-full bg-indigo-600 text-white px-6 py-2 rounded-xl hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2 font-medium">
+                  <button onClick={handleSubmit} className="md:w-auto w-full bg-indigo-600 text-white px-6 py-2 rounded-xl hover:bg-indigo-700 transition-colors flex items-center justify-center gap-2 font-medium">
                     <Search className="w-5 h-5" />
                     Search
                   </button>
