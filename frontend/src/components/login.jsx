@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const Login = () => {
@@ -17,9 +17,8 @@ const Login = () => {
         { email, password }
       );
       if (response.data.success) {
-        // Save the token in local storage or cookies
         localStorage.setItem("token", response.data.token);
-        navigate("/"); // Redirect to the dashboard or another page
+        window.location.replace("/"); // Redirect to the dashboard or another page
       } else {
         alert(response.data.message);
       }
@@ -84,12 +83,12 @@ const Login = () => {
                 </div>
               </div>
               <div className="flex items-center justify-between">
-                <a
-                  href="#"
+                <Link
+                  to="/forgot-password"
                   className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
                   Forgot password?
-                </a>
+                </Link>
               </div>
               <button
                 type="submit"
@@ -99,12 +98,12 @@ const Login = () => {
               </button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Don’t have an account yet?
-                <a
-                  href="/signup"
+                <Link
+                  to="/signup"
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
                   Sign up
-                </a>
+                </Link>
               </p>
             </form>
           </div>

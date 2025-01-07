@@ -105,13 +105,13 @@ const PropertyListings = () => {
                   <div className="absolute top-4 right-4 flex space-x-2">
                     <button
                       onClick={() => handleRemoveProperty(property._id)}
-                      className="p-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors duration-200"
-                    >
-                      <Trash2 size={16} />
+                      className="p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors duration-200"
+                    >Delete
+                      
                     </button>
                     <Link to={`/update/${property._id}`}>
-                      <button className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors duration-200">
-                        <Edit3 size={16} />
+                      <button className="p-1 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors duration-200">
+                        Update
                       </button>
                     </Link>
                   </div>

@@ -96,7 +96,7 @@ const Newsletter = () => {
 const companyLinks = [
     { name: 'Home', href: '/' },
     { name: 'Properties', href: '/properties' },
-    { name: 'Search', href: '/search' },
+    { name: 'About Us', href: '/about' },
     { name: 'Contact', href: '/contact' },
 ];
 

@@ -23,12 +23,6 @@ const PropertyCard = ({ property, onViewDetails }) => {
             <DollarSign className="h-4 w-4 mr-1" />
             {property.price}
           </div>
-          <button 
-            onClick={() => onViewDetails(property)}
-            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            View Details
-          </button>
         </div>
       </div>
     </div>

@@ -5,12 +5,9 @@ const UserSchema = new mongoose.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    resetToken: String,
-    resetTokenExpire: Date
+    resetToken: { type: String },
+    resetTokenExpire: { type: Date }
 });
-
-
-
 
 const User = mongoose.model('User', UserSchema);
 

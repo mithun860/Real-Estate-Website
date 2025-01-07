@@ -17,7 +17,7 @@ const Login = () => {
       const response = await axios.post(`${backendUrl}/api/users/admin`, { email, password });
       if (response.data.success) {
         localStorage.setItem('token', response.data.token);
-        navigate('/list');
+        window.location.replace('/list')
       } else {
         alert(response.data.message);
       }

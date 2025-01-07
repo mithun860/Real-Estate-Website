@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "main": "App.jsx",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -22,6 +23,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^11.15.0",
+    "js-cookie": "^3.0.5",
     "lucide-react": "^0.469.0",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",

@@ -1,5 +1,6 @@
 import express from 'express';
-import { login, register, forgotpassword, resetpassword,adminlogin } from '../controller/Usercontroller.js';
+import { login, register, forgotpassword,adminlogin,resetpassword,getname } from '../controller/Usercontroller.js';
+import authMiddleware from '../middleware/authMiddleware.js';
 
 
 const userrouter = express.Router();
@@ -7,7 +8,8 @@ const userrouter = express.Router();
 userrouter.post('/login', login);
 userrouter.post('/register', register);
 userrouter.post('/forgot', forgotpassword);
-userrouter.put('/reset', resetpassword);
-userrouter.post('/admin',adminlogin);
+userrouter.post('/reset/:token', resetpassword);
+userrouter.post('/admin', adminlogin);
+userrouter.get('/me', authMiddleware, getname);
 
 export default userrouter;

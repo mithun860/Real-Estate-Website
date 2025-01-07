@@ -1,20 +1,52 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import userlogo from "../assets/user_logo.png";
 import logo from '../assets/home-regular-24.png';
+import { Backendurl } from '../App';
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
-    // Check if the user is logged in by checking the presence of a token in localStorage
     const token = localStorage.getItem('token');
     if (token) {
       setIsLoggedIn(true);
+      axios.get(`${Backendurl}/api/users/me`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(response => {
+        setUser(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching user data:', error);
+      });
     }
   }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    if (isDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isDropdownOpen]);
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -22,6 +54,7 @@ const Navbar = () => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
+    setUser(null);
   };
 
   return (
@@ -36,53 +69,53 @@ const Navbar = () => {
         </Link>
 
         {/* User Menu and Mobile Button */}
-          <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            {isLoggedIn ? (
-              <div className="relative">
-                <button
-            type="button"
-            onClick={toggleDropdown}
-            className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300"
-            aria-expanded={isDropdownOpen}
-                >
-            <span className="sr-only">Open user menu</span>
-            <img
-              className="w-8 h-8 rounded-full bg-white object-cover"
-              src={userlogo}
-              alt="user photo"
-            />
-                </button>
+        <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+          {isLoggedIn ? (
+            <div className="relative" ref={dropdownRef}>
+              <button
+                type="button"
+                onClick={toggleDropdown}
+                className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300"
+                aria-expanded={isDropdownOpen}
+              >
+                <span className="sr-only">Open user menu</span>
+                <img
+                  className="w-8 h-8 rounded-full bg-white object-cover"
+                  src={userlogo}
+                  alt="user photo"
+                />
+              </button>
 
-                {isDropdownOpen && (
-            <div className="absolute right-0 top-10 z-50 w-48 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow">
-              <div className="px-4 py-3">
-                <span className="block text-sm text-gray-900">User Name</span>
-                <span className="block text-sm text-gray-500 truncate">
-                  user@buildestate.com
-                </span>
-              </div>
-              <ul className="py-2">
-                <li>
-                  <button
-              onClick={handleLogout}
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
-                  >
-              Sign out
-                  </button>
-                </li>
-              </ul>
+              {isDropdownOpen && (
+                <div className="absolute right-0 top-10 z-50 w-48 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow">
+                  <div className="px-4 py-3">
+                    <span className="block text-sm text-gray-900">{user?.name}</span>
+                    <span className="block text-sm text-gray-500 truncate">
+                      {user?.email}
+                    </span>
+                  </div>
+                  <ul className="py-2">
+                    <li>
+                      <button
+                        onClick={handleLogout}
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                      >
+                        Sign out
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              )}
             </div>
-                )}
-              </div>
-            ) : (
-              <Link to="/login">
-                <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            Login
-                </button>
-              </Link>
-            )}
+          ) : (
+            <Link to="/login">
+              <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Login
+              </button>
+            </Link>
+          )}
 
-            {/* Mobile Menu Button */}
+          {/* Mobile Menu Button */}
           <button
             onClick={toggleMobileMenu}
             type="button"

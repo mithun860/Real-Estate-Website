@@ -29,14 +29,7 @@ const login = async (req, res) => {
     const isMatch = await bcrypt.compare(password, Registeruser.password);
     if (isMatch) {
       const token = createtoken(Registeruser._id);
-        // store in cookie
-        res.cookie("jwt", token, {
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            samesite: process.env.NODE_ENV === "production" ? "none" : "strict",
-            maxAge: 30 * 24 * 60 * 60 * 1000,
-          });
-      return res.json({ token, success: true });
+      return res.json({ token, user: { name: Registeruser.name, email: Registeruser.email }, success: true });
     } else {
       return res.json({ message: "Invalid password", success: false });
     }
@@ -57,37 +50,28 @@ const register = async (req, res) => {
     await newUser.save();
     const token = createtoken(newUser._id);
 
-    // store in cookie
-    res.cookie("jwt", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      samesite: process.env.NODE_ENV === "production" ? "none" : "strict",
-      maxAge: 30 * 24 * 60 * 60 * 1000,
-    });
-
     // send email
     const mailOptions = {
       from: process.env.EMAIL,
       to: email,
       subject: "Account created",
-      text: `<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-                    <h1 style="color: #333;">Welcome to Our Website!</h1>
-                    <p>Hello ${name},</p>
-                    <p>Thank you for joining our community. We're excited to have you on board!</p>
-                    <div style="margin: 20px 0;">
-                      <a href="${process.env.WEBSITE_URL}/getting-started" 
-                         style="background-color: #007bff; color: white; padding: 10px 20px; 
-                                text-decoration: none; border-radius: 5px;">
-                        Get Started
-                      </a>
-                    </div>
-                    <p>If you have any questions, feel free to reach out to our support team.</p>
-                    <p>Best regards,<br>The Team</p>
-                  </div>`,
+      html: `<div style="max-width: 600px; margin: 20px auto; padding: 20px; background: #fff; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <h1 style="color: #333; text-align: center;">Welcome to Our Website!</h1>
+        <p style="font-size: 16px; color: #555;">Hello <strong>${name}</strong>,</p>
+        <p style="font-size: 16px; color: #555;">Thank you for joining our community. We're excited to have you on board!</p>
+        <div style="text-align: center; margin: 20px 0;">
+            <a href="${process.env.WEBSITE_URL}/getting-started"
+               style="display: inline-block; padding: 12px 24px; background-color: #007bff; color: white; text-decoration: none; border-radius: 5px; font-size: 18px; font-weight: bold;">
+                Get Started
+            </a>
+        </div>
+        <p style="font-size: 16px; color: #555;">If you have any questions, feel free to reach out to our support team.</p>
+        <p style="font-size: 16px; color: #555;">Best regards,<br><strong>BuildEstate</strong></p>
+    </div>`,
     };
     await transporter.sendMail(mailOptions);
 
-    return res.json({ token, success: true });
+    return res.json({ token, user: { name: newUser.name, email: newUser.email }, success: true });
   } catch (error) {
     console.error(error);
     return res.json({ message: "Server error", success: false });
@@ -99,20 +83,13 @@ const forgotpassword = async (req, res) => {
     const { email } = req.body;
     const user = await userModel.findOne({ email });
     if (!user) {
-      return res.json({ message: "Email not found", success: false });
+      return res.status(404).json({ message: "Email not found", success: false });
     }
     const resetToken = crypto.randomBytes(20).toString("hex");
     user.resetToken = resetToken;
-    user.resetTokenExpire = Date.now() + 3600000;
+    user.resetTokenExpire = Date.now() + 3600000; // 1 hour
     await user.save();
-    const resetUrl = `${backendurl}/reset/${resetToken}`;
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL,
-        pass: process.env.PASSWORD,
-      },
-    });
+    const resetUrl = `${process.env.WEBSITE_URL}/reset/${resetToken}`;
     const mailOptions = {
       from: process.env.EMAIL,
       to: email,
@@ -120,31 +97,32 @@ const forgotpassword = async (req, res) => {
       text: `To reset your password, click this link: ${resetUrl}`,
     };
     await transporter.sendMail(mailOptions);
-    return res.json({ message: "Email sent", success: true });
+    return res.status(200).json({ message: "Email sent", success: true });
   } catch (error) {
     console.error(error);
-    return res.json({ message: "Server error", success: false });
+    return res.status(500).json({ message: "Server error", success: false });
   }
 };
 
 const resetpassword = async (req, res) => {
   try {
-    const { resetToken, password } = req.body;
+    const { token } = req.params;
+    const { password } = req.body;
     const user = await userModel.findOne({
-      resetToken,
+      resetToken: token,
       resetTokenExpire: { $gt: Date.now() },
     });
     if (!user) {
-      return res.json({ message: "Invalid or expired token", success: false });
+      return res.status(400).json({ message: "Invalid or expired token", success: false });
     }
     user.password = await bcrypt.hash(password, 10);
     user.resetToken = undefined;
     user.resetTokenExpire = undefined;
     await user.save();
-    return res.json({ message: "Password reset", success: true });
+    return res.status(200).json({ message: "Password reset successful", success: true });
   } catch (error) {
     console.error(error);
-    return res.json({ message: "Server error", success: false });
+    return res.status(500).json({ message: "Server error", success: false });
   }
 };
 
@@ -166,11 +144,6 @@ const adminlogin = async (req, res) => {
 
 const logout = async (req, res) => {
     try {
-        res.clearcookie('token',{
-            httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            samesite: process.env.NODE_ENV === "production" ? "none" : "strict",
-        });
         return res.json({ message: "Logged out", success: true });
     } catch (error) {
         console.error(error);
@@ -178,4 +151,19 @@ const logout = async (req, res) => {
     }
 };
 
-export { login, register, forgotpassword, resetpassword, adminlogin,logout };
+// get name and email
+
+const getname = async (req, res) => {
+  try {
+    const user = await userModel.findById(req.user.id).select("-password");
+    return res.json(user);
+  }
+  catch (error) {
+    console.error(error);
+    return res.json({ message: "Server error", success: false });
+  }
+}
+
+
+
+export { login, register, forgotpassword, resetpassword, adminlogin, logout, getname };

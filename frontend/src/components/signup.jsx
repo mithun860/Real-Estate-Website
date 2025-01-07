@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { Backendurl } from '../App';
 
 const Signup = () => {
   const [name, setName] = useState('');
@@ -13,10 +14,10 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:4000/api/users/register', { name, email, password });
+      const response = await axios.post(`${Backendurl}/api/users/register`, { name, email, password });
       if (response.data.success) {
         localStorage.setItem('token', response.data.token);
-        navigate('/');
+        window.location.replace("/");
       } else {
         alert(response.data.message);
       }
