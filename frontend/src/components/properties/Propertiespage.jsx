@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion, AnimatePresence } from 'framer-motion';
-import SearchBar from './SearchBar';
+import SearchBar from './Searchbar.jsx';
 import FilterSection from './Filtersection.jsx';
 import PropertyCard from './Propertycard.jsx';
 import { Grid, List } from 'lucide-react';
