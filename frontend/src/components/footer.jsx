@@ -101,9 +101,9 @@ const companyLinks = [
 ];
 
 const helpLinks = [
-  { name: 'Customer Support', href: '/support' },
-  { name: 'Terms & Conditions', href: '/terms' },
-  { name: 'Privacy Policy', href: '/privacy' },
+  { name: 'Customer Support', href: '/' },
+  { name: 'Terms & Conditions', href: '/' },
+  { name: 'Privacy Policy', href: '/' },
 ];
 
 const Footer = () => {

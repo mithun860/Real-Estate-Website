@@ -13,7 +13,7 @@ export default function Hero() {
 
       {/* Content Section */}
       <div className="relative text-center text-stone-900 px-4 max-w-4xl mx-auto">
-        <h1 className="text-5xl font-bold mb-6">Contact Us</h1>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6">Contact Us</h1>
         <p className="text-xl leading-relaxed">
           Have questions? We're here to help! Reach out for any inquiries about
           our property listings or services.
