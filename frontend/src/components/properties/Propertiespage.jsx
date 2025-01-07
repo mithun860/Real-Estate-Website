@@ -5,6 +5,7 @@ import SearchBar from './SearchBar';
 import FilterSection from './Filtersection.jsx';
 import PropertyCard from './Propertycard.jsx';
 import { Grid, List } from 'lucide-react';
+import { Backendurl } from '../../App.jsx';
 
 const PropertiesPage = () => {
   const [isGridView, setIsGridView] = useState(true);
@@ -30,7 +31,7 @@ const PropertiesPage = () => {
   const fetchProperties = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:4000/api/products/list');
+      const response = await axios.get(`${Backendurl}/api/products/list`);
       const data = Array.isArray(response.data.property) ? response.data.property.map(property => ({
         ...property,
         amenities: Array.isArray(property.amenities) && property.amenities.length > 0 ? JSON.parse(property.amenities[0].replace(/'/g, '"')) : []

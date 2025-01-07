@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import { BedDouble, Bath, Maximize, ArrowLeft, Phone } from 'lucide-react';
+import { Backendurl } from '../../App.jsx';
 
 const PropertyDetails = () => {
   const { id } = useParams(); // Get the property ID from the URL
@@ -13,7 +14,7 @@ const PropertyDetails = () => {
     const fetchProperty = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:4000/api/products/single/${id}`);
+        const response = await axios.get(`${Backendurl}/api/products/single/${id}`);
 
         if (response.data.success) {
           const property = response.data.property;

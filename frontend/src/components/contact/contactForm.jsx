@@ -1,46 +1,10 @@
-import React, { useState } from 'react'; // Import React and useState for handling state
-import { motion } from 'framer-motion'; // Import motion for animations
-import { Send } from 'lucide-react'; // Import icon for the send button
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Send } from 'lucide-react';
+import useContactForm from './useContactform';
 
 function ContactForm() {
-  // State hooks to manage form data and validation errors
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: ''
-  });
-  const [errors, setErrors] = useState({});
-
-  // Handle input field changes
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value
-    }));
-  };
-
-  // Form submission handler
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const validationErrors = validateForm(formData);
-    if (Object.keys(validationErrors).length === 0) {
-      // Handle form submission if there are no validation errors
-      console.log('Form data submitted:', formData);
-    } else {
-      setErrors(validationErrors); // Set errors if validation fails
-    }
-  };
-
-  // Form validation function
-  const validateForm = (data) => {
-    const errors = {};
-    if (!data.name) errors.name = 'Name is required';
-    if (!data.email) errors.email = 'Email is required';
-    if (!data.message) errors.message = 'Message is required';
-    return errors;
-  };
+  const { formData, errors, handleChange, handleSubmit } = useContactForm();
 
   return (
     <motion.div

@@ -1,4 +1,8 @@
 import { useState } from 'react';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { Backendurl } from '../../App';
 
 export default function useContactForm() {
   const [formData, setFormData] = useState({
@@ -39,13 +43,22 @@ export default function useContactForm() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      // Handle form submission
-      console.log('Form submitted:', formData);
-      // Reset form
-      setFormData({ name: '', email: '', phone: '', message: '' });
+      console.log('Form data:', formData); // Debugging log
+      try {
+        const response = await axios.post(`${Backendurl}/api/forms/submit`, formData);
+        console.log('Response:', response); // Debugging log
+        toast.success('Form submitted successfully!');
+        // Reset form
+        setFormData({ name: '', email: '', phone: '', message: '' });
+      } catch (error) {
+        toast.error('Error submitting form. Please try again.');
+        console.error('Error submitting form:', error);
+      }
+    } else {
+      console.log('Validation errors:', errors); // Debugging log
     }
   };
 

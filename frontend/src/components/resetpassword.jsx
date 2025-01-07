@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { Backendurl } from "../App";
 
 const ResetPassword = () => {
   const { token } = useParams();
@@ -12,7 +13,7 @@ const ResetPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`http://localhost:4000/api/users/reset/${token}`, { password });
+      const response = await axios.post(`${Backendurl}/api/users/reset/${token}`, { password });
       setMessage(response.data.message);
       if (response.data.success) {
         navigate("/login");

@@ -1,10 +1,11 @@
 import express from 'express';
 import dotenv from 'dotenv';
-dotenv.config();
+dotenv.config(); // Ensure this is at the top
 import connectdb from './config/mongodb.js';
 import cors from 'cors';
 import propertyrouter from './routes/ProductRouter.js';
 import userrouter from './routes/UserRoute.js';
+import formrouter from './routes/formrouter.js';
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -27,6 +28,7 @@ app.use(cors({
 
 app.use('/api/products', propertyrouter);
 app.use('/api/users', userrouter);
+app.use('/api/forms', formrouter);
 
 app.get('/', (req, res) => {
   res.send(`
