@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { MapPin, DollarSign, BedDouble, Bath, Maximize } from 'lucide-react';
+import { MapPin, DollarSign,IndianRupee, BedDouble, Bath, Maximize } from 'lucide-react';
 
 const PropertyCard = ({ property, onViewDetails, viewType }) => {
   const isGrid = viewType === 'grid';
@@ -56,7 +56,7 @@ const PropertyCard = ({ property, onViewDetails, viewType }) => {
         
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center text-blue-600 font-semibold text-xl">
-            <DollarSign className="h-5 w-5 mr-1" />
+            <IndianRupee className="h-5 w-5 mr-1" />
             {property.price}
           </div>
         </div>

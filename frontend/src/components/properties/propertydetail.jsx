@@ -83,7 +83,7 @@ const PropertyDetails = () => {
           <div className="p-6">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">{property.title}</h2>
             <p className="text-gray-600 mb-4">{property.location}</p>
-            <p className="text-blue-600 text-2xl font-semibold mb-6">${property.price}</p>
+            <p className="text-blue-600 text-2xl font-semibold mb-6">₹{property.price}</p>
             <p className="text-gray-700 mb-6">{property.description}</p>
 
             <div className="flex items-center justify-between mb-6">

@@ -26,6 +26,7 @@ const PropertyForm = () => {
 
   const [previewUrls, setPreviewUrls] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [newAmenity, setNewAmenity] = useState('');
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -65,6 +66,16 @@ const PropertyForm = () => {
       ...prev,
       images: prev.images.filter((_, i) => i !== index)
     }));
+  };
+
+  const handleAddAmenity = () => {
+    if (newAmenity && !formData.amenities.includes(newAmenity)) {
+      setFormData(prev => ({
+        ...prev,
+        amenities: [...prev.amenities, newAmenity]
+      }));
+      setNewAmenity('');
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -113,6 +124,7 @@ const PropertyForm = () => {
           images: []
         });
         setPreviewUrls([]);
+        toast.success('Property added successfully');
       } else {
         toast.error(response.data.message);
       }
@@ -311,20 +323,38 @@ const PropertyForm = () => {
               Amenities
             </label>
             <div className="flex flex-wrap gap-2">
-              {AMENITIES.map(amenity => (
-                <button
-                  key={amenity}
-                  type="button"
-                  onClick={() => handleAmenityToggle(amenity)}
-                  className={`px-4 py-2 rounded-md text-sm font-medium ${
-                    formData.amenities.includes(amenity)
-                      ? 'bg-indigo-600 text-white'
-                      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                  }`}
-                >
-                  {amenity}
-                </button>
+              {formData.amenities.map((amenity, index) => (
+                <div key={index} className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id={`amenity-${index}`}
+                    name="amenities"
+                    value={amenity}
+                    checked={formData.amenities.includes(amenity)}
+                    onChange={() => handleAmenityToggle(amenity)}
+                    className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                  />
+                  <label htmlFor={`amenity-${index}`} className="ml-2 block text-sm text-gray-700">
+                    {amenity}
+                  </label>
+                </div>
               ))}
+            </div>
+            <div className="mt-4 flex items-center">
+              <input
+                type="text"
+                value={newAmenity}
+                onChange={(e) => setNewAmenity(e.target.value)}
+                placeholder="Add new amenity"
+                className="mt-1 block w-full rounded-md border border-gray-100 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              />
+              <button
+                type="button"
+                onClick={handleAddAmenity}
+                className="ml-2 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
+              >
+                Add
+              </button>
             </div>
           </div>
 
