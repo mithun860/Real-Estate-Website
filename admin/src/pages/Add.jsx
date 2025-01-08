@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { Upload, X } from 'lucide-react';
-import { backendurl } from '../App';
-import { toast,ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-hot-toast';
 import axios from 'axios';
+import { backendurl } from '../App';
 
 const PROPERTY_TYPES = ['House', 'Apartment', 'Office', 'Villa'];
 const AVAILABILITY_TYPES = ['rent', 'buy'];
-const AMENITIES = ['Lake View', 'Fireplace', 'Central heating and air conditioning', 'Dock', 'Pool', 'Garage', 'Garden', 'Gym','Security system','Master bathroom','Guest bathroom','Home theater','Exercise room/gym','Covered parking','High-speed internet ready'];
+const AMENITIES = ['Lake View', 'Fireplace', 'Central heating and air conditioning', 'Dock', 'Pool', 'Garage', 'Garden', 'Gym', 'Security system', 'Master bathroom', 'Guest bathroom', 'Home theater', 'Exercise room/gym', 'Covered parking', 'High-speed internet ready'];
 
 const PropertyForm = () => {
   const [formData, setFormData] = useState({
@@ -84,16 +82,21 @@ const PropertyForm = () => {
       formdata.append('sqft', formData.sqft);
       formdata.append('phone', formData.phone);
       formdata.append('availability', formData.availability);
-      formdata.append('amenities', JSON.stringify(formData.amenities));
+      formData.amenities.forEach((amenity, index) => {
+        formdata.append(`amenities[${index}]`, amenity);
+      });
       formData.images.forEach((image, index) => {
         formdata.append(`image${index + 1}`, image);
       });
-  
-      const response = await axios.post(`${backendurl}/api/products/add`, formdata);
-      console.log(response.data);
-  
-      if (response.status === 200) {
-        toast.success('Property added successfully');
+
+      const response = await axios.post(`${backendurl}/api/products/add`, formdata, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      if (response.data.success) {
+        toast.success(response.data.message);
         setFormData({
           title: '',
           type: '',
@@ -110,16 +113,15 @@ const PropertyForm = () => {
         });
         setPreviewUrls([]);
       } else {
-        toast.error('Failed to add property');
+        toast.error(response.data.message);
       }
     } catch (error) {
       console.error('Error adding property:', error);
-      toast.error('Failed to add property');
+      toast.error('An error occurred. Please try again.');
     } finally {
       setLoading(false);
     }
   };
-  
 
   return (
     <div className="min-h-screen pt-32 px-4 bg-gray-50">
