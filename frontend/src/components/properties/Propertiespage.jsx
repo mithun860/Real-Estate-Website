@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { motion, AnimatePresence } from 'framer-motion';
-import SearchBar from './Searchbar.jsx';
-import FilterSection from './Filtersection.jsx';
-import PropertyCard from './Propertycard.jsx';
-import { Grid, List } from 'lucide-react';
-import { Backendurl } from '../../App.jsx';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { motion, AnimatePresence } from "framer-motion";
+import SearchBar from "./Searchbar.jsx";
+import FilterSection from "./Filtersection.jsx";
+import PropertyCard from "./Propertycard.jsx";
+import { Grid, List } from "lucide-react";
+import { Backendurl } from "../../App.jsx";
 
 const PropertiesPage = () => {
   const [isGridView, setIsGridView] = useState(true);
@@ -15,13 +15,13 @@ const PropertiesPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filters, setFilters] = useState({
-    propertyType: '',
+    propertyType: "",
     priceRange: 0,
-    bedrooms: '1',
-    bathrooms: '1',
+    bedrooms: "0", // Default to 0 for bedrooms
+    bathrooms: "0", // Default to 0 for bathrooms
     selectedAmenities: [],
-    availability: '',
-    searchQuery: ''
+    availability: "",
+    searchQuery: "",
   });
 
   useEffect(() => {
@@ -32,15 +32,12 @@ const PropertiesPage = () => {
     try {
       setLoading(true);
       const response = await axios.get(`${Backendurl}/api/products/list`);
-      const data = Array.isArray(response.data.property) ? response.data.property.map(property => ({
-        ...property,
-        amenities: Array.isArray(property.amenities) && property.amenities.length > 0 ? JSON.parse(property.amenities[0].replace(/'/g, '"')) : []
-      })) : [];
-      setProperties(data);
+      console.log("Fetched properties:", response.data.property); // Debugging log
+      setProperties(response.data.property);
       setError(null);
     } catch (err) {
-      setError('Failed to fetch properties. Please try again later.');
-      console.error('Error fetching properties:', err);
+      setError("Failed to fetch properties. Please try again later.");
+      console.error("Error fetching properties:", err);
     } finally {
       setLoading(false);
     }
@@ -55,23 +52,58 @@ const PropertiesPage = () => {
   };
 
   const handleSearch = (query) => {
-    setFilters(prev => ({ ...prev, searchQuery: query }));
+    setFilters((prev) => ({ ...prev, searchQuery: query }));
   };
 
-  const filteredProperties = properties.filter(property => {
-    const searchMatch = !filters.searchQuery || 
-      property.title.toLowerCase().includes(filters.searchQuery.toLowerCase()) ||
-      property.description.toLowerCase().includes(filters.searchQuery.toLowerCase()) ||
-      property.location.toLowerCase().includes(filters.searchQuery.toLowerCase());
+  const filteredProperties = properties.filter((property) => {
+    const searchMatch =
+      !filters.searchQuery ||
+      property.title
+        .toLowerCase()
+        .includes(filters.searchQuery.toLowerCase()) ||
+      property.description
+        .toLowerCase()
+        .includes(filters.searchQuery.toLowerCase()) ||
+      property.location
+        .toLowerCase()
+        .includes(filters.searchQuery.toLowerCase());
 
-    return searchMatch && 
-      (filters.propertyType ? property.type.toLowerCase() === filters.propertyType : true) &&
-      (filters.priceRange ? property.price <= filters.priceRange : true) &&
-      (filters.bedrooms ? property.beds >= parseInt(filters.bedrooms) : true) &&
-      (filters.bathrooms ? property.baths >= parseInt(filters.bathrooms) : true) &&
-      (filters.availability ? property.availability.toLowerCase() === filters.availability : true) &&
-      (filters.selectedAmenities.length > 0 ? filters.selectedAmenities.every(amenity => 
-        property.amenities.includes(amenity)) : true);
+    // Debugging: Print out the property and whether it matches search criteria
+
+    const typeMatch = filters.propertyType
+      ? property.type.toLowerCase() === filters.propertyType
+      : true;
+    const priceMatch = filters.priceRange
+      ? property.price <= filters.priceRange
+      : true;
+    const bedroomsMatch = filters.bedrooms
+      ? property.beds >= parseInt(filters.bedrooms)
+      : true;
+    const bathroomsMatch = filters.bathrooms
+      ? property.baths >= parseInt(filters.bathrooms)
+      : true;
+    const availabilityMatch = filters.availability
+      ? property.availability.toLowerCase() === filters.availability
+      : true;
+    const amenitiesMatch =
+      filters.selectedAmenities.length > 0
+        ? filters.selectedAmenities.every((amenity) =>
+            property.amenities.includes(amenity)
+          )
+        : true;
+
+    const isFiltered =
+      searchMatch &&
+      typeMatch &&
+      priceMatch &&
+      bedroomsMatch &&
+      bathroomsMatch &&
+      availabilityMatch &&
+      amenitiesMatch;
+
+    // Debugging: Check if the property passes all filter criteria
+
+    return isFiltered;
   });
 
   if (loading) {
@@ -91,7 +123,7 @@ const PropertiesPage = () => {
         <div className="text-center text-red-600 p-4 rounded-lg bg-red-50 max-w-md">
           <p className="font-medium mb-2">Error</p>
           <p>{error}</p>
-          <button 
+          <button
             onClick={fetchProperties}
             className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
           >
@@ -132,19 +164,19 @@ const PropertiesPage = () => {
                 exit={{ x: -20, opacity: 0 }}
                 className="lg:col-span-1"
               >
-                <FilterSection 
-                  filters={filters} 
-                  setFilters={setFilters} 
-                  onApplyFilters={handleApplyFilters} 
+                <FilterSection
+                  filters={filters}
+                  setFilters={setFilters}
+                  onApplyFilters={handleApplyFilters}
                 />
               </motion.div>
             )}
           </AnimatePresence>
 
-          <div className={`${showFilters ? 'lg:col-span-3' : 'lg:col-span-4'}`}>
+          <div className={`${showFilters ? "lg:col-span-3" : "lg:col-span-4"}`}>
             <div className="mb-6 space-y-4">
               <SearchBar onSearch={handleSearch} />
-              
+
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -152,16 +184,20 @@ const PropertiesPage = () => {
                   onClick={() => setShowFilters(!showFilters)}
                   className="w-full sm:w-auto px-4 py-2 text-sm font-medium text-gray-700 bg-white rounded-lg border border-gray-200 hover:bg-gray-50"
                 >
-                  {showFilters ? 'Hide Filters' : 'Show Filters'}
+                  {showFilters ? "Hide Filters" : "Show Filters"}
                 </motion.button>
-                
+
                 <div className="flex items-center space-x-2">
                   <span className="text-sm text-gray-500">View:</span>
                   <motion.button
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={() => setIsGridView(true)}
-                    className={`p-2 rounded-md ${isGridView ? 'bg-blue-100 text-blue-600' : 'text-gray-500 hover:bg-gray-100'}`}
+                    className={`p-2 rounded-md ${
+                      isGridView
+                        ? "bg-blue-100 text-blue-600"
+                        : "text-gray-500 hover:bg-gray-100"
+                    }`}
                   >
                     <Grid className="w-5 h-5" />
                   </motion.button>
@@ -169,7 +205,11 @@ const PropertiesPage = () => {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={() => setIsGridView(false)}
-                    className={`p-2 rounded-md ${!isGridView ? 'bg-blue-100 text-blue-600' : 'text-gray-500 hover:bg-gray-100'}`}
+                    className={`p-2 rounded-md ${
+                      !isGridView
+                        ? "bg-blue-100 text-blue-600"
+                        : "text-gray-500 hover:bg-gray-100"
+                    }`}
                   >
                     <List className="w-5 h-5" />
                   </motion.button>
@@ -179,7 +219,9 @@ const PropertiesPage = () => {
 
             <motion.div
               layout
-              className={`grid gap-4 md:gap-6 ${isGridView ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'}`}
+              className={`grid gap-4 md:gap-6 ${
+                isGridView ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1"
+              }`}
             >
               <AnimatePresence>
                 {filteredProperties.length > 0 ? (
@@ -188,7 +230,7 @@ const PropertiesPage = () => {
                       key={property._id}
                       property={property}
                       onViewDetails={handleViewDetails}
-                      viewType={isGridView ? 'grid' : 'list'}
+                      viewType={isGridView ? "grid" : "list"}
                     />
                   ))
                 ) : (

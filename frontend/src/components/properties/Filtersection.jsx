@@ -9,25 +9,25 @@ const FilterSection = ({ onApplyFilters }) => {
   const [filters, setFilters] = useState({
     propertyType: '',
     priceRange: 0,
-    bedrooms: '1',
-    bathrooms: '1',
+    bedrooms: '0',  // Default to 0 for bedrooms
+    bathrooms: '0',  // Default to 0 for bathrooms
     selectedAmenities: [],
     availability: ''
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFilters(prev => ({
+    setFilters((prev) => ({
       ...prev,
       [name]: value
     }));
   };
 
   const handleAmenityChange = (amenity) => {
-    setFilters(prev => ({
+    setFilters((prev) => ({
       ...prev,
       selectedAmenities: prev.selectedAmenities.includes(amenity)
-        ? prev.selectedAmenities.filter(item => item !== amenity)
+        ? prev.selectedAmenities.filter((item) => item !== amenity)
         : [...prev.selectedAmenities, amenity]
     }));
   };
@@ -51,8 +51,10 @@ const FilterSection = ({ onApplyFilters }) => {
           className="w-full p-2 border rounded-md focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
         >
           <option value="">Select type</option>
-          {propertyTypes.map(type => (
-            <option key={type} value={type.toLowerCase()}>{type}</option>
+          {propertyTypes.map((type) => (
+            <option key={type} value={type.toLowerCase()}>
+              {type}
+            </option>
           ))}
         </select>
       </div>
@@ -94,8 +96,10 @@ const FilterSection = ({ onApplyFilters }) => {
             onChange={handleChange}
             className="w-full p-2 border rounded-md focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
           >
-            {[1, 2, 3, 4, '5+'].map(num => (
-              <option key={num} value={num}>{num}</option>
+            {Array.from({ length: 10 }, (_, i) => (
+              <option key={i} value={i}>
+                {i} {i === 4 ? '+' : ''}
+              </option>
             ))}
           </select>
         </div>
@@ -110,8 +114,10 @@ const FilterSection = ({ onApplyFilters }) => {
             onChange={handleChange}
             className="w-full p-2 border rounded-md focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
           >
-            {[1, 2, 3, '4+'].map(num => (
-              <option key={num} value={num}>{num}</option>
+            {Array.from({ length: 10 }, (_, i) => (
+              <option key={i} value={i}>
+                {i} {i === 4 ? '+' : ''}
+              </option>
             ))}
           </select>
         </div>
@@ -121,7 +127,7 @@ const FilterSection = ({ onApplyFilters }) => {
       <div>
         <label className="text-gray-700 font-medium mb-2 block">Amenities</label>
         <div className="grid grid-cols-2 gap-2">
-          {amenities.map(amenity => (
+          {amenities.map((amenity) => (
             <label key={amenity} className="flex items-center space-x-2">
               <input
                 type="checkbox"
@@ -139,7 +145,7 @@ const FilterSection = ({ onApplyFilters }) => {
       <div>
         <label className="text-gray-700 font-medium mb-2 block">Availability</label>
         <div className="flex space-x-4">
-          {availabilityTypes.map(type => (
+          {availabilityTypes.map((type) => (
             <label key={type} className="flex items-center space-x-2">
               <input
                 type="radio"
