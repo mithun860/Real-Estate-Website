@@ -16,25 +16,15 @@ const addproperty = async (req, res) => {
         // Upload images to ImageKit and delete after upload
         const imageUrls = await Promise.all(
             images.map(async (item) => {
-                console.log("Path:", item.path); // Debug the path
-
-                // Upload the file to ImageKit
                 const result = await imagekit.upload({
-                    file: fs.readFileSync(item.path), // Read the file from local disk
+                    file: fs.readFileSync(item.path),
                     fileName: item.originalname,
-                    folder: "Property", // Specify the folder in ImageKit
+                    folder: "Property",
                 });
-
-                // After successful upload, delete the local file
                 fs.unlink(item.path, (err) => {
-                    if (err) {
-                        console.log("Error deleting the file: ", err);
-                    } else {
-                        console.log("File deleted successfully!");
-                    }
+                    if (err) console.log("Error deleting the file: ", err);
                 });
-
-                return result.url; // Return the URL of the uploaded image
+                return result.url;
             })
         );
 
@@ -125,25 +115,15 @@ const updateproperty = async (req, res) => {
         // Upload images to ImageKit and delete after upload
         const imageUrls = await Promise.all(
             images.map(async (item) => {
-                console.log("Path:", item.path); // Debug the path
-
-                // Upload the file to ImageKit
                 const result = await imagekit.upload({
-                    file: fs.readFileSync(item.path), // Read the file from local disk
+                    file: fs.readFileSync(item.path),
                     fileName: item.originalname,
-                    folder: "Property", // Specify the folder in ImageKit
+                    folder: "Property",
                 });
-
-                // After successful upload, delete the local file
                 fs.unlink(item.path, (err) => {
-                    if (err) {
-                        console.log("Error deleting the file: ", err);
-                    } else {
-                        console.log("File deleted successfully!");
-                    }
+                    if (err) console.log("Error deleting the file: ", err);
                 });
-
-                return result.url; // Return the URL of the uploaded image
+                return result.url;
             })
         );
 
