@@ -3,6 +3,6 @@ import { submitForm } from '../controller/formcontroller.js';
 
 const router = express.Router();
 
-router.post('/submit', submitForm);
+router.post('/news', submitForm);
 
 export default router;

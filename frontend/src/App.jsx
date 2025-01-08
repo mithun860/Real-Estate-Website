@@ -12,6 +12,7 @@ import Signup from './components/signup';
 import ForgotPassword from './components/forgetpassword';
 import ResetPassword from './components/resetpassword';
 import Footer from './components/footer';
+import NotFoundPage from './components/Notfound';
 
 
 export const Backendurl = import.meta.env.VITE_API_BASE_URL;
@@ -30,6 +31,7 @@ const App = () => {
         <Route path="/properties/single/:id" element={<PropertyDetails />} />
         <Route path="/about" element={<Aboutus />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Footer />
       <ToastContainer />

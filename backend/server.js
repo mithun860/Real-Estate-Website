@@ -6,6 +6,7 @@ import cors from 'cors';
 import propertyrouter from './routes/ProductRouter.js';
 import userrouter from './routes/UserRoute.js';
 import formrouter from './routes/formrouter.js';
+import newsrouter from './routes/newsRoute.js';
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -29,6 +30,7 @@ app.use(cors({
 app.use('/api/products', propertyrouter);
 app.use('/api/users', userrouter);
 app.use('/api/forms', formrouter);
+app.use('/news', newsrouter);
 
 app.get('/', (req, res) => {
   res.send(`

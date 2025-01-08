@@ -58,8 +58,6 @@ const addproperty = async (req, res) => {
         await product.save();
 
         res.json({ message: "Product added successfully", success: true });
-        console.log("Product added successfully");
-
     } catch (error) {
         console.log("Error adding product: ", error);
         res.status(500).json({ message: "Server Error", success: false });
@@ -92,8 +90,6 @@ const removeproperty = async (req, res) => {
 const updateproperty = async (req, res) => {
     try {
         const { id, title, location, price, beds, baths, sqft, type, availability, description, amenities,phone } = req.body;
-
-        console.log("Received ID:", id); // Debugging line
 
         const property = await Property.findById(id);
         if (!property) {

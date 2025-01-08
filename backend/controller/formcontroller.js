@@ -2,8 +2,7 @@ import Form from '../models/formmodel.js';
 
 export const submitForm = async (req, res) => {
   try {
-    const { name, email, phone, message } = req.body;
-    console.log('Received form data:', { name, email, phone, message }); // Debugging log
+    const { name, email, phone, message } = req.body; // Debugging log
 
     const newForm = new Form({
       name,
