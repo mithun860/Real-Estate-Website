@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { useSpring, animated } from "@react-spring/web";
 import { Search } from "lucide-react";
 import { motion } from "framer-motion";
-import heroimage from "../assets/images/heroimage.jpg";
+import heroimage from "../assets/images/heroimage.png";
 import { LinearGradient, RadialGradient } from "react-text-gradients";
 
 export const AnimatedContainer = ({
@@ -65,7 +65,7 @@ const Hero = () => {
             className="absolute inset-0 z-0 rounded-2xl overflow-hidden"
             style={{
               backgroundImage: `url(${heroimage})`,
-              backgroundSize: "cover",
+              backgroundSize:"cover",
               backgroundPosition: "center",
             }}
           >

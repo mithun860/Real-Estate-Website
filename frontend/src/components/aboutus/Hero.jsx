@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import aboutimage from '../../assets/images/about.jpg'
+import aboutimage from '../../assets/images/about_enhanced.jpg';
 
 export default function Hero() {
   return (
@@ -12,14 +12,14 @@ export default function Hero() {
           backgroundImage: `url(${aboutimage})`,
         }}
       >
-        <div className="absolute inset-0 bg-slate-300/50 rounded-2xl" />
+        <div className="absolute inset-0 bg-cyan-50-300/50 rounded-2xl" />
       </div>
       
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.2 }}
-        className="relative text-center text-gray-800 px-4 max-w-4xl mx-auto"
+        className="relative text-center text-black px-4 max-w-4xl mx-auto"
       >
         <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6">About BuildEstate</h1>
         <p className="text-xl leading-relaxed">
