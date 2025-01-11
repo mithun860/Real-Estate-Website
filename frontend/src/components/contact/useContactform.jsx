@@ -46,10 +46,8 @@ export default function useContactForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log('Form data:', formData); // Debugging log
       try {
         const response = await axios.post(`${Backendurl}/api/forms/submit`, formData);
-        console.log('Response:', response); // Debugging log
         toast.success('Form submitted successfully!');
         // Reset form
         setFormData({ name: '', email: '', phone: '', message: '' });
