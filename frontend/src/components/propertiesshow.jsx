@@ -1,6 +1,6 @@
 import React from "react";
 import { property } from '../assets/properties.js';
-import { MapPin, DollarSign } from 'lucide-react';
+import { MapPin, IndianRupee } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const PropertyCard = ({ property, onViewDetails }) => {
@@ -28,7 +28,7 @@ const PropertyCard = ({ property, onViewDetails }) => {
         </div>
         <div className="flex items-center justify-between">
           <div className="flex items-center text-blue-600 font-semibold">
-            <DollarSign className="h-4 w-4 mr-1" />
+            <IndianRupee className="h-4 w-4 mr-1" />
             {property.price}
           </div>
         </div>
