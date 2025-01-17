@@ -15,7 +15,7 @@ connectdb();
 
 app.use(express.json());
 
-const allowedOrigins = ['http://localhost:4000', 'http://localhost:5174', 'http://localhost:5173', 'https://real-estate-website-backend.vercel.app','https://real-estate-website-sepia-two.vercel.app'];
+const allowedOrigins = ['http://localhost:4000', 'http://localhost:5174', 'http://localhost:5173', 'https://real-estate-website-backend.vercel.app','https://real-estate-website-sepia-two.vercel.app','https://real-estate-website-admin.onrender.com'];
 
 app.use(cors({
   origin: function (origin, callback) {
