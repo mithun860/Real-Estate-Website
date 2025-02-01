@@ -6,6 +6,7 @@ import propertyrouter from './routes/ProductRouter.js';
 import userrouter from './routes/UserRoute.js';
 import formrouter from './routes/formrouter.js';
 import newsrouter from './routes/newsRoute.js';
+import appointmentRouter from './routes/appointmentRoute.js';
 
 
 dotenv.config();
@@ -26,7 +27,8 @@ app.use(cors({
     'https://real-estate-website-admin.onrender.com',
     'https://real-estate-backend-git-main-aayushvaghela12-gmailcoms-projects.vercel.app',
     'https://real-estate-backend-aayushvaghela12-gmailcoms-projects.vercel.app',
-    'https://real-estate-backend-gamma-nine.vercel.app'
+    'https://real-estate-backend-gamma-nine.vercel.app',
+    'https://real-estate-website-backend-fullcode.onrender.com'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -54,6 +56,7 @@ app.use('/api/products', propertyrouter);
 app.use('/api/users', userrouter);
 app.use('/api/forms', formrouter);
 app.use('/news', newsrouter);
+app.use('/api/appointments', appointmentRouter);
 
 
 // Global error handler
