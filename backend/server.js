@@ -7,6 +7,8 @@ import propertyrouter from './routes/ProductRouter.js';
 import userrouter from './routes/UserRoute.js';
 import formrouter from './routes/formrouter.js';
 import newsrouter from './routes/newsRoute.js';
+import appointmentRouter from './routes/appointmentRoute.js';
+
 
 const app = express();
 const port = process.env.PORT || 4000;
@@ -31,6 +33,7 @@ app.use('/api/products', propertyrouter);
 app.use('/api/users', userrouter);
 app.use('/api/forms', formrouter);
 app.use('/news', newsrouter);
+app.use('/api/appointments', appointmentRouter);
 
 app.get('/', (req, res) => {
   res.send(`
