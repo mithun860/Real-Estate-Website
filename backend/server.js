@@ -8,57 +8,37 @@ import formrouter from './routes/formrouter.js';
 import newsrouter from './routes/newsRoute.js';
 import appointmentRouter from './routes/appointmentRoute.js';
 
-// Load environment variables
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 4000;
-
-// Connect to MongoDB
-connectdb();
 
 // Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 // CORS Configuration
-const allowedOrigins = [
-  'http://localhost:4000',
-  'http://localhost:5174',
-  'http://localhost:5173',
-  'https://real-estate-website-backend.vercel.app',
-  'https://real-estate-website-sepia-two.vercel.app',
-  'https://real-estate-website-admin.onrender.com'
-];
-
 app.use(cors({
-  origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-    
-    if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
-      return callback(new Error(msg), false);
-    }
-    return callback(null, true);
-  },
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+  origin: [
+    'http://localhost:4000',
+    'http://localhost:5174',
+    'http://localhost:5173',
+    'https://real-estate-website-backend.vercel.app',
+    'https://real-estate-website-sepia-two.vercel.app',
+    'https://real-estate-website-admin.onrender.com'
+  ],
   credentials: true,
-  maxAge: 86400 // 24 hours
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 
-// Global error handler
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({
-    success: false,
-    message: 'Something broke on the server!',
-    error: process.env.NODE_ENV === 'development' ? err.message : 'Internal Server Error'
-  });
+// Database connection
+connectdb().then(() => {
+  console.log('Database connected successfully');
+}).catch(err => {
+  console.error('Database connection error:', err);
 });
 
-// Health check endpoint
+// Health check
 app.get('/', (req, res) => {
   res.status(200).json({
     status: 'success',
@@ -74,6 +54,16 @@ app.use('/api/forms', formrouter);
 app.use('/news', newsrouter);
 app.use('/api/appointments', appointmentRouter);
 
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error('Error:', err);
+  res.status(err.status || 500).json({
+    success: false,
+    message: err.message || 'Internal server error',
+    ...(process.env.NODE_ENV === 'development' && { stack: err.stack })
+  });
+});
+
 // Handle 404
 app.use('*', (req, res) => {
   res.status(404).json({
@@ -82,14 +72,34 @@ app.use('*', (req, res) => {
   });
 });
 
-// Start server
-app.listen(port, '0.0.0.0', () => {
-  console.log(`Server is running on port ${port}`);
-});
+const port = process.env.PORT || 4000;
 
-// Handle unhandled promise rejections
+// Start server
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, '0.0.0.0', () => {
+    console.log(`Server running on port ${port}`);
+  });
+}
+
+// Handle unhandled rejections
 process.on('unhandledRejection', (err) => {
   console.log('UNHANDLED REJECTION! 💥 Shutting down...');
-  console.log(err.name, err.message);
+  console.error(err);
   process.exit(1);
 });
+
+app.get("/", (req, res) => {
+  res.send(`
+      <html>
+        <head>
+          <title>API Status</title>
+        </head>
+        <body>
+          <h1>API is working</h1>
+          <p>Welcome to the Food delivery website. Everything is running smoothly.</p>
+        </body>
+      </html>
+    `);
+});
+
+export default app;

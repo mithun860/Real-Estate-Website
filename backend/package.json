@@ -4,9 +4,13 @@
   "description": "",
   "type": "module",
   "main": "server.js",
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon --watch . --exec node --experimental-modules server.js"
+    "dev": "nodemon server.js",
+    "vercel-build": "echo hello"
   },
   "author": "",
   "license": "ISC",
