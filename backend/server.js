@@ -21,14 +21,11 @@ app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cors({
   origin: [
     'http://localhost:4000',
+    'https://real-estate-website-backend-fullcode.onrender.com',
+    'https://real-estate-website-sepia-two.vercel.app',
+    'https://real-estate-backend-gamma-nine.vercel.app/',
     'http://localhost:5174',
     'http://localhost:5173',
-    'https://real-estate-website-sepia-two.vercel.app',
-    'https://real-estate-website-admin.onrender.com',
-    'https://real-estate-backend-git-main-aayushvaghela12-gmailcoms-projects.vercel.app',
-    'https://real-estate-backend-aayushvaghela12-gmailcoms-projects.vercel.app',
-    'https://real-estate-backend-gamma-nine.vercel.app',
-    'https://real-estate-website-backend-fullcode.onrender.com'
   ],
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
