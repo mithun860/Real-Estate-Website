@@ -20,7 +20,7 @@ const milestones = [
 
 export default function Milestones() {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ y: 20, opacity: 0 }}
@@ -28,13 +28,14 @@ export default function Milestones() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl font-bold mb-4">Our Journey So Far</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">
+          <h2 className="text-4xl font-bold mb-4">Our Journey So Far</h2>
+          <div className="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
+          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
             Milestones that mark our growth and success
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
           {milestones.map((milestone, index) => {
             const Icon = milestone.icon;
             return (
@@ -43,17 +44,18 @@ export default function Milestones() {
                 initial={{ y: 20, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="text-center"
+                transition={{ delay: index * 0.2 }}
+                className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
+                whileHover={{ y: -5 }}
               >
-                <div className="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Icon className="w-10 h-10 text-blue-600" />
+                <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Icon className="w-12 h-12 text-blue-600" />
                 </div>
-                <h3 className="text-4xl font-bold text-blue-600 mb-2">
-                  <CountUp from={0} to={milestone.value} duration={0.2} separator="," />
+                <h3 className="text-5xl font-bold text-blue-600 mb-4">
+                  <CountUp from={0} to={milestone.value} duration={2} separator="," />
                 </h3>
-                <p className="text-xl font-semibold mb-2">{milestone.title}</p>
-                <p className="text-gray-600">{milestone.description}</p>
+                <p className="text-2xl font-semibold mb-3">{milestone.title}</p>
+                <p className="text-gray-600 text-lg">{milestone.description}</p>
               </motion.div>
             );
           })}

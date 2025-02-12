@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { toast } from "react-hot-toast";
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -9,21 +9,26 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
-      const response = await axios.post(`${backendUrl}/api/users/admin`, { email, password });
-      if (response.data.success) {
-        localStorage.setItem('token', response.data.token);
-        window.location.replace('/list')
+      const result = await login({ email, password });
+      if (result.success) {
+        toast.success("Login successful!");
+        navigate("/dashboard");
       } else {
-        alert(response.data.message);
+        toast.error(result.message || "Login failed");
       }
     } catch (error) {
       console.error('Error logging in:', error);
-      alert('An error occurred. Please try again.');
+      toast.error('An error occurred. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 

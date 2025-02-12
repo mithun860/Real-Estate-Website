@@ -1,34 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import userlogo from "../assets/user_logo.png";
-import logo from '../assets/home-regular-24.png';
-import { Backendurl } from '../App';
+import { Menu, X, ChevronDown, LogOut } from "lucide-react";
+import logo from "../assets/home-regular-24.png";
+import { useAuth } from "../context/AuthContext";
+import PropTypes from "prop-types";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null);
   const dropdownRef = useRef(null);
-
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setIsLoggedIn(true);
-      axios.get(`${Backendurl}/api/users/me`, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      .then(response => {
-        setUser(response.data);
-      })
-      .catch(error => {
-        console.error('Error fetching user data:', error);
-      });
-    }
-  }, []);
+  const { isLoggedIn, user, logout } = useAuth();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -38,13 +19,11 @@ const Navbar = () => {
     };
 
     if (isDropdownOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isDropdownOpen]);
 
@@ -52,139 +31,225 @@ const Navbar = () => {
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    setIsLoggedIn(false);
-    setUser(null);
+    logout();
+    setIsDropdownOpen(false);
+  };
+
+  const getInitials = (name) => {
+    if (!name) return "U";
+    return name
+      .split(" ")
+      .map((word) => word[0])
+      .join("")
+      .toUpperCase();
   };
 
   return (
-    <nav className="bg-white border-b border-gray-200 fixed inset-x-0 top-0 z-50">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        {/* Logo */}
-        <Link to="/" className="flex items-center space-x-3">
-          <img src={logo} alt="logo" className="w-6 h-6" />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap text-gray-900">
-            BuildEstate
-          </span>
-        </Link>
+    <nav className="bg-white/80 backdrop-blur-md border-b border-gray-200 fixed inset-x-0 top-0 z-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link to="/" className="flex items-center space-x-3">
+            <div className=" p-2 rounded-lg">
+              <img src={logo} alt="logo" className="w-6 h-6 text-white" />
+            </div>
+            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              BuildEstate
+            </span>
+          </Link>
 
-        {/* User Menu and Mobile Button */}
-        <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          {isLoggedIn ? (
-            <div className="relative" ref={dropdownRef}>
-              <button
-                type="button"
-                onClick={toggleDropdown}
-                className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300"
-                aria-expanded={isDropdownOpen}
-              >
-                <span className="sr-only">Open user menu</span>
-                <img
-                  className="w-8 h-8 rounded-full bg-white object-cover"
-                  src={userlogo}
-                  alt="user photo"
-                />
-              </button>
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-8">
+            <NavLinks />
 
-              {isDropdownOpen && (
-                <div className="absolute right-0 top-10 z-50 w-48 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow">
-                  <div className="px-4 py-3">
-                    <span className="block text-sm text-gray-900">{user?.name}</span>
-                    <span className="block text-sm text-gray-500 truncate">
-                      {user?.email}
-                    </span>
-                  </div>
-                  <ul className="py-2">
-                    <li>
+            {/* Auth Buttons */}
+            <div className="flex items-center space-x-4">
+              {isLoggedIn ? (
+                <div className="relative" ref={dropdownRef}>
+                  <button
+                    onClick={toggleDropdown}
+                    className="flex items-center space-x-3 focus:outline-none"
+                  >
+                    <div className="relative">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center justify-center text-white font-medium text-sm">
+                        {getInitials(user?.name)}
+                      </div>
+                      <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-white rounded-full"></div>
+                    </div>
+                    <ChevronDown
+                      className={`w-4 h-4 text-gray-600 transition-transform duration-200 ${
+                        isDropdownOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+
+                  {/* Dropdown Menu */}
+                  {isDropdownOpen && (
+                    <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg py-2 border border-gray-100">
+                      <div className="px-4 py-3 border-b border-gray-100">
+                        <p className="text-sm font-semibold text-gray-900">
+                          {user?.name}
+                        </p>
+                        <p className="text-sm text-gray-500 truncate">
+                          {user?.email}
+                        </p>
+                      </div>
                       <button
                         onClick={handleLogout}
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 w-full text-left"
+                        className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center space-x-2"
                       >
-                        Sign out
+                        <LogOut className="w-4 h-4" />
+                        <span>Sign out</span>
                       </button>
-                    </li>
-                  </ul>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <div className="flex items-center space-x-4">
+                  <Link
+                    to="/login"
+                    className="text-gray-700 hover:text-gray-900 font-medium"
+                  >
+                    Sign in
+                  </Link>
+                  <Link
+                    to="/signup"
+                    className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200"
+                  >
+                    Get started
+                  </Link>
                 </div>
               )}
             </div>
-          ) : (
-            <Link to="/login">
-              <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                Login
-              </button>
-            </Link>
-          )}
+          </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile menu button */}
           <button
             onClick={toggleMobileMenu}
-            type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-            aria-controls="navbar-user"
-            aria-expanded={isMobileMenuOpen}
+            className="md:hidden rounded-lg p-2 hover:bg-gray-100 transition-colors"
           >
-            <span className="sr-only">Open main menu</span>
-            <svg
-              className="w-5 h-5"
-              aria-hidden="true"
-              fill="none"
-              viewBox="0 0 17 14"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M1 1h15M1 7h15M1 13h15"
-              />
-            </svg>
+            {isMobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </button>
         </div>
-
-        {/* Navigation Links */}
-        <div
-          className={`items-center justify-between ${
-            isMobileMenuOpen ? "block" : "hidden"
-          } w-full md:flex md:w-auto md:order-1`}
-        >
-          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 md:flex-row md:mt-0 md:border-0 md:bg-white">
-            <li>
-              <Link
-                to="/"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-              >
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/properties"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-              >
-                Properties
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/about"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-              >
-                About Us
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/contact"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0"
-              >
-                Contact
-              </Link>
-            </li>
-          </ul>
-        </div>
       </div>
+
+      {/* Mobile menu */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden bg-white border-t border-gray-100">
+          <div className="px-2 pt-2 pb-3 space-y-1">
+            <MobileNavLinks
+              setMobileMenuOpen={setIsMobileMenuOpen}
+              isLoggedIn={isLoggedIn}
+              user={user}
+              handleLogout={handleLogout}
+            />
+          </div>
+        </div>
+      )}
     </nav>
   );
+};
+
+const NavLinks = () => (
+  <div className="flex space-x-8">
+    {navLinks.map(({ name, path }) => (
+      <Link
+        key={name}
+        to={path}
+        className="relative font-medium text-gray-700 before:absolute before:-bottom-2 
+          before:h-0.5 before:w-full before:origin-left before:scale-x-0 
+          before:bg-blue-600 before:transition hover:text-blue-600 
+          hover:before:scale-100"
+      >
+        {name}
+      </Link>
+    ))}
+  </div>
+);
+
+const navLinks = [
+  { name: "Home", path: "/" },
+  { name: "Properties", path: "/properties" },
+  { name: "About Us", path: "/about" },
+  { name: "Contact", path: "/contact" },
+];
+
+const MobileNavLinks = ({
+  setMobileMenuOpen,
+  isLoggedIn,
+  user,
+  handleLogout,
+}) => (
+  <div className="flex flex-col space-y-4 px-4 py-2">
+    {/* Navigation Links */}
+    {navLinks.map(({ name, path }) => (
+      <Link
+        key={name}
+        to={path}
+        className="text-gray-700 hover:text-blue-600 transition-colors flex items-center space-x-2"
+        onClick={() => setMobileMenuOpen(false)}
+      >
+        {name}
+      </Link>
+    ))}
+
+    {/* Auth Buttons for Mobile */}
+    <div className="pt-4 border-t border-gray-100">
+      {isLoggedIn ? (
+        <div className="space-y-2">
+          <div className="flex items-center space-x-3 px-2">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center justify-center text-white font-medium text-sm">
+              {user?.name ? user.name[0].toUpperCase() : "U"}
+            </div>
+            <div className="flex-1">
+              <p className="text-sm font-medium text-gray-900">{user?.name}</p>
+              <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+            </div>
+          </div>
+          <button
+            onClick={() => {
+              handleLogout();
+              setMobileMenuOpen(false);
+            }}
+            className="w-full flex items-center space-x-2 px-2 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+          >
+            <LogOut className="w-4 h-4" />
+            <span>Sign out</span>
+          </button>
+        </div>
+      ) : (
+        <div className="flex flex-col space-y-2">
+          <Link
+            to="/login"
+            onClick={() => setMobileMenuOpen(false)}
+            className="w-full px-4 py-2 text-center text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
+          >
+            Sign in
+          </Link>
+          <Link
+            to="/signup"
+            onClick={() => setMobileMenuOpen(false)}
+            className="w-full px-4 py-2 text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all"
+          >
+            Get started
+          </Link>
+        </div>
+      )}
+    </div>
+  </div>
+);
+
+Navbar.propTypes = {
+  isLoggedIn: PropTypes.bool,
+  user: PropTypes.object,
+  logout: PropTypes.func,
+  setMobileMenuOpen: PropTypes.func,
+  handleLogout: PropTypes.func,
+  name: PropTypes.string,
 };
 
 export default Navbar;

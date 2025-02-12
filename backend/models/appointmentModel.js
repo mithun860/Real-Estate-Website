@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const appointmentSchema = new mongoose.Schema({
   propertyId: {
@@ -21,12 +21,45 @@ const appointmentSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['pending', 'confirmed', 'cancelled'],
+    enum: ['pending', 'confirmed', 'cancelled', 'completed'],
     default: 'pending'
+  },
+  meetingLink: {
+    type: String,
+    trim: true
+  },
+  meetingPlatform: {
+    type: String,
+    enum: ['zoom', 'google-meet', 'teams', 'other'],
+    default: 'other'
   },
   notes: {
     type: String
+  },
+  cancelReason: {
+    type: String
+  },
+  reminderSent: {
+    type: Boolean,
+    default: false
+  },
+  feedback: {
+    rating: {
+      type: Number,
+      min: 1,
+      max: 5
+    },
+    comment: String
   }
-}, { timestamps: true });
+}, {
+  timestamps: true
+});
 
-export default mongoose.model('Appointment', appointmentSchema);
+// Add indexes for better query performance
+appointmentSchema.index({ userId: 1, date: -1 });
+appointmentSchema.index({ propertyId: 1, date: -1 });
+appointmentSchema.index({ status: 1 });
+
+const Appointment = mongoose.model('Appointment', appointmentSchema);
+
+export default Appointment;

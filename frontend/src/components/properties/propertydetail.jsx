@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import React, { useEffect, useState, useCallback } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -12,7 +12,11 @@ import {
   MapPin,
   Loader,
   Building,
-  Share2
+  Share2,
+  ChevronLeft,
+  ChevronRight,
+  Copy,
+  Compass
 } from "lucide-react";
 import { Backendurl } from "../../App.jsx";
 import ScheduleViewing from "./ScheduleViewing";
@@ -24,6 +28,8 @@ const PropertyDetails = () => {
   const [error, setError] = useState(null);
   const [showSchedule, setShowSchedule] = useState(false);
   const [activeImage, setActiveImage] = useState(0);
+  const [copySuccess, setCopySuccess] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProperty = async () => {
@@ -52,6 +58,12 @@ const PropertyDetails = () => {
     fetchProperty();
   }, [id]);
 
+  useEffect(() => {
+    // Reset scroll position and active image when component mounts
+    window.scrollTo(0, 0);
+    setActiveImage(0);
+  }, [id]);
+
   const parseAmenities = (amenities) => {
     if (!amenities || !Array.isArray(amenities)) return [];
     
@@ -66,17 +78,33 @@ const PropertyDetails = () => {
     }
   };
 
+  const handleKeyNavigation = useCallback((e) => {
+    if (e.key === 'ArrowLeft') {
+      setActiveImage(prev => (prev === 0 ? property.image.length - 1 : prev - 1));
+    } else if (e.key === 'ArrowRight') {
+      setActiveImage(prev => (prev === property.image.length - 1 ? 0 : prev + 1));
+    } else if (e.key === 'Escape' && showSchedule) {
+      setShowSchedule(false);
+    }
+  }, [property?.image?.length, showSchedule]);
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyNavigation);
+    return () => window.removeEventListener('keydown', handleKeyNavigation);
+  }, [handleKeyNavigation]);
+
   const handleShare = async () => {
     try {
       if (navigator.share) {
         await navigator.share({
           title: property.title,
-          text: `Check out this property: ${property.title}`,
+          text: `Check out this ${property.type}: ${property.title}`,
           url: window.location.href
         });
       } else {
         await navigator.clipboard.writeText(window.location.href);
-        alert('Link copied to clipboard!');
+        setCopySuccess(true);
+        setTimeout(() => setCopySuccess(false), 2000);
       }
     } catch (error) {
       console.error('Error sharing:', error);
@@ -85,15 +113,30 @@ const PropertyDetails = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-center"
-        >
-          <Loader className="w-10 h-10 text-blue-600 animate-spin mb-4" />
-          <p className="text-gray-600">Loading property details...</p>
-        </motion.div>
+      <div className="min-h-screen bg-gray-50 pt-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="animate-pulse">
+            <div className="h-[500px] bg-gray-200 rounded-xl mb-8" />
+            <div className="space-y-4">
+              <div className="h-8 bg-gray-200 rounded w-3/4" />
+              <div className="h-4 bg-gray-200 rounded w-1/2" />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="space-y-4">
+                  <div className="h-20 bg-gray-200 rounded" />
+                  <div className="grid grid-cols-3 gap-4">
+                    {[1, 2, 3].map(i => (
+                      <div key={i} className="h-24 bg-gray-200 rounded" />
+                    ))}
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <div className="h-40 bg-gray-200 rounded" />
+                  <div className="h-60 bg-gray-200 rounded" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -121,37 +164,78 @@ const PropertyDetails = () => {
       className="min-h-screen bg-gray-50 pt-16"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Link
-          to="/properties"
-          className="inline-flex items-center text-blue-600 hover:text-blue-700 mb-8"
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" /> Back to Properties
-        </Link>
+        {/* Navigation */}
+        <nav className="flex items-center justify-between mb-8">
+          <Link
+            to="/properties"
+            className="inline-flex items-center text-blue-600 hover:text-blue-700"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" /> Back to Properties
+          </Link>
+          <button
+            onClick={handleShare}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg
+              hover:bg-gray-100 transition-colors relative"
+          >
+            {copySuccess ? (
+              <span className="text-green-600">
+                <Copy className="w-5 h-5" />
+                Copied!
+              </span>
+            ) : (
+              <>
+                <Share2 className="w-5 h-5" />
+                Share
+              </>
+            )}
+          </button>
+        </nav>
 
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
           {/* Image Gallery */}
-          <div className="relative h-[500px] bg-gray-100">
-            <motion.img
-              key={activeImage}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              src={property.image[activeImage]}
-              alt={property.title}
-              className="w-full h-full object-cover"
-            />
+          <div className="relative h-[500px] bg-gray-100 rounded-xl overflow-hidden mb-8">
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={activeImage}
+                src={property.image[activeImage]}
+                alt={`${property.title} - View ${activeImage + 1}`}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="w-full h-full object-cover"
+              />
+            </AnimatePresence>
+
+            {/* Image Navigation */}
             {property.image.length > 1 && (
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
-                {property.image.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setActiveImage(index)}
-                    className={`w-2 h-2 rounded-full transition-all ${
-                      activeImage === index ? 'bg-white scale-125' : 'bg-white/50'
-                    }`}
-                  />
-                ))}
-              </div>
+              <>
+                <button
+                  onClick={() => setActiveImage(prev => 
+                    prev === 0 ? property.image.length - 1 : prev - 1
+                  )}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full
+                    bg-white/80 backdrop-blur-sm hover:bg-white transition-colors"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+                <button
+                  onClick={() => setActiveImage(prev => 
+                    prev === property.image.length - 1 ? 0 : prev + 1
+                  )}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full
+                    bg-white/80 backdrop-blur-sm hover:bg-white transition-colors"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+              </>
             )}
+
+            {/* Image Counter */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 
+              bg-black/50 backdrop-blur-sm text-white px-4 py-2 rounded-full text-sm">
+              {activeImage + 1} / {property.image.length}
+            </div>
           </div>
 
           <div className="p-8">
@@ -248,16 +332,37 @@ const PropertyDetails = () => {
             </div>
           </div>
         </div>
-      </div>
 
-      <AnimatePresence>
-        {showSchedule && (
-          <ScheduleViewing
-            propertyId={property._id}
-            onClose={() => setShowSchedule(false)}
-          />
-        )}
-      </AnimatePresence>
+        {/* Add Map Location */}
+        <div className="mt-8 p-6 bg-blue-50 rounded-xl">
+          <div className="flex items-center gap-2 text-blue-600 mb-4">
+            <Compass className="w-5 h-5" />
+            <h3 className="text-lg font-semibold">Location</h3>
+          </div>
+          <p className="text-gray-600 mb-4">
+            {property.location}
+          </p>
+          <a
+            href={`https://maps.google.com/?q=${encodeURIComponent(property.location)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700"
+          >
+            <MapPin className="w-4 h-4" />
+            View on Google Maps
+          </a>
+        </div>
+
+        {/* Viewing Modal */}
+        <AnimatePresence>
+          {showSchedule && (
+            <ScheduleViewing
+              propertyId={property._id}
+              onClose={() => setShowSchedule(false)}
+            />
+          )}
+        </AnimatePresence>
+      </div>
     </motion.div>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { Grid, List, SlidersHorizontal, MapPin, Loader } from "lucide-react";
@@ -8,41 +8,45 @@ import PropertyCard from "./Propertycard.jsx";
 import { Backendurl } from "../../App.jsx";
 
 const PropertiesPage = () => {
-  // State Management
   const [viewState, setViewState] = useState({
     isGridView: true,
     showFilters: false,
     showMap: false,
   });
+
   const [propertyState, setPropertyState] = useState({
     properties: [],
     loading: true,
     error: null,
     selectedProperty: null,
   });
+
   const [filters, setFilters] = useState({
     propertyType: "",
-    priceRange: [0, 1000000000000000],
+    priceRange: [0, Number.MAX_SAFE_INTEGER],
     bedrooms: "0",
     bathrooms: "0",
     availability: "",
     searchQuery: "",
-    sortBy: "" 
-  }); 
+    sortBy: "",
+  });
 
-  // Fetch Properties
   const fetchProperties = async () => {
     try {
-      setPropertyState(prev => ({ ...prev, loading: true }));
+      setPropertyState((prev) => ({ ...prev, loading: true }));
       const response = await axios.get(`${Backendurl}/api/products/list`);
-      setPropertyState(prev => ({
-        ...prev,
-        properties: response.data.property,
-        error: null,
-        loading: false,
-      }));
+      if (response.data.success) {
+        setPropertyState((prev) => ({
+          ...prev,
+          properties: response.data.property,
+          error: null,
+          loading: false,
+        }));
+      } else {
+        throw new Error(response.data.message);
+      }
     } catch (err) {
-      setPropertyState(prev => ({
+      setPropertyState((prev) => ({
         ...prev,
         error: "Failed to fetch properties. Please try again later.",
         loading: false,
@@ -55,34 +59,52 @@ const PropertiesPage = () => {
     fetchProperties();
   }, []);
 
-  // Filtered & Sorted Properties
   const filteredProperties = useMemo(() => {
-    return propertyState.properties.filter((property) => {
-      const searchMatch = !filters.searchQuery || 
-        [property.title, property.description, property.location]
-          .some(field => field.toLowerCase().includes(filters.searchQuery.toLowerCase()));
-  
-      const typeMatch = !filters.propertyType || 
-        property.type.toLowerCase() === filters.propertyType;
-  
-      const priceMatch = property.price >= filters.priceRange[0] && 
-        property.price <= filters.priceRange[1];
-  
-      const bedroomsMatch = !filters.bedrooms || 
-        property.beds >= parseInt(filters.bedrooms);
-  
-      const bathroomsMatch = !filters.bathrooms || 
-        property.baths >= parseInt(filters.bathrooms);
-  
-      const availabilityMatch = !filters.availability || 
-        property.availability.toLowerCase() === filters.availability;
-  
-      return searchMatch && typeMatch && priceMatch && 
-        bedroomsMatch && bathroomsMatch && availabilityMatch;
-    });
+    return propertyState.properties
+      .filter((property) => {
+        const searchMatch = !filters.searchQuery || 
+          [property.title, property.description, property.location]
+            .some(field => field?.toLowerCase().includes(filters.searchQuery.toLowerCase()));
+
+        const typeMatch = !filters.propertyType || 
+          property.type?.toLowerCase() === filters.propertyType.toLowerCase();
+
+        const priceMatch = property.price >= filters.priceRange[0] && 
+          property.price <= filters.priceRange[1];
+
+        const bedroomsMatch = !filters.bedrooms || filters.bedrooms === "0" || 
+          property.beds >= parseInt(filters.bedrooms);
+
+        const bathroomsMatch = !filters.bathrooms || filters.bathrooms === "0" || 
+          property.baths >= parseInt(filters.bathrooms);
+
+        const availabilityMatch = !filters.availability || 
+          property.availability?.toLowerCase() === filters.availability.toLowerCase();
+
+        return searchMatch && typeMatch && priceMatch && 
+          bedroomsMatch && bathroomsMatch && availabilityMatch;
+      })
+      .sort((a, b) => {
+        switch (filters.sortBy) {
+          case "price-asc":
+            return a.price - b.price;
+          case "price-desc":
+            return b.price - a.price;
+          case "newest":
+            return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+          default:
+            return 0;
+        }
+      });
   }, [propertyState.properties, filters]);
 
-  // Loading State
+  const handleFilterChange = (newFilters) => {
+    setFilters(prev => ({
+      ...prev,
+      ...newFilters
+    }));
+  };
+
   if (propertyState.loading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
@@ -98,11 +120,10 @@ const PropertiesPage = () => {
     );
   }
 
-  // Error State
   if (propertyState.error) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center text-red-600 p-6 rounded-lg bg-red-50 max-w-md"
@@ -127,7 +148,6 @@ const PropertiesPage = () => {
       className="min-h-screen bg-gray-50 pt-16"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header Section */}
         <motion.header
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -137,13 +157,11 @@ const PropertiesPage = () => {
             Find Your Perfect Property
           </h1>
           <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-            Discover a curated collection of premium properties tailored to your lifestyle
+            Discover a curated collection of premium properties
           </p>
         </motion.header>
 
-        {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Filters Panel */}
           <AnimatePresence mode="wait">
             {viewState.showFilters && (
               <motion.aside
@@ -155,38 +173,41 @@ const PropertiesPage = () => {
                 <FilterSection
                   filters={filters}
                   setFilters={setFilters}
-                  onApplyFilters={(newFilters) => setFilters(newFilters)}
+                  onApplyFilters={handleFilterChange}
                 />
               </motion.aside>
             )}
           </AnimatePresence>
 
-          {/* Properties Grid */}
           <div className={`${viewState.showFilters ? "lg:col-span-3" : "lg:col-span-4"}`}>
-            {/* Controls Bar */}
             <div className="bg-white p-4 rounded-lg shadow-sm mb-6">
               <div className="flex flex-col sm:flex-row items-center gap-4">
-                <SearchBar 
-                  onSearch={(query) => setFilters(prev => ({ ...prev, searchQuery: query }))} 
+                <SearchBar
+                  onSearch={(query) => setFilters(prev => ({ ...prev, searchQuery: query }))}
                   className="flex-1"
                 />
-                
+
                 <div className="flex items-center gap-4">
-                  {/* Sort Dropdown */}
                   <select
                     value={filters.sortBy}
-                    onChange={(e) => setFilters(prev => ({ ...prev, sortBy: e.target.value }))}
+                    onChange={(e) => setFilters(prev => ({
+                      ...prev,
+                      sortBy: e.target.value
+                    }))}
                     className="px-3 py-2 border rounded-lg text-sm"
                   >
-                    <option value="newest">Newest First</option>
+                    <option value="">Sort By</option>
                     <option value="price-asc">Price: Low to High</option>
                     <option value="price-desc">Price: High to Low</option>
+                    <option value="newest">Newest First</option>
                   </select>
 
-                  {/* View Toggle Buttons */}
                   <div className="flex items-center gap-2">
                     <button
-                      onClick={() => setViewState(prev => ({ ...prev, showFilters: !prev.showFilters }))}
+                      onClick={() => setViewState(prev => ({
+                        ...prev,
+                        showFilters: !prev.showFilters
+                      }))}
                       className="p-2 rounded-lg hover:bg-gray-100"
                       title="Toggle Filters"
                     >
@@ -194,13 +215,17 @@ const PropertiesPage = () => {
                     </button>
                     <button
                       onClick={() => setViewState(prev => ({ ...prev, isGridView: true }))}
-                      className={`p-2 rounded-lg ${viewState.isGridView ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-100'}`}
+                      className={`p-2 rounded-lg ${
+                        viewState.isGridView ? "bg-blue-100 text-blue-600" : "hover:bg-gray-100"
+                      }`}
                     >
                       <Grid className="w-5 h-5" />
                     </button>
                     <button
                       onClick={() => setViewState(prev => ({ ...prev, isGridView: false }))}
-                      className={`p-2 rounded-lg ${!viewState.isGridView ? 'bg-blue-100 text-blue-600' : 'hover:bg-gray-100'}`}
+                      className={`p-2 rounded-lg ${
+                        !viewState.isGridView ? "bg-blue-100 text-blue-600" : "hover:bg-gray-100"
+                      }`}
                     >
                       <List className="w-5 h-5" />
                     </button>
@@ -209,13 +234,10 @@ const PropertiesPage = () => {
               </div>
             </div>
 
-            {/* Properties Grid */}
             <motion.div
               layout
               className={`grid gap-6 ${
-                viewState.isGridView 
-                  ? "grid-cols-1 md:grid-cols-2" 
-                  : "grid-cols-1"
+                viewState.isGridView ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1"
               }`}
             >
               <AnimatePresence>

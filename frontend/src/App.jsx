@@ -13,12 +13,15 @@ import ForgotPassword from './components/forgetpassword';
 import ResetPassword from './components/resetpassword';
 import Footer from './components/footer';
 import NotFoundPage from './components/Notfound';
+import { AuthProvider } from './context/AuthContext';
+
 
 
 export const Backendurl = import.meta.env.VITE_API_BASE_URL;
 
 const App = () => {
   return (
+    <AuthProvider>
     <Router>
       <Navbar />
       <Routes>
@@ -36,6 +39,7 @@ const App = () => {
       <Footer />
       <ToastContainer />
     </Router>
+    </AuthProvider>
   )
 }
 

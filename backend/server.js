@@ -1,21 +1,39 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import connectdb from './config/mongodb.js';
 import cors from 'cors';
+import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
+import compression from 'compression';
+import connectdb from './config/mongodb.js';
+import { trackAPIStats } from './middleware/statsMiddleware.js';
 import propertyrouter from './routes/ProductRouter.js';
 import userrouter from './routes/UserRoute.js';
 import formrouter from './routes/formrouter.js';
 import newsrouter from './routes/newsRoute.js';
 import appointmentRouter from './routes/appointmentRoute.js';
+import adminRouter from './routes/adminRoute.js';
+import './models/statsModel.js';
 
 
 dotenv.config();
 
 const app = express();
 
+// Security middlewares
+app.use(helmet());
+app.use(compression());
+
+// Rate limiting
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100 // limit each IP to 100 requests per windowMs
+});
+
 // Middleware
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+app.use(trackAPIStats);
+
 
 // CORS Configuration
 app.use(cors({
@@ -52,8 +70,9 @@ app.get('/', (req, res) => {
 app.use('/api/products', propertyrouter);
 app.use('/api/users', userrouter);
 app.use('/api/forms', formrouter);
-app.use('/news', newsrouter);
+app.use('/api/news', newsrouter);
 app.use('/api/appointments', appointmentRouter);
+app.use('/api/admin', adminRouter);
 
 
 // Global error handler

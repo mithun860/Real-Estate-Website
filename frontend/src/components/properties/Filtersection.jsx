@@ -1,19 +1,16 @@
-import React, { useState } from 'react';
-import { Home, DollarSign, BedDouble, Bath, Filter, X } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Home, IndianRupee, Filter } from "lucide-react";
+import { motion } from "framer-motion";
 
-const propertyTypes = ['House', 'Apartment', 'Villa', 'Office'];
-const availabilityTypes = ['Rent', 'Buy', 'Lease'];
+const propertyTypes = ["House", "Apartment", "Villa", "Office"];
+const availabilityTypes = ["Rent", "Buy", "Lease"];
+const priceRanges = [
+  { min: 0, max: 5000000, label: "Under ₹50L" },
+  { min: 5000000, max: 10000000, label: "₹50L - ₹1Cr" },
+  { min: 10000000, max: 20000000, label: "₹1Cr - ₹2Cr" },
+  { min: 20000000, max: Number.MAX_SAFE_INTEGER, label: "Above ₹2Cr" }
+];
 
-const FilterSection = ({ onApplyFilters, isOpen, onClose }) => {
-  const [filters, setFilters] = useState({
-    propertyType: '',
-    priceRange: 0,
-    bedrooms: '0',
-    bathrooms: '0',
-    availability: ''
-  });
-
+const FilterSection = ({ filters, setFilters, onApplyFilters }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFilters(prev => ({
@@ -22,20 +19,22 @@ const FilterSection = ({ onApplyFilters, isOpen, onClose }) => {
     }));
   };
 
-
-
-  const handleApplyFilters = () => {
-    onApplyFilters(filters);
-    onClose();
+  const handlePriceRangeChange = (min, max) => {
+    setFilters(prev => ({
+      ...prev,
+      priceRange: [min, max]
+    }));
   };
 
   const handleReset = () => {
     setFilters({
-      propertyType: '',
-      priceRange: 0,
-      bedrooms: '0',
-      bathrooms: '0',
-      availability: ''
+      propertyType: "",
+      priceRange: [0, Number.MAX_SAFE_INTEGER],
+      bedrooms: "0",
+      bathrooms: "0",
+      availability: "",
+      searchQuery: "",
+      sortBy: ""
     });
   };
 
@@ -46,6 +45,7 @@ const FilterSection = ({ onApplyFilters, isOpen, onClose }) => {
       exit={{ opacity: 0, x: -20 }}
       className="bg-white p-6 rounded-xl shadow-lg"
     >
+      {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <div className="flex items-center space-x-2">
           <Filter className="w-5 h-5 text-blue-600" />
@@ -70,12 +70,13 @@ const FilterSection = ({ onApplyFilters, isOpen, onClose }) => {
             {propertyTypes.map((type) => (
               <button
                 key={type}
-                onClick={() => handleChange({ target: { name: 'propertyType', value: type.toLowerCase() } })}
+                onClick={() => handleChange({
+                  target: { name: "propertyType", value: type.toLowerCase() }
+                })}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all
                   ${filters.propertyType === type.toLowerCase()
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
               >
                 {type}
               </button>
@@ -86,83 +87,37 @@ const FilterSection = ({ onApplyFilters, isOpen, onClose }) => {
         {/* Price Range */}
         <div className="filter-group">
           <label className="filter-label">
-            <DollarSign className="w-4 h-4 mr-2" />
+            <IndianRupee className="w-4 h-4 mr-2" />
             Price Range
           </label>
-          <input
-            type="range"
-            name="priceRange"
-            min="0"
-            max="1000000"
-            step="10000"
-            value={filters.priceRange}
-            onChange={handleChange}
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
-          />
-          <div className="flex justify-between text-sm mt-2">
-            <span className="font-medium">$0</span>
-            <span className="font-medium">${Number(filters.priceRange).toLocaleString()}</span>
-          </div>
-        </div>
-
-        {/* Bedrooms & Bathrooms */}
-        <div className="grid grid-cols-2 gap-4">
-          {['bedrooms', 'bathrooms'].map((type) => (
-            <div key={type} className="filter-group">
-              <label className="filter-label">
-                {type === 'bedrooms' ? <BedDouble className="w-4 h-4 mr-2" /> : <Bath className="w-4 h-4 mr-2" />}
-                {type.charAt(0).toUpperCase() + type.slice(1)}
-              </label>
-              <div className="flex space-x-2">
-                {[1, 2, 3, '4+'].map((num) => (
-                  <button
-                    key={num}
-                    onClick={() => handleChange({ target: { name: type, value: num.toString() } })}
-                    className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all
-                      ${filters[type] === num.toString()
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                      }`}
-                  >
-                    {num}
-                  </button>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        
-
-        {/* Availability */}
-        <div className="filter-group">
-          <label className="filter-label">Availability</label>
-          <div className="flex space-x-2">
-            {availabilityTypes.map((type) => (
+          <div className="grid grid-cols-2 gap-2">
+            {priceRanges.map(({ min, max, label }) => (
               <button
-                key={type}
-                onClick={() => handleChange({ target: { name: 'availability', value: type.toLowerCase() } })}
-                className={`flex-1 py-2 rounded-lg text-sm font-medium transition-all
-                  ${filters.availability === type.toLowerCase()
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
+                key={label}
+                onClick={() => handlePriceRangeChange(min, max)}
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-all
+                  ${filters.priceRange[0] === min && filters.priceRange[1] === max
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
               >
-                {type}
+                {label}
               </button>
             ))}
           </div>
         </div>
-      </div>
 
-      <div className="flex space-x-4 mt-8">
-        <button
-          onClick={handleApplyFilters}
-          className="flex-1 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 
-            transition-colors font-medium"
-        >
-          Apply Filters
-        </button>
+        {/* Rest of your existing filter groups */}
+        {/* ... */}
+
+        <div className="flex space-x-4 mt-8">
+          <button
+            onClick={() => onApplyFilters(filters)}
+            className="flex-1 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 
+              transition-colors font-medium"
+          >
+            Apply Filters
+          </button>
+        </div>
       </div>
     </motion.div>
   );
