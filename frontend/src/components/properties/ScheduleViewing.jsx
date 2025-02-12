@@ -78,7 +78,7 @@ const ScheduleViewing = ({ propertyId, propertyTitle, onClose }) => {
         toast.error('Please login to schedule a viewing');
         return;
       }
-  
+    
       setLoading(true);
       const response = await axios.post(
         `${Backendurl}/api/appointments/schedule`, 
@@ -88,7 +88,7 @@ const ScheduleViewing = ({ propertyId, propertyTitle, onClose }) => {
         }, 
         {
           headers: {
-            'Authorization': `Bearer ${token}`,
+            'Authorization': `Bearer ${token}`,  // Make sure token is included
             'Content-Type': 'application/json'
           }
         }

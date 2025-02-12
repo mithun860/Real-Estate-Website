@@ -1,7 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { Calendar, Clock, User, Home, Check, X, Loader, Filter, Search, Link as LinkIcon, Send } from "lucide-react";
+import {
+  Calendar,
+  Clock,
+  User,
+  Home,
+  Check,
+  X,
+  Loader,
+  Filter,
+  Search,
+  Link as LinkIcon,
+  Send,
+} from "lucide-react";
 import { toast } from "react-hot-toast";
 import { backendurl } from "../App";
 
@@ -19,9 +31,13 @@ const Appointments = () => {
       const response = await axios.get(`${backendurl}/api/appointments/all`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
-      
+
       if (response.data.success) {
-        setAppointments(response.data.appointments);
+        // Filter out appointments with missing user data
+        const validAppointments = response.data.appointments.filter(
+          (apt) => apt.userId && apt.propertyId
+        );
+        setAppointments(validAppointments);
       } else {
         toast.error(response.data.message);
       }
@@ -69,10 +85,10 @@ const Appointments = () => {
         `${backendurl}/api/appointments/update-meeting`,
         {
           appointmentId,
-          meetingLink
+          meetingLink,
         },
         {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       );
 
@@ -94,14 +110,15 @@ const Appointments = () => {
     fetchAppointments();
   }, []);
 
-  const filteredAppointments = appointments.filter(apt => {
-    const matchesSearch = searchTerm === "" || 
-      apt.propertyId.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      apt.userId.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      apt.userId.email.toLowerCase().includes(searchTerm.toLowerCase());
-    
+  const filteredAppointments = appointments.filter((apt) => {
+    const matchesSearch =
+      searchTerm === "" ||
+      apt.propertyId?.title?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      apt.userId?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      apt.userId?.email?.toLowerCase().includes(searchTerm.toLowerCase());
+
     const matchesFilter = filter === "all" || apt.status === filter;
-    
+
     return matchesSearch && matchesFilter;
   });
 
@@ -222,10 +239,10 @@ const Appointments = () => {
                         <User className="w-5 h-5 text-gray-400 mr-2" />
                         <div>
                           <p className="font-medium text-gray-900">
-                            {appointment.userId.name}
+                            {appointment.userId?.name || "Unknown"}
                           </p>
                           <p className="text-sm text-gray-500">
-                            {appointment.userId.email}
+                            {appointment.userId?.email || "Unknown"}
                           </p>
                         </div>
                       </div>
@@ -271,7 +288,9 @@ const Appointments = () => {
                             className="px-2 py-1 border rounded-lg focus:ring-2 focus:ring-blue-500 text-sm w-full"
                           />
                           <button
-                            onClick={() => handleMeetingLinkUpdate(appointment._id)}
+                            onClick={() =>
+                              handleMeetingLinkUpdate(appointment._id)
+                            }
                             className="p-1 bg-blue-500 text-white rounded hover:bg-blue-600"
                           >
                             <Send className="w-4 h-4" />

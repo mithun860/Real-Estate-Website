@@ -232,12 +232,7 @@ export const scheduleViewing = async (req, res) => {
     const { propertyId, date, time, notes } = req.body;
     
     // req.user is set by the protect middleware
-    if (!req.user || !req.user._id) {
-      return res.status(401).json({
-        success: false,
-        message: 'User not authenticated'
-      });
-    }
+    
 
     const userId = req.user._id;
 

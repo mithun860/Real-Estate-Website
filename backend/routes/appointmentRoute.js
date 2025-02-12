@@ -1,4 +1,5 @@
 import express from "express";
+import { protect } from '../middleware/authmiddleware.js';
 import {
   scheduleViewing,
   getAllAppointments,
@@ -10,13 +11,12 @@ import {
   submitAppointmentFeedback,
   getUpcomingAppointments
 } from "../controller/appointmentController.js";
-import { protect } from '../middleware/authmiddleware.js';
 
 
 const router = express.Router();
 
 // User routes
-router.post("/schedule", protect, scheduleViewing);
+router.post("/schedule", protect, scheduleViewing);  // Add protect middleware
 router.get("/user", getAppointmentsByUser);
 router.put("/cancel/:id", cancelAppointment);
 router.put("/feedback/:id", submitAppointmentFeedback);
