@@ -8,7 +8,7 @@ const statsSchema = new mongoose.Schema({
   method: {
     type: String,
     required: true,
-    enum: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'] // Added OPTIONS
+    enum: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD'] // Added HEAD
   },
   timestamp: {
     type: Date,
