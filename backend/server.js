@@ -23,12 +23,6 @@ const app = express();
 app.use(helmet());
 app.use(compression());
 
-// Rate limiting
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
-});
-
 // Middleware
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
@@ -41,7 +35,7 @@ app.use(cors({
     'http://localhost:4000',
     'https://real-estate-website-backend-fullcode.onrender.com',
     'https://real-estate-website-sepia-two.vercel.app',
-    'https://real-estate-backend-gamma-nine.vercel.app/',
+    'https://real-estate-backend-gamma-nine.vercel.app',
     'https://real-estate-website-admin.onrender.com',
     'http://localhost:5174',
     'http://localhost:5173',
@@ -56,15 +50,6 @@ connectdb().then(() => {
   console.log('Database connected successfully');
 }).catch(err => {
   console.error('Database connection error:', err);
-});
-
-// Health check
-app.get('/', (req, res) => {
-  res.status(200).json({
-    status: 'success',
-    message: 'API is running',
-    timestamp: new Date().toISOString()
-  });
 });
 
 // API Routes
@@ -94,15 +79,6 @@ app.use('*', (req, res) => {
   });
 });
 
-const port = process.env.PORT || 4000;
-
-// Start server
-if (process.env.NODE_ENV !== 'test') {
-  app.listen(port, '0.0.0.0', () => {
-    console.log(`Server running on port ${port}`);
-  });
-}
-
 // Handle unhandled rejections
 process.on('unhandledRejection', (err) => {
   console.log('UNHANDLED REJECTION! 💥 Shutting down...');
@@ -123,5 +99,14 @@ app.get("/", (req, res) => {
       </html>
     `);
 });
+
+const port = process.env.PORT || 4000;
+
+// Start server
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(port, '0.0.0.0', () => {
+    console.log(`Server running on port ${port}`);
+  });
+}
 
 export default app;
