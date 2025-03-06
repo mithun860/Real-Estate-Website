@@ -12,8 +12,7 @@ import formrouter from './routes/formrouter.js';
 import newsrouter from './routes/newsRoute.js';
 import appointmentRouter from './routes/appointmentRoute.js';
 import adminRouter from './routes/adminRoute.js';
-import './models/statsModel.js';
-
+import propertyRoutes from './routes/propertyRoutes.js';
 
 dotenv.config();
 
@@ -52,6 +51,7 @@ connectdb().then(() => {
   console.error('Database connection error:', err);
 });
 
+
 // API Routes
 app.use('/api/products', propertyrouter);
 app.use('/api/users', userrouter);
@@ -59,6 +59,7 @@ app.use('/api/forms', formrouter);
 app.use('/api/news', newsrouter);
 app.use('/api/appointments', appointmentRouter);
 app.use('/api/admin', adminRouter);
+app.use('/api', propertyRoutes);
 
 
 // Global error handler

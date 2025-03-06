@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import { Menu, X, ChevronDown, LogOut } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, ChevronDown, LogOut, Home, Search, Building, Users, MessageCircle } from "lucide-react";
 import logo from "../assets/home-regular-24.png";
 import { useAuth } from "../context/AuthContext";
 import PropTypes from "prop-types";
@@ -8,9 +9,12 @@ import PropTypes from "prop-types";
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const dropdownRef = useRef(null);
   const { isLoggedIn, user, logout } = useAuth();
+  const location = useLocation();
 
+  // Handle click outside of dropdown
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -26,6 +30,21 @@ const Navbar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isDropdownOpen]);
+
+  // Handle scroll effect for navbar
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+    
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
 
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -45,211 +64,300 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white/80 backdrop-blur-md border-b border-gray-200 fixed inset-x-0 top-0 z-50">
+    <motion.nav 
+      initial={{ opacity: 0, y: -10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        scrolled 
+          ? "bg-white/95 shadow-md backdrop-blur-lg" 
+          : "bg-white/80 backdrop-blur-md border-b border-gray-200"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3">
-            <div className=" p-2 rounded-lg">
-              <img src={logo} alt="logo" className="w-6 h-6 text-white" />
-            </div>
-            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+          <Link to="/" className="flex items-center space-x-3 group">
+            <motion.div 
+              whileHover={{ rotate: [0, -10, 10, -10, 0] }}
+              transition={{ duration: 0.5 }}
+              className="p-2 rounded-lg"
+            >
+              <img src={logo} alt="BuildEstate logo" className="w-6 h-6" />
+            </motion.div>
+            <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent group-hover:from-indigo-600 group-hover:to-blue-600 transition-all duration-300">
               BuildEstate
             </span>
           </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <NavLinks />
+            <NavLinks currentPath={location.pathname} />
 
             {/* Auth Buttons */}
             <div className="flex items-center space-x-4">
               {isLoggedIn ? (
                 <div className="relative" ref={dropdownRef}>
-                  <button
+                  <motion.button
+                    whileTap={{ scale: 0.97 }}
                     onClick={toggleDropdown}
                     className="flex items-center space-x-3 focus:outline-none"
+                    aria-label="User menu"
+                    aria-expanded={isDropdownOpen}
                   >
                     <div className="relative">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center justify-center text-white font-medium text-sm">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center justify-center text-white font-medium text-sm shadow-md hover:shadow-lg transition-shadow">
                         {getInitials(user?.name)}
                       </div>
                       <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-white rounded-full"></div>
                     </div>
-                    <ChevronDown
-                      className={`w-4 h-4 text-gray-600 transition-transform duration-200 ${
-                        isDropdownOpen ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
+                    <motion.div
+                      animate={{ rotate: isDropdownOpen ? 180 : 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <ChevronDown className="w-4 h-4 text-gray-600" />
+                    </motion.div>
+                  </motion.button>
 
                   {/* Dropdown Menu */}
-                  {isDropdownOpen && (
-                    <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg py-2 border border-gray-100">
-                      <div className="px-4 py-3 border-b border-gray-100">
-                        <p className="text-sm font-semibold text-gray-900">
-                          {user?.name}
-                        </p>
-                        <p className="text-sm text-gray-500 truncate">
-                          {user?.email}
-                        </p>
-                      </div>
-                      <button
-                        onClick={handleLogout}
-                        className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 flex items-center space-x-2"
+                  <AnimatePresence>
+                    {isDropdownOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg py-2 border border-gray-100 overflow-hidden"
                       >
-                        <LogOut className="w-4 h-4" />
-                        <span>Sign out</span>
-                      </button>
-                    </div>
-                  )}
+                        <div className="px-4 py-3 border-b border-gray-100">
+                          <p className="text-sm font-semibold text-gray-900">
+                            {user?.name}
+                          </p>
+                          <p className="text-sm text-gray-500 truncate">
+                            {user?.email}
+                          </p>
+                        </div>
+                        <motion.button
+                          whileHover={{ x: 5 }}
+                          onClick={handleLogout}
+                          className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 flex items-center space-x-2 transition-colors"
+                        >
+                          <LogOut className="w-4 h-4" />
+                          <span>Sign out</span>
+                        </motion.button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               ) : (
                 <div className="flex items-center space-x-4">
                   <Link
                     to="/login"
-                    className="text-gray-700 hover:text-gray-900 font-medium"
+                    className="text-gray-700 hover:text-blue-600 font-medium transition-colors"
                   >
                     Sign in
                   </Link>
-                  <Link
-                    to="/signup"
-                    className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200"
-                  >
-                    Get started
-                  </Link>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                    <Link
+                      to="/signup"
+                      className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-5 py-2 rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 shadow-md hover:shadow-lg font-medium"
+                    >
+                      Get started
+                    </Link>
+                  </motion.div>
                 </div>
               )}
             </div>
           </div>
 
           {/* Mobile menu button */}
-          <button
+          <motion.button
+            whileTap={{ scale: 0.9 }}
             onClick={toggleMobileMenu}
-            className="md:hidden rounded-lg p-2 hover:bg-gray-100 transition-colors"
+            className="md:hidden rounded-lg p-2 hover:bg-gray-100 transition-colors focus:outline-none"
+            aria-label="Toggle menu"
+            aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? (
               <X className="w-6 h-6" />
             ) : (
               <Menu className="w-6 h-6" />
             )}
-          </button>
+          </motion.button>
         </div>
       </div>
 
       {/* Mobile menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-100">
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            <MobileNavLinks
-              setMobileMenuOpen={setIsMobileMenuOpen}
-              isLoggedIn={isLoggedIn}
-              user={user}
-              handleLogout={handleLogout}
-            />
-          </div>
-        </div>
-      )}
-    </nav>
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="md:hidden bg-white border-t border-gray-100 overflow-hidden"
+          >
+            <div className="px-2 pt-3 pb-4">
+              <MobileNavLinks
+                setMobileMenuOpen={setIsMobileMenuOpen}
+                isLoggedIn={isLoggedIn}
+                user={user}
+                handleLogout={handleLogout}
+                currentPath={location.pathname}
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
   );
 };
 
-const NavLinks = () => (
-  <div className="flex space-x-8">
-    {navLinks.map(({ name, path }) => (
-      <Link
-        key={name}
-        to={path}
-        className="relative font-medium text-gray-700 before:absolute before:-bottom-2 
-          before:h-0.5 before:w-full before:origin-left before:scale-x-0 
-          before:bg-blue-600 before:transition hover:text-blue-600 
-          hover:before:scale-100"
-      >
-        {name}
-      </Link>
-    ))}
-  </div>
-);
+const NavLinks = ({ currentPath }) => {
+  // Enhanced NavLinks with icons and active state
+  const navLinks = [
+    { name: "Home", path: "/", icon: Home },
+    { name: "Properties", path: "/properties", icon: Search },
+    { name: "AI Property Hub", path: "/ai-property-hub", icon: Building },
+    { name: "About Us", path: "/about", icon: Users },
+    { name: "Contact", path: "/contact", icon: MessageCircle },
+  ];
 
-const navLinks = [
-  { name: "Home", path: "/" },
-  { name: "Properties", path: "/properties" },
-  { name: "About Us", path: "/about" },
-  { name: "Contact", path: "/contact" },
-];
+  return (
+    <div className="flex space-x-6">
+      {navLinks.map(({ name, path, icon: Icon }) => {
+        const isActive = path === "/" ? currentPath === path : currentPath.startsWith(path);
+        
+        return (
+          <Link
+            key={name}
+            to={path}
+            className={`relative font-medium transition-colors duration-200 flex items-center gap-1.5 px-2 py-1 rounded-md
+              ${isActive 
+                ? "text-blue-600 bg-blue-50" 
+                : "text-gray-700 hover:text-blue-600 hover:bg-blue-50/50"
+              }
+            `}
+          >
+            <Icon className="w-4 h-4" />
+            <span>{name}</span>
+            {isActive && (
+              <motion.div 
+                layoutId="activeIndicator"
+                className="absolute bottom-0 left-0 right-0 h-0.5 bg-blue-600 rounded-full"
+                initial={false}
+              />
+            )}
+          </Link>
+        );
+      })}
+    </div>
+  );
+};
 
 const MobileNavLinks = ({
   setMobileMenuOpen,
   isLoggedIn,
   user,
   handleLogout,
-}) => (
-  <div className="flex flex-col space-y-4 px-4 py-2">
-    {/* Navigation Links */}
-    {navLinks.map(({ name, path }) => (
-      <Link
-        key={name}
-        to={path}
-        className="text-gray-700 hover:text-blue-600 transition-colors flex items-center space-x-2"
-        onClick={() => setMobileMenuOpen(false)}
-      >
-        {name}
-      </Link>
-    ))}
+  currentPath,
+}) => {
+  // Mobile navigation with icons and active state highlighting
+  const navLinks = [
+    { name: "Home", path: "/", icon: Home },
+    { name: "Properties", path: "/properties", icon: Search },
+    { name: "AI Property Hub", path: "/ai-property-hub", icon: Building },
+    { name: "About Us", path: "/about", icon: Users },
+    { name: "Contact", path: "/contact", icon: MessageCircle },
+  ];
 
-    {/* Auth Buttons for Mobile */}
-    <div className="pt-4 border-t border-gray-100">
-      {isLoggedIn ? (
-        <div className="space-y-2">
-          <div className="flex items-center space-x-3 px-2">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center justify-center text-white font-medium text-sm">
-              {user?.name ? user.name[0].toUpperCase() : "U"}
+  return (
+    <div className="flex flex-col space-y-1 pb-3">
+      {/* Navigation Links */}
+      {navLinks.map(({ name, path, icon: Icon }) => {
+        const isActive = path === "/" ? currentPath === path : currentPath.startsWith(path);
+        
+        return (
+          <motion.div key={name} whileTap={{ scale: 0.97 }}>
+            <Link
+              to={path}
+              className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors
+                ${isActive 
+                  ? "bg-blue-50 text-blue-600 font-medium" 
+                  : "text-gray-700 hover:bg-gray-50 hover:text-blue-600"
+                }
+              `}
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <Icon className="w-5 h-5" />
+              {name}
+            </Link>
+          </motion.div>
+        );
+      })}
+
+      {/* Auth Buttons for Mobile */}
+      <div className="pt-4 mt-2 border-t border-gray-100">
+        {isLoggedIn ? (
+          <div className="space-y-3 px-3">
+            <div className="flex items-center space-x-3 p-2 bg-gray-50 rounded-lg">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 flex items-center justify-center text-white font-medium text-sm shadow-sm">
+                {user?.name ? user.name[0].toUpperCase() : "U"}
+              </div>
+              <div className="flex-1">
+                <p className="text-sm font-medium text-gray-900">{user?.name}</p>
+                <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+              </div>
             </div>
-            <div className="flex-1">
-              <p className="text-sm font-medium text-gray-900">{user?.name}</p>
-              <p className="text-xs text-gray-500 truncate">{user?.email}</p>
-            </div>
+            <motion.button
+              whileTap={{ scale: 0.97 }}
+              onClick={() => {
+                handleLogout();
+                setMobileMenuOpen(false);
+              }}
+              className="w-full flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+            >
+              <LogOut className="w-5 h-5" />
+              <span className="font-medium">Sign out</span>
+            </motion.button>
           </div>
-          <button
-            onClick={() => {
-              handleLogout();
-              setMobileMenuOpen(false);
-            }}
-            className="w-full flex items-center space-x-2 px-2 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-          >
-            <LogOut className="w-4 h-4" />
-            <span>Sign out</span>
-          </button>
-        </div>
-      ) : (
-        <div className="flex flex-col space-y-2">
-          <Link
-            to="/login"
-            onClick={() => setMobileMenuOpen(false)}
-            className="w-full px-4 py-2 text-center text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
-          >
-            Sign in
-          </Link>
-          <Link
-            to="/signup"
-            onClick={() => setMobileMenuOpen(false)}
-            className="w-full px-4 py-2 text-center bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all"
-          >
-            Get started
-          </Link>
-        </div>
-      )}
+        ) : (
+          <div className="flex flex-col space-y-3 px-3">
+            <motion.div whileTap={{ scale: 0.97 }}>
+              <Link
+                to="/login"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full flex items-center justify-center px-4 py-3 border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 hover:border-gray-300 transition-all font-medium"
+              >
+                Sign in
+              </Link>
+            </motion.div>
+            <motion.div whileTap={{ scale: 0.97 }}>
+              <Link
+                to="/signup"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full flex items-center justify-center px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all font-medium shadow-md shadow-blue-500/20"
+              >
+                Create account
+              </Link>
+            </motion.div>
+          </div>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
-Navbar.propTypes = {
-  isLoggedIn: PropTypes.bool,
+NavLinks.propTypes = {
+  currentPath: PropTypes.string.isRequired,
+};
+
+MobileNavLinks.propTypes = {
+  setMobileMenuOpen: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
   user: PropTypes.object,
-  logout: PropTypes.func,
-  setMobileMenuOpen: PropTypes.func,
-  handleLogout: PropTypes.func,
-  name: PropTypes.string,
+  handleLogout: PropTypes.func.isRequired,
+  currentPath: PropTypes.string.isRequired,
 };
 
 export default Navbar;
