@@ -109,12 +109,41 @@ const PropertiesPage = () => {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center flex flex-col items-center"
         >
-          <Loader className="w-10 h-10 text-blue-600 animate-spin mb-4" />
-          <p className="text-gray-600">Loading amazing properties...</p>
+          <div className="relative mb-4">
+            {/* Animated building icon loader */}
+            <motion.div
+              className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center"
+              animate={{ 
+                scale: [1, 1.1, 1],
+                boxShadow: [
+                  "0 0 0 rgba(59, 130, 246, 0.4)",
+                  "0 0 20px rgba(59, 130, 246, 0.6)",
+                  "0 0 0 rgba(59, 130, 246, 0.4)"
+                ]
+              }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+            >
+              <Loader className="w-8 h-8 text-blue-600 animate-spin" />
+            </motion.div>
+            
+            {/* Pulse animation effect */}
+            <div className="absolute inset-0 rounded-full bg-blue-500/20 animate-ping" style={{ animationDuration: '2s' }}></div>
+          </div>
+          
+          <h3 className="text-xl font-medium text-gray-800 mb-2">Loading Properties</h3>
+          <p className="text-gray-600">Finding your perfect home...</p>
+          
+          <div className="mt-4 w-48 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+            <motion.div
+              className="h-full bg-gradient-to-r from-blue-500 to-indigo-600"
+              animate={{ width: ["0%", "100%"] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            ></motion.div>
+          </div>
         </motion.div>
       </div>
     );

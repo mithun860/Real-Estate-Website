@@ -1,19 +1,19 @@
-import { Search, Calendar, Home } from 'lucide-react';
+import { Search, Calendar, Home, Map, Shield, FileCheck } from 'lucide-react';
 
 export const steps = [
   {
     icon: Search,
-    title: 'Search Properties',
-    description: 'Browse our extensive collection of properties and find the ones that match your criteria.',
+    title: 'Find Your Property',
+    description: 'Use our AI-powered search to discover properties matching your exact needs. Filter by location, price, amenities and more.',
   },
   {
     icon: Calendar,
     title: 'Schedule a Visit',
-    description: 'Book an in-person viewing or take a virtual tour of your selected properties.',
+    description: 'Book an in-person viewing or take a virtual 3D tour of your selected properties at your convenience.',
   },
   {
-    icon: Home,
-    title: 'Finalize Your Choice',
-    description: 'Complete the necessary paperwork and secure your dream property with our guidance.',
+    icon: FileCheck,
+    title: 'Close the Deal',
+    description: 'Complete paperwork digitally, get expert guidance from our agents, and secure your dream property with ease.',
   },
 ];

@@ -115,26 +115,92 @@ const PropertyDetails = () => {
     return (
       <div className="min-h-screen bg-gray-50 pt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="animate-pulse">
-            <div className="h-[500px] bg-gray-200 rounded-xl mb-8" />
-            <div className="space-y-4">
-              <div className="h-8 bg-gray-200 rounded w-3/4" />
-              <div className="h-4 bg-gray-200 rounded w-1/2" />
+          {/* Navigation Skeleton */}
+          <div className="flex items-center justify-between mb-8">
+            <div className="w-32 h-8 bg-gray-200 rounded-lg animate-pulse"></div>
+            <div className="w-24 h-8 bg-gray-200 rounded-lg animate-pulse"></div>
+          </div>
+          
+          {/* Main Content Skeleton */}
+          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+            {/* Image Gallery Skeleton */}
+            <div className="relative h-[500px] bg-gray-200 rounded-xl mb-8 animate-pulse">
+              {/* Image Navigation Buttons */}
+              <div className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/50 rounded-full"></div>
+              <div className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/50 rounded-full"></div>
+              
+              {/* Image Counter */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 w-20 h-8 bg-black/20 rounded-full"></div>
+            </div>
+  
+            {/* Content Skeleton */}
+            <div className="p-8">
+              {/* Title and Location */}
+              <div className="flex justify-between items-start mb-6">
+                <div className="space-y-3 w-full max-w-md">
+                  <div className="h-10 bg-gray-200 rounded-lg w-3/4 animate-pulse"></div>
+                  <div className="h-6 bg-gray-200 rounded-lg w-1/2 animate-pulse"></div>
+                </div>
+                <div className="w-10 h-10 bg-gray-200 rounded-full animate-pulse"></div>
+              </div>
+  
+              {/* Details Grid */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="space-y-4">
-                  <div className="h-20 bg-gray-200 rounded" />
+                {/* Left Column */}
+                <div className="space-y-6">
+                  {/* Price Box */}
+                  <div className="h-28 bg-blue-50/50 rounded-lg animate-pulse"></div>
+                  
+                  {/* Features Grid */}
                   <div className="grid grid-cols-3 gap-4">
                     {[1, 2, 3].map(i => (
-                      <div key={i} className="h-24 bg-gray-200 rounded" />
+                      <div key={i} className="h-24 bg-gray-100 rounded-lg animate-pulse"></div>
                     ))}
                   </div>
+                  
+                  {/* Contact */}
+                  <div className="space-y-2">
+                    <div className="h-7 bg-gray-200 rounded-lg w-1/3 animate-pulse"></div>
+                    <div className="h-6 bg-gray-200 rounded-lg w-1/2 animate-pulse"></div>
+                  </div>
+                  
+                  {/* Button */}
+                  <div className="h-12 bg-blue-200 rounded-lg animate-pulse"></div>
                 </div>
-                <div className="space-y-4">
-                  <div className="h-40 bg-gray-200 rounded" />
-                  <div className="h-60 bg-gray-200 rounded" />
+                
+                {/* Right Column */}
+                <div className="space-y-6">
+                  {/* Description */}
+                  <div className="space-y-2">
+                    <div className="h-7 bg-gray-200 rounded-lg w-1/3 animate-pulse"></div>
+                    <div className="h-4 bg-gray-200 rounded-lg w-full animate-pulse mt-2"></div>
+                    <div className="h-4 bg-gray-200 rounded-lg w-full animate-pulse"></div>
+                    <div className="h-4 bg-gray-200 rounded-lg w-4/5 animate-pulse"></div>
+                    <div className="h-4 bg-gray-200 rounded-lg w-full animate-pulse"></div>
+                  </div>
+                  
+                  {/* Amenities */}
+                  <div className="space-y-2">
+                    <div className="h-7 bg-gray-200 rounded-lg w-1/3 animate-pulse"></div>
+                    <div className="grid grid-cols-2 gap-4 mt-2">
+                      {[1, 2, 3, 4].map(i => (
+                        <div key={i} className="h-6 bg-gray-200 rounded-lg animate-pulse"></div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+          </div>
+          
+          {/* Map Location Skeleton */}
+          <div className="mt-8 p-6 bg-blue-50/50 rounded-xl animate-pulse">
+            <div className="flex items-center gap-2 mb-4">
+              <div className="w-5 h-5 bg-gray-300 rounded-full"></div>
+              <div className="h-7 bg-gray-300 rounded-lg w-1/6"></div>
+            </div>
+            <div className="h-5 bg-gray-300 rounded-lg w-4/5 mb-4"></div>
+            <div className="h-6 bg-gray-300 rounded-lg w-1/4"></div>
           </div>
         </div>
       </div>

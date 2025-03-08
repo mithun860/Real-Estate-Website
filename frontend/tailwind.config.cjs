@@ -6,9 +6,20 @@ module.exports = {
         height: "height",
         spacing: "margin, padding",
       },
+      backgroundSize: {
+        'size-200': '200% 200%',
+      },
+      animation: {
+        'bg-pos-x': 'bg-pos-x 3s ease infinite',
+      },
+      keyframes: {
+        'bg-pos-x': {
+          '0%, 100%': { 'background-position': '0% 50%' },
+          '50%': { 'background-position': '100% 50%' },
+        },
+      },
     },
   },
-  plugins: [require("@tailwindcss/line-clamp")],
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   darkMode: "class",
   theme: {

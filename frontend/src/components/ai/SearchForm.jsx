@@ -41,16 +41,16 @@ const SearchForm = ({ onSearch, isLoading }) => {
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="bg-white p-8 rounded-xl shadow-lg border border-gray-100"
+      className="bg-white p-4 sm:p-6 md:p-8 rounded-xl shadow-lg border border-gray-100"
     >
-      <div className="flex items-center mb-6">
-        <div className="p-2 bg-blue-100 rounded-lg mr-3">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-0 mb-4 sm:mb-6">
+        <div className="p-2 bg-blue-100 rounded-lg mr-3 w-10 h-10 flex items-center justify-center">
           <Search className="h-5 w-5 text-blue-600" />
         </div>
-        <h2 className="text-2xl font-bold text-gray-800">Find Your Dream Property</h2>
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-800">Find Your Dream Property</h2>
       </div>
       
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
         {/* City Field with Suggestions */}
         <div className="relative">
           <label htmlFor="city" className="flex items-center text-sm font-medium text-gray-700 mb-1.5">
@@ -67,7 +67,7 @@ const SearchForm = ({ onSearch, isLoading }) => {
               onFocus={() => setActiveField('city')}
               onBlur={() => setTimeout(() => setActiveField(null), 100)}
               placeholder="Enter city name (e.g., Mumbai)"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-shadow"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-shadow text-sm sm:text-base"
               required
             />
             {activeField === 'city' && (
@@ -77,7 +77,7 @@ const SearchForm = ({ onSearch, isLoading }) => {
                 className="absolute z-10 mt-1 w-full bg-white rounded-lg shadow-lg border border-gray-200 py-2"
               >
                 <p className="px-3 py-1 text-xs font-medium text-gray-500">Popular Cities</p>
-                <div className="mt-1">
+                <div className="mt-1 max-h-48 overflow-y-auto">
                   {popularCities.map((city) => (
                     <div
                       key={city}
@@ -94,7 +94,7 @@ const SearchForm = ({ onSearch, isLoading }) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
           {/* Price Field */}
           <div>
             <label htmlFor="maxPrice" className="flex items-center text-sm font-medium text-gray-700 mb-1.5">
@@ -111,10 +111,10 @@ const SearchForm = ({ onSearch, isLoading }) => {
                 step="0.1"
                 value={searchParams.maxPrice}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-shadow"
+                className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-shadow text-sm sm:text-base"
                 required
               />
-              <span className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm font-medium">
+              <span className="absolute right-3 sm:right-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-sm font-medium">
                 Cr
               </span>
             </div>
@@ -131,7 +131,7 @@ const SearchForm = ({ onSearch, isLoading }) => {
               name="propertyType"
               value={searchParams.propertyType}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-shadow appearance-none"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-shadow appearance-none text-sm sm:text-base"
             >
               <option value="Flat">Flat</option>
               <option value="Individual House">Individual House</option>
@@ -151,7 +151,7 @@ const SearchForm = ({ onSearch, isLoading }) => {
               name="propertyCategory"
               value={searchParams.propertyCategory}
               onChange={handleChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-shadow appearance-none"
+              className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:outline-none transition-shadow appearance-none text-sm sm:text-base"
             >
               <option value="Residential">Residential</option>
               <option value="Commercial">Commercial</option>
@@ -160,7 +160,7 @@ const SearchForm = ({ onSearch, isLoading }) => {
 
           {/* Price Range Selector */}
           <div>
-            <label className="flex items-center text-sm font-medium text-gray-700 mb-4">
+            <label className="flex items-center text-sm font-medium text-gray-700 mb-2 sm:mb-4">
               <IndianRupee className="w-4 h-4 mr-1.5 text-blue-600" />
               Price Range: ₹{searchParams.maxPrice} Cr
             </label>
@@ -185,20 +185,20 @@ const SearchForm = ({ onSearch, isLoading }) => {
           whileHover={{ scale: 1.01 }}
           whileTap={{ scale: 0.99 }}
           disabled={isLoading}
-          className="w-full mt-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-4 px-6 rounded-lg hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300 font-medium shadow-lg disabled:opacity-70"
+          className="w-full mt-2 sm:mt-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 sm:py-4 px-4 sm:px-6 rounded-lg hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300 font-medium shadow-lg disabled:opacity-70"
         >
           {isLoading ? (
             <span className="flex items-center justify-center">
-              <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <svg className="animate-spin -ml-1 mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              Searching for Properties...
+              <span className="text-sm sm:text-base">Searching for Properties...</span>
             </span>
           ) : (
             <span className="flex items-center justify-center">
-              <Search className="w-5 h-5 mr-2" />
-              Find Properties
+              <Search className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+              <span className="text-sm sm:text-base">Find Properties</span>
             </span>
           )}
         </motion.button>
