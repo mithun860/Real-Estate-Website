@@ -4,7 +4,7 @@ import PropertyCard from "../components/ai/PropertyCard";
 import LocationTrends from "../components/ai/LocationTrends";
 import AnalysisDisplay from "../components/ai/AnalysisDisplay";
 import { searchProperties, getLocationTrends } from "../services/api";
-import { Building, MapPin, TrendingUp, Brain, AlertCircle } from "lucide-react";
+import { Building, MapPin, TrendingUp, Brain, AlertCircle, Github, Download } from "lucide-react";
 import PropTypes from "prop-types";
 
 const AIPropertyHub = () => {
@@ -17,7 +17,17 @@ const AIPropertyHub = () => {
   const [locationAnalysis, setLocationAnalysis] = useState("");
   const [searchError, setSearchError] = useState("");
   const [searchPerformed, setSearchPerformed] = useState(false);
+  const [isDeployedVersion, setIsDeployedVersion] = useState(false);
   const contentRef = useRef(null);
+
+  // Timer for loading state
+  useEffect(() => {
+    // Check if we're running in a deployed environment (not localhost)
+    const isDeployed = window.location.hostname !== "localhost" && 
+                      !window.location.hostname.startsWith("192.168") &&
+                      !window.location.hostname.startsWith("127.0.0.1");
+    setIsDeployedVersion(isDeployed);
+  }, []);
 
   // Timer for loading state
   useEffect(() => {
@@ -41,6 +51,11 @@ const AIPropertyHub = () => {
   }, [isLoading, searchPerformed]);
 
   const handleSearch = async (searchParams) => {
+    if (isDeployedVersion) {
+      setSearchError("AI features are only available in the local development environment. Please download the repository to use this feature.");
+      return;
+    }
+    
     setIsLoading(true);
     setSearchError("");
     setSearchPerformed(true);
@@ -254,9 +269,43 @@ const AIPropertyHub = () => {
               analysis
             </p>
 
-            <div className="bg-white/95 backdrop-blur rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-md sm:shadow-lg">
-              <SearchForm onSearch={handleSearch} isLoading={isLoading} />
-            </div>
+            {isDeployedVersion ? (
+              <div className="bg-white/95 backdrop-blur rounded-lg sm:rounded-xl p-5 sm:p-6 shadow-md sm:shadow-lg">
+                <div className="flex flex-col items-center gap-4">
+                  <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center">
+                    <AlertCircle className="w-6 h-6 text-amber-600" />
+                  </div>
+                  <div className="text-center">
+                    <h3 className="text-lg font-semibold mb-2">AI Features Limited Online</h3>
+                    <p className="text-gray-600 mb-4">
+                      Due to API limitations, AI property features are only available in local development environment.
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                      <a 
+                        href="https://github.com/AAYUSH412/Real-Estate-Website"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-800 hover:bg-gray-700 text-white rounded-lg transition-colors"
+                      >
+                        <Github className="w-4 h-4" />
+                        <span>View on GitHub</span>
+                      </a>
+                      <a 
+                        href="https://github.com/AAYUSH412/Real-Estate-Website/archive/refs/heads/main.zip"
+                        className="flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
+                      >
+                        <Download className="w-4 h-4" />
+                        <span>Download Repository</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="bg-white/95 backdrop-blur rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-md sm:shadow-lg">
+                <SearchForm onSearch={handleSearch} isLoading={isLoading} />
+              </div>
+            )}
           </div>
         </div>
 
@@ -320,7 +369,7 @@ const AIPropertyHub = () => {
             </div>
           )}
 
-          {!isLoading && !searchPerformed && (
+          {(!isLoading && !searchPerformed) || isDeployedVersion ? (
             <div className="bg-white p-5 sm:p-8 rounded-lg sm:rounded-xl shadow-md max-w-4xl mx-auto text-center">
               <div className="mb-5 sm:mb-6">
                 <div className="mx-auto w-14 h-14 sm:w-16 sm:h-16 bg-blue-50 rounded-full flex items-center justify-center mb-3 sm:mb-4">
@@ -333,6 +382,14 @@ const AIPropertyHub = () => {
                   Our advanced AI analyzes real estate data to help you make
                   better property decisions
                 </p>
+                
+                {isDeployedVersion && (
+                  <div className="mt-4 p-4 bg-amber-50 border border-amber-100 rounded-lg text-sm text-amber-800">
+                    <p>
+                      <strong>Note:</strong> AI features are currently only available in the local development environment due to API key restrictions.
+                    </p>
+                  </div>
+                )}
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mt-6 sm:mt-8">
@@ -353,7 +410,7 @@ const AIPropertyHub = () => {
                 />
               </div>
             </div>
-          )}
+          ) : null}
         </div>
       </div>
     </div>
