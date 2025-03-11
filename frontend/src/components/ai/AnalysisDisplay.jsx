@@ -1,7 +1,9 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { ChevronDown, ChevronUp, MoveRight, Info } from "lucide-react";
+import { ChevronDown, ChevronUp, Info } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const AnalysisDisplay = ({ analysis }) => {
   const [expanded, setExpanded] = useState(true);
@@ -10,90 +12,109 @@ const AnalysisDisplay = ({ analysis }) => {
     return null;
   }
 
-  // Helper function to convert markdown-style text to styled elements
-  const formatAnalysisText = (text) => {
-    // Split the text by new lines to process each line
-    const lines = text.split('\n');
-    
-    return lines.map((line, index) => {
-      // Process headings (lines starting with # or ##)
-      if (line.startsWith('## ')) {
-        return (
-          <motion.h3 
-            key={index} 
-            initial={{ opacity: 0, y: 5 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.05 }}
-            className="text-lg sm:text-lg font-semibold text-gray-800 mt-4 sm:mt-5 mb-2 sm:mb-3 flex flex-wrap items-center"
-          >
-            <MoveRight className="w-4 h-4 mr-1 sm:mr-2 flex-shrink-0 text-blue-600" />
-            <span className="break-words">{line.replace('## ', '')}</span>
-          </motion.h3>
-        );
-      } else if (line.startsWith('# ')) {
-        return (
-          <motion.h2 
-            key={index}
-            initial={{ opacity: 0, y: 5 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.05 }} 
-            className="text-xl font-bold text-gray-800 mt-5 sm:mt-6 mb-2 sm:mb-3 pb-2 border-b border-gray-100 break-words"
-          >
-            {line.replace('# ', '')}
-          </motion.h2>
-        );
-      // Process list items (lines starting with - or *)
-      } else if (line.match(/^[*-] /)) {
-        return (
-          <motion.li 
-            key={index}
-            initial={{ opacity: 0, x: -5 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: index * 0.05 }}
-            className="ml-3 sm:ml-5 mt-1.5 text-gray-700 flex flex-start"
-          >
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 mr-2 flex-shrink-0"></span>
-            <span className="break-words">{line.replace(/^[*-] /, '')}</span>
-          </motion.li>
-        );
-      // Process bold text (text within **)
-      } else if (line.includes('**')) {
-        // Bold formatting
-        const parts = line.split(/(\*\*.*?\*\*)/g);
-        return (
-          <motion.p 
-            key={index}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: index * 0.05 }}
-            className="my-2.5 text-gray-700 leading-relaxed break-words"
-          >
-            {parts.map((part, i) => {
-              if (part.startsWith('**') && part.endsWith('**')) {
-                return <strong key={i} className="text-gray-900">{part.replace(/\*\*/g, '')}</strong>;
-              }
-              return part;
-            })}
-          </motion.p>
-        );
-      } else if (line.trim() === '') {
-        // Handle empty lines
-        return <div key={index} className="h-2.5"></div>;
-      } else {
-        // Regular paragraph text
-        return (
-          <motion.p 
-            key={index}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: index * 0.05 }}
-            className="my-2.5 text-gray-700 leading-relaxed break-words"
-          >
-            {line}
-          </motion.p>
-        );
-      }
-    });
+  // Custom components for styling the markdown elements
+  const components = {
+    h1: ({node, ...props}) => (
+      <motion.h1 
+        initial={{ opacity: 0, y: 5 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-2xl font-bold text-gray-800 mt-5 mb-3 pb-2 border-b border-gray-100 break-words"
+        {...props}
+      />
+    ),
+    h2: ({node, ...props}) => (
+      <motion.h2 
+        initial={{ opacity: 0, y: 5 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-xl font-bold text-gray-800 mt-5 mb-3 pb-1 break-words"
+        {...props}
+      />
+    ),
+    h3: ({node, ...props}) => (
+      <motion.h3 
+        initial={{ opacity: 0, y: 5 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-lg font-semibold text-gray-800 mt-4 mb-2 flex flex-wrap items-center"
+        {...props}
+      />
+    ),
+    p: ({node, ...props}) => (
+      <motion.p 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="my-2.5 text-gray-700 leading-relaxed break-words"
+        {...props}
+      />
+    ),
+    ul: ({node, ...props}) => (
+      <motion.ul 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="my-2 ml-2 space-y-1"
+        {...props}
+      />
+    ),
+    ol: ({node, ...props}) => (
+      <motion.ol 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="my-2 ml-2 list-decimal space-y-1 pl-3"
+        {...props}
+      />
+    ),
+    li: ({node, ordered, ...props}) => (
+      <motion.li 
+        initial={{ opacity: 0, x: -5 }}
+        animate={{ opacity: 1, x: 0 }}
+        className="ml-3 mt-1 text-gray-700 flex items-start"
+      >
+        {!ordered && (
+          <span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-500 mt-3 mr-2 flex-shrink-0"></span>
+        )}
+        <span className="break-words" {...props} />
+      </motion.li>
+    ),
+    hr: () => (
+      <motion.hr
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="my-4 border-t border-gray-200"
+      />
+    ),
+    strong: ({node, ...props}) => (
+      <strong className="text-gray-900 font-semibold" {...props} />
+    ),
+    em: ({node, ...props}) => (
+      <em className="text-gray-800 italic" {...props} />
+    ),
+    a: ({node, ...props}) => (
+      <a className="text-blue-600 hover:text-blue-800 underline" target="_blank" rel="noopener noreferrer" {...props} />
+    ),
+    blockquote: ({node, ...props}) => (
+      <motion.blockquote
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="border-l-4 border-blue-200 pl-4 my-4 text-gray-600 italic"
+        {...props}
+      />
+    ),
+    code: ({node, inline, ...props}) => (
+      inline ? 
+        <code className="bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono text-gray-800" {...props} /> :
+        <pre className="bg-gray-100 p-4 rounded-lg overflow-x-auto text-sm my-4">
+          <code className="font-mono text-gray-800" {...props} />
+        </pre>
+    ),
+    table: ({node, ...props}) => (
+      <div className="overflow-x-auto my-4">
+        <table className="min-w-full divide-y divide-gray-200 border border-gray-200 rounded-md" {...props} />
+      </div>
+    ),
+    thead: ({node, ...props}) => <thead className="bg-gray-50" {...props} />,
+    tbody: ({node, ...props}) => <tbody className="divide-y divide-gray-200" {...props} />,
+    tr: ({node, ...props}) => <tr className="hover:bg-gray-50" {...props} />,
+    th: ({node, ...props}) => <th className="px-3 py-2 text-left text-xs font-medium text-gray-700 uppercase" {...props} />,
+    td: ({node, ...props}) => <td className="px-3 py-2 text-sm text-gray-500" {...props} />
   };
 
   return (
@@ -126,7 +147,12 @@ const AnalysisDisplay = ({ analysis }) => {
             className="prose prose-sm max-w-none text-gray-700 overflow-hidden text-sm sm:text-base"
           >
             <div className="overflow-x-auto">
-              {formatAnalysisText(analysis)}
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={components}
+              >
+                {analysis}
+              </ReactMarkdown>
             </div>
             
             <div className="mt-5 sm:mt-6 pt-3 sm:pt-4 border-t border-gray-100 flex items-center text-xs text-gray-500 italic">

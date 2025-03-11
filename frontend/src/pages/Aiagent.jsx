@@ -45,24 +45,26 @@ const AIPropertyHub = () => {
     setSearchError("");
     setSearchPerformed(true);
     setLoadingTime(0);
-
+  
     try {
       // Fetch property data
       setLoadingStage("properties");
       const propertyResponse = await searchProperties(searchParams);
+      console.log("Property Response:", propertyResponse); // Debug log
       setProperties(propertyResponse.properties || []);
       setPropertyAnalysis(propertyResponse.analysis || "");
-
+  
       // Fetch location trends for the same city
       setLoadingStage("locations");
       const locationResponse = await getLocationTrends(searchParams.city);
+      console.log("Location Response:", locationResponse); // Debug log
       setLocations(locationResponse.locations || []);
       setLocationAnalysis(locationResponse.analysis || "");
     } catch (error) {
       console.error("Error during search:", error);
       setSearchError("Failed to fetch property data. Please try again.");
     } finally {
-      setIsLoading(true);
+      setIsLoading(false);
     }
   };
 

@@ -8,7 +8,7 @@ class FirecrawlService {
         });
     }
 
-    async findProperties(city, maxPrice, propertyCategory = "Residential", propertyType = "Flat") {
+    async findProperties(city, maxPrice, propertyCategory = "Residential", propertyType = "Flat", limit = 6) {
         try {
             const formattedLocation = city.toLowerCase().replace(/\s+/g, '-');
             
@@ -47,19 +47,19 @@ class FirecrawlService {
                                 },
                                 description: {
                                     type: "string",
-                                    description: "Detailed description of the property"
+                                    description: "Brief description of the property"
                                 },
                                 amenities: {
                                     type: "array",
                                     items: { type: "string" },
-                                    description: "List of amenities"
+                                    description: "List of key amenities"
                                 },
                                 area_sqft: {
                                     type: "string",
                                     description: "Area in square feet"
                                 }
                             },
-                            required: ["building_name", "property_type", "location_address", "price", "description"]
+                            required: ["building_name", "property_type", "location_address", "price"]
                         }
                     }
                 },
@@ -69,18 +69,18 @@ class FirecrawlService {
             const extractResult = await this.firecrawl.extract(
                 urls,
                 {
-                    prompt: `Extract ONLY 6 different ${propertyCategory} ${propertyTypePrompt} from ${city} that cost less than ${maxPrice} crores.
+                    prompt: `Extract ONLY ${limit} different ${propertyCategory} ${propertyTypePrompt} from ${city} that cost less than ${maxPrice} crores.
                     
                     Requirements:
                     - Property Category: ${propertyCategory} properties only
                     - Property Type: ${propertyTypePrompt} only
                     - Location: ${city}
                     - Maximum Price: ${maxPrice} crores
-                    - Include essential property details (building name, price, location, area, amenities, and a brief description)
-                    - IMPORTANT: Return data for EXACTLY 6 different properties. No more.
-                    - Format as a list of properties with their respective details
+                    - Include essential property details (building name, price, location, area)
+                    - Keep descriptions brief (under 100 words)
+                    - IMPORTANT: Return data for EXACTLY ${limit} different properties. No more.
                     `,
-                    schema: propertySchema, // Using direct JSON schema instead of Zod schema
+                    schema: propertySchema,
                     enableWebSearch: true
                 }
             );
@@ -89,7 +89,7 @@ class FirecrawlService {
                 throw new Error(`Failed to extract property data: ${extractResult.error || 'Unknown error'}`);
             }
 
-            console.log('Extracted properties:', extractResult.data);
+            console.log('Extracted properties count:', extractResult.data.properties.length);
 
             return extractResult.data;
         } catch (error) {
@@ -98,7 +98,7 @@ class FirecrawlService {
         }
     }
 
-    async getLocationTrends(city) {
+    async getLocationTrends(city, limit = 5) {
         try {
             const formattedLocation = city.toLowerCase().replace(/\s+/g, '-');
             
@@ -135,13 +135,13 @@ class FirecrawlService {
             const extractResult = await this.firecrawl.extract(
                 [`https://www.99acres.com/property-rates-and-price-trends-in-${formattedLocation}-prffid/*`],
                 {
-                    prompt: `Extract price trends data for 5 major localities in ${city}.
+                    prompt: `Extract price trends data for ${limit} major localities in ${city}.
                     IMPORTANT:
-                    - Return data for EXACTLY 5 different localities
+                    - Return data for EXACTLY ${limit} different localities
                     - Include data points: location name, price per square foot, yearly percent increase, and rental yield
                     - Format as a list of locations with their respective data
                     `,
-                    schema: locationSchema, // Using direct JSON schema instead of Zod schema
+                    schema: locationSchema,
                     enableWebSearch: true
                 }
             );
@@ -150,6 +150,8 @@ class FirecrawlService {
                 throw new Error(`Failed to extract location data: ${extractResult.error || 'Unknown error'}`);
             }
 
+            console.log('Extracted locations count:', extractResult.data.locations.length);
+            
             return extractResult.data;
         } catch (error) {
             console.error('Error fetching location trends:', error);

@@ -22,9 +22,6 @@ const PropertyCard = ({ property }) => {
           transition={{ delay: 0.2 }}
           className="absolute top-0 right-0 mt-3 mr-3 sm:mt-4 sm:mr-4"
         >
-          <span className="px-2 py-0.5 sm:px-3 sm:py-1 bg-white/90 backdrop-blur-sm text-indigo-700 text-xs font-medium rounded-full shadow-sm">
-            {property.property_type}
-          </span>
         </motion.div>
         
         <div className="relative z-10">
@@ -126,19 +123,6 @@ const PropertyCard = ({ property }) => {
             </div>
           </div>
         )}
-      </div>
-      
-      {/* Footer / call to action */}
-      <div className="px-4 pb-4 sm:px-5 sm:pb-5">
-        <motion.button 
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="w-full py-2 sm:py-2.5 bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-xs sm:text-sm font-medium rounded-lg 
-                    hover:from-blue-600 hover:to-indigo-700 transition-all shadow-sm mt-2 sm:mt-3
-                    flex items-center justify-center"
-        >
-          View Details
-        </motion.button>
       </div>
     </motion.div>
   );

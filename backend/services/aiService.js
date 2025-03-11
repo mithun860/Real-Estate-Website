@@ -1,67 +1,86 @@
-import axios from "axios";
 import { config } from "../config/config.js";
+import ModelClient, { isUnexpected } from "@azure-rest/ai-inference";
+import { AzureKeyCredential } from "@azure/core-auth";
 
 class AIService {
   constructor() {
-    this.modelId = config.modelId;
-    this.huggingfaceApiKey = config.huggingfaceApiKey;
-    this.modelLoaded = false; // Track if model has been loaded
+    this.azureApiKey = config.azureApiKey;
   }
 
   async generateText(prompt) {
+    return this.generateTextWithAzure(prompt);
+  }
+
+  async generateTextWithAzure(prompt) {
     try {
-      const API_URL = `https://api-inference.huggingface.co/models/${this.modelId}`;
-
+      console.log(`Starting Azure AI generation at ${new Date().toISOString()}`);
       const startTime = Date.now();
-      console.log(`Starting AI generation at ${new Date().toISOString()}`);
-
-      const response = await axios.post(
-        API_URL,
-        {
-          inputs: prompt,
-          parameters: {
-            max_new_tokens: 800,
-            return_full_text: false,
-          },
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${this.huggingfaceApiKey}`,
-            "Content-Type": "application/json",
-          },
-        }
+      
+      const client = ModelClient(
+        "https://models.inference.ai.azure.com",
+        new AzureKeyCredential(this.azureApiKey)
       );
+
+      const response = await client.path("/chat/completions").post({
+        body: {
+          messages: [
+            { 
+              role: "system", 
+              content: "You are an AI real estate expert assistant that provides concise, accurate analysis of property data."
+            },
+            { 
+              role: "user", 
+              content: prompt 
+            }
+          ],
+          model: "gpt-4o",
+          temperature: 0.7,
+          max_tokens: 800,
+          top_p: 1
+        }
+      });
 
       const endTime = Date.now();
-      console.log(
-        `AI generation completed in ${(endTime - startTime) / 1000} seconds`
-      );
-      this.modelLoaded = true; // Mark model as loaded for future requests
+      console.log(`Azure AI generation completed in ${(endTime - startTime) / 1000} seconds`);
 
-      if (response.status !== 200) {
-        throw new Error(`Error ${response.status}: ${response.statusText}`);
+      if (isUnexpected(response)) {
+        throw new Error(response.body.error.message || "Azure API error");
       }
-
-      const result = response.data;
-      if (Array.isArray(result) && result.length > 0) {
-        return result[0].generated_text;
-      }
-
-      return "Error: Unexpected response format from AI model";
+      
+      return response.body.choices[0].message.content;
     } catch (error) {
-      console.error("Error generating text:", error);
-      if (error.response && error.response.data && error.response.data.error) {
-        const errorMessage = error.response.data.error.toLowerCase();
-        if (
-          errorMessage.includes("waiting") ||
-          errorMessage.includes("loading")
-        ) {
-          console.log("Model is loading...");
-          return "The AI model is currently loading. This typically takes 15-30 seconds for the first analysis. Your results will be worth the wait!";
-        }
-      }
+      console.error("Error generating text with Azure:", error);
       return `Error: ${error.message}`;
     }
+  }
+
+  // Helper method to filter and clean property data before analysis
+  _preparePropertyData(properties, maxProperties = 3) {
+    // Limit the number of properties
+    const limitedProperties = properties.slice(0, maxProperties);
+    
+    // Clean and simplify each property
+    return limitedProperties.map(property => ({
+      building_name: property.building_name,
+      property_type: property.property_type,
+      location_address: property.location_address,
+      price: property.price,
+      area_sqft: property.area_sqft,
+      // Extract just a few key amenities
+      amenities: Array.isArray(property.amenities) 
+        ? property.amenities.slice(0, 5) 
+        : [],
+      // Truncate description to save tokens
+      description: property.description 
+        ? property.description.substring(0, 150) + (property.description.length > 150 ? '...' : '')
+        : ''
+    }));
+  }
+
+  // Helper method to filter and clean location data
+  _prepareLocationData(locations, maxLocations = 5) {
+    // Limit the number of locations
+    return locations.slice(0, maxLocations);
   }
 
   async analyzeProperties(
@@ -71,10 +90,13 @@ class AIService {
     propertyCategory,
     propertyType
   ) {
+    // Prepare limited and cleaned property data
+    const preparedProperties = this._preparePropertyData(properties);
+
     const prompt = `As a real estate expert, analyze these properties:
 
         Properties Found in ${city}:
-        ${JSON.stringify(properties, null, 2)}
+        ${JSON.stringify(preparedProperties, null, 2)}
 
         INSTRUCTIONS:
         1. Focus ONLY on these properties that match:
@@ -93,9 +115,12 @@ class AIService {
   }
 
   async analyzeLocationTrends(locations, city) {
+    // Prepare limited location data
+    const preparedLocations = this._prepareLocationData(locations);
+
     const prompt = `As a real estate expert, analyze these location price trends for ${city}:
 
-        ${JSON.stringify(locations, null, 2)}
+        ${JSON.stringify(preparedLocations, null, 2)}
 
         Please provide:
         1. A brief summary of price trends for each location

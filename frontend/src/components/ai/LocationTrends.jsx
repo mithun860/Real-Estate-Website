@@ -1,13 +1,21 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MapPin, TrendingUp, ArrowUp, DollarSign, BarChart3, Info } from 'lucide-react';
+import { MapPin, TrendingUp, ArrowUp, DollarSign, BarChart3, Info, AlertCircle } from 'lucide-react';
 
 const LocationTrends = ({ locations }) => {
   const [highlightedRow, setHighlightedRow] = useState(null);
   const [activeTab, setActiveTab] = useState('table');
   
-  if (!locations || !Array.isArray(locations) || locations.length === 0) {
+  // Process the location data to handle null values and format percentages
+  const processedLocations = locations?.map(location => ({
+    ...location,
+    price_per_sqft: location.price_per_sqft || 0,
+    percent_increase: location.percent_increase != null ? location.percent_increase : 0,
+    rental_yield: location.rental_yield != null ? location.rental_yield : 0
+  })) || [];
+  
+  if (!processedLocations || !Array.isArray(processedLocations) || processedLocations.length === 0) {
     return (
       <motion.div
         initial={{ opacity: 0, y: 10 }}
@@ -23,9 +31,24 @@ const LocationTrends = ({ locations }) => {
     );
   }
 
-  // Find best investment opportunities
-  const bestRentalYield = [...locations].sort((a, b) => b.rental_yield - a.rental_yield)[0];
-  const bestAppreciation = [...locations].sort((a, b) => b.percent_increase - a.percent_increase)[0];
+  // Find best investment opportunities from valid data only
+  const validRentalYields = processedLocations.filter(loc => loc.rental_yield > 0);
+  const validAppreciations = processedLocations.filter(loc => loc.percent_increase > 0);
+  
+  const bestRentalYield = validRentalYields.length > 0 
+    ? validRentalYields.sort((a, b) => b.rental_yield - a.rental_yield)[0] 
+    : processedLocations[0];
+    
+  const bestAppreciation = validAppreciations.length > 0
+    ? validAppreciations.sort((a, b) => b.percent_increase - a.percent_increase)[0]
+    : processedLocations[0];
+
+  // Format display values
+  const formatValue = (value, suffix = '') => {
+    if (value === null || value === undefined) return 'N/A';
+    if (typeof value === 'number') return `${value}${suffix}`;
+    return `${value}${suffix}`;
+  };
 
   return (
     <motion.div
@@ -74,7 +97,7 @@ const LocationTrends = ({ locations }) => {
           >
             {/* Mobile Table View */}
             <div className="block sm:hidden">
-              {locations.map((location, index) => (
+              {processedLocations.map((location, index) => (
                 <motion.div
                   key={index}
                   className="border-b border-gray-100 p-4"
@@ -89,30 +112,42 @@ const LocationTrends = ({ locations }) => {
                   <div className="grid grid-cols-2 gap-3 text-sm">
                     <div>
                       <span className="text-gray-500 block mb-1">Price per sq.ft</span>
-                      <span className="font-medium">₹{location.price_per_sqft}</span>
+                      <span className="font-medium">
+                        {location.price_per_sqft ? `₹${location.price_per_sqft.toLocaleString()}` : 'N/A'}
+                      </span>
                     </div>
                     <div>
                       <span className="text-gray-500 block mb-1">Annual Increase</span>
                       <div className="flex items-center">
-                        <span className="font-medium">{location.percent_increase}%</span>
-                        {location.percent_increase >= 10 && (
-                          <span className="ml-1.5 p-1 bg-green-100 rounded-full">
-                            <ArrowUp className="w-3 h-3 text-green-600" />
-                          </span>
+                        {location.percent_increase != null ? (
+                          <>
+                            <span className="font-medium">{location.percent_increase}%</span>
+                            {location.percent_increase >= 10 && (
+                              <span className="ml-1.5 p-1 bg-green-100 rounded-full">
+                                <ArrowUp className="w-3 h-3 text-green-600" />
+                              </span>
+                            )}
+                          </>
+                        ) : (
+                          <span className="font-medium text-gray-400">N/A</span>
                         )}
                       </div>
                     </div>
                     <div>
                       <span className="text-gray-500 block mb-1">Rental Yield</span>
-                      <div className="font-medium">{location.rental_yield}%</div>
+                      <div className="font-medium">
+                        {location.rental_yield != null ? `${location.rental_yield}%` : 'N/A'}
+                      </div>
                     </div>
                     <div>
-                      <div className="w-full mt-2 h-2 bg-gray-200 rounded-full overflow-hidden">
-                        <div 
-                          className="h-full bg-blue-600 rounded-full"
-                          style={{ width: `${Math.min(100, location.rental_yield * 10)}%` }}
-                        ></div>
-                      </div>
+                      {location.rental_yield != null && (
+                        <div className="w-full mt-2 h-2 bg-gray-200 rounded-full overflow-hidden">
+                          <div 
+                            className="h-full bg-blue-600 rounded-full"
+                            style={{ width: `${Math.min(100, location.rental_yield * 10)}%` }}
+                          ></div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </motion.div>
@@ -131,7 +166,7 @@ const LocationTrends = ({ locations }) => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {locations.map((location, index) => (
+                  {processedLocations.map((location, index) => (
                     <motion.tr 
                       key={index} 
                       className={`${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} cursor-pointer transition-colors`}
@@ -145,26 +180,40 @@ const LocationTrends = ({ locations }) => {
                           {location.location}
                         </div>
                       </td>
-                      <td className="py-3 px-4">₹{location.price_per_sqft}</td>
+                      <td className="py-3 px-4">
+                        {location.price_per_sqft ? `₹${location.price_per_sqft.toLocaleString()}` : 'N/A'}
+                      </td>
                       <td className="py-3 px-4">
                         <div className="flex items-center">
-                          {location.percent_increase}%
-                          {location.percent_increase >= 10 && (
-                            <span className="ml-1.5 p-1 bg-green-100 rounded-full">
-                              <ArrowUp className="w-3 h-3 text-green-600" />
-                            </span>
+                          {location.percent_increase != null ? (
+                            <>
+                              {location.percent_increase}%
+                              {location.percent_increase >= 10 && (
+                                <span className="ml-1.5 p-1 bg-green-100 rounded-full">
+                                  <ArrowUp className="w-3 h-3 text-green-600" />
+                                </span>
+                              )}
+                            </>
+                          ) : (
+                            <span className="text-gray-400">N/A</span>
                           )}
                         </div>
                       </td>
                       <td className="py-3 px-4">
                         <div className="flex items-center">
-                          {location.rental_yield}%
-                          <div className="ml-2 w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
-                            <div 
-                              className="h-full bg-blue-600 rounded-full"
-                              style={{ width: `${Math.min(100, location.rental_yield * 10)}%` }}
-                            ></div>
-                          </div>
+                          {location.rental_yield != null ? (
+                            <>
+                              {location.rental_yield}%
+                              <div className="ml-2 w-16 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                <div 
+                                  className="h-full bg-blue-600 rounded-full"
+                                  style={{ width: `${Math.min(100, location.rental_yield * 10)}%` }}
+                                ></div>
+                              </div>
+                            </>
+                          ) : (
+                            <span className="text-gray-400">N/A</span>
+                          )}
                         </div>
                       </td>
                     </motion.tr>
@@ -182,6 +231,17 @@ const LocationTrends = ({ locations }) => {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20 }}
           >
+            {validRentalYields.length === 0 || validAppreciations.length === 0 ? (
+              <div className="bg-yellow-50 p-4 rounded-lg border border-yellow-100 mb-6">
+                <div className="flex items-start">
+                  <AlertCircle className="h-5 w-5 text-yellow-600 mr-2 mt-0.5 flex-shrink-0" />
+                  <p className="text-yellow-700">
+                    Some data is missing or incomplete. The insights shown may be limited.
+                  </p>
+                </div>
+              </div>
+            ) : null}
+            
             {/* Responsive grid - 1 column on mobile, 2 on medium screens */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
               <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-4 rounded-lg border border-blue-200">
@@ -190,8 +250,12 @@ const LocationTrends = ({ locations }) => {
                   <h3 className="font-medium text-blue-800">Best Rental Yield</h3>
                 </div>
                 <div className="ml-7">
-                  <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1 break-words">{bestRentalYield.location}</div>
-                  <div className="text-blue-700">{bestRentalYield.rental_yield}% annual return</div>
+                  <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1 break-words">
+                    {bestRentalYield?.location || 'N/A'}
+                  </div>
+                  <div className="text-blue-700">
+                    {bestRentalYield?.rental_yield != null ? `${bestRentalYield.rental_yield}% annual return` : 'Data not available'}
+                  </div>
                 </div>
               </div>
               
@@ -201,8 +265,12 @@ const LocationTrends = ({ locations }) => {
                   <h3 className="font-medium text-green-800">Highest Appreciation</h3>
                 </div>
                 <div className="ml-7">
-                  <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1 break-words">{bestAppreciation.location}</div>
-                  <div className="text-green-700">{bestAppreciation.percent_increase}% annual growth</div>
+                  <div className="text-xl sm:text-2xl font-bold text-gray-900 mb-1 break-words">
+                    {bestAppreciation?.location || 'N/A'}
+                  </div>
+                  <div className="text-green-700">
+                    {bestAppreciation?.percent_increase != null ? `${bestAppreciation.percent_increase}% annual growth` : 'Data not available'}
+                  </div>
                 </div>
               </div>
             </div>
@@ -214,25 +282,33 @@ const LocationTrends = ({ locations }) => {
               </div>
               
               <ul className="space-y-4 sm:space-y-3 text-gray-700 text-sm sm:text-base">
-                <motion.li 
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.1 }}
-                  className="flex items-start"
-                >
-                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 mr-2 flex-shrink-0"></span>
-                  <span className="break-words"><strong>{bestRentalYield.location}</strong> offers the highest rental yield at {bestRentalYield.rental_yield}%, making it ideal for income-focused investors.</span>
-                </motion.li>
+                {bestRentalYield?.rental_yield > 0 && (
+                  <motion.li 
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="flex items-start"
+                  >
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 mr-2 flex-shrink-0"></span>
+                    <span className="break-words">
+                      <strong>{bestRentalYield.location}</strong> offers the highest rental yield at {bestRentalYield.rental_yield}%, making it ideal for income-focused investors.
+                    </span>
+                  </motion.li>
+                )}
                 
-                <motion.li 
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.2 }}
-                  className="flex items-start"
-                >
-                  <span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 mr-2 flex-shrink-0"></span>
-                  <span className="break-words"><strong>{bestAppreciation.location}</strong> shows the strongest appreciation at {bestAppreciation.percent_increase}%, suggesting good potential for capital growth.</span>
-                </motion.li>
+                {bestAppreciation?.percent_increase > 0 && (
+                  <motion.li 
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="flex items-start"
+                  >
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 mr-2 flex-shrink-0"></span>
+                    <span className="break-words">
+                      <strong>{bestAppreciation.location}</strong> shows the strongest appreciation at {bestAppreciation.percent_increase}%, suggesting good potential for capital growth.
+                    </span>
+                  </motion.li>
+                )}
                 
                 <motion.li 
                   initial={{ opacity: 0, x: -10 }}
@@ -241,8 +317,24 @@ const LocationTrends = ({ locations }) => {
                   className="flex items-start"
                 >
                   <span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-500 mt-2 mr-2 flex-shrink-0"></span>
-                  <span className="break-words">Areas with rental yields above 4% and appreciation above 8% offer balanced investment opportunities for both income and growth.</span>
+                  <span className="break-words">
+                    Areas with rental yields above 4% and appreciation above 8% offer balanced investment opportunities for both income and growth.
+                  </span>
                 </motion.li>
+                
+                {processedLocations.some(loc => loc.rental_yield == null || loc.percent_increase == null) && (
+                  <motion.li 
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="flex items-start text-amber-700 bg-amber-50 p-3 rounded-md"
+                  >
+                    <AlertCircle className="w-4 h-4 mt-0.5 mr-2 flex-shrink-0" />
+                    <span>
+                      Some locations have missing data. Consider this when making investment decisions or consult with a local real estate expert for more complete information.
+                    </span>
+                  </motion.li>
+                )}
               </ul>
             </div>
           </motion.div>
@@ -256,9 +348,9 @@ LocationTrends.propTypes = {
   locations: PropTypes.arrayOf(
     PropTypes.shape({
       location: PropTypes.string.isRequired,
-      price_per_sqft: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-      percent_increase: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-      rental_yield: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
+      price_per_sqft: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      percent_increase: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      rental_yield: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     })
   )
 };

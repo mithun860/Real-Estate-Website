@@ -3,18 +3,19 @@ import aiService from '../services/aiService.js';
 
 export const searchProperties = async (req, res) => {
     try {
-        const { city, maxPrice, propertyCategory, propertyType } = req.body;
+        const { city, maxPrice, propertyCategory, propertyType, limit = 6 } = req.body;
 
         if (!city || !maxPrice) {
             return res.status(400).json({ success: false, message: 'City and maxPrice are required' });
         }
 
-        // Extract property data using Firecrawl
+        // Extract property data using Firecrawl, specifying the limit
         const propertiesData = await firecrawlService.findProperties(
             city, 
             maxPrice, 
             propertyCategory || 'Residential',
-            propertyType || 'Flat'
+            propertyType || 'Flat',
+            Math.min(limit, 6) // Limit to max 6 properties
         );
 
         // Analyze the properties using AI
@@ -44,13 +45,14 @@ export const searchProperties = async (req, res) => {
 export const getLocationTrends = async (req, res) => {
     try {
         const { city } = req.params;
+        const { limit = 5 } = req.query;
 
         if (!city) {
             return res.status(400).json({ success: false, message: 'City parameter is required' });
         }
 
-        // Extract location trend data using Firecrawl
-        const locationsData = await firecrawlService.getLocationTrends(city);
+        // Extract location trend data using Firecrawl, with limit
+        const locationsData = await firecrawlService.getLocationTrends(city, Math.min(limit, 5));
 
         // Analyze the location trends using AI
         const analysis = await aiService.analyzeLocationTrends(

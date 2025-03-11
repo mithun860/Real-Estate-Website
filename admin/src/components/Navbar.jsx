@@ -1,126 +1,143 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import logo from "../assets/administrator.png";
+import React, { useState } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { 
+  Home, 
+  List, 
+  PlusSquare, 
+  Calendar, 
+  Menu, 
+  X, 
+  LogOut, 
+  LayoutDashboard, 
+  Database 
+} from 'lucide-react';
 
-export default function Navbar() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+const Navbar = () => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    const handleStorageChange = () => {
-      setIsLoggedIn(!!localStorage.getItem("token"));
-    };
-    window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
-  }, []);
-
+  const location = useLocation();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  
+  const isActive = (path) => {
+    return location.pathname === path;
+  };
+  
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('isAdmin');
+    navigate('/login');
+  };
+  
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsLoggedIn(false);
-    navigate("/login");
-  };
+  const navItems = [
+    { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { path: '/list', label: 'Properties', icon: List },
+    { path: '/add', label: 'Add Property', icon: PlusSquare },
+    { path: '/appointments', label: 'Appointments', icon: Calendar },
+  ];
 
   return (
-    <nav className="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
-      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <Link
-          to="/add"
-          className="flex items-center space-x-3 rtl:space-x-reverse"
-        >
-          <img
-            src={logo}
-            className="h-8 bg-white border rounded"
-            alt="Admin Logo"
-          />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            Admin Page
-          </span>
-        </Link>
-
-        {/* Logout button when logged in */}
-        <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          {isLoggedIn ? (
+    <header className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <Link to="/dashboard" className="flex items-center">
+            <div className="p-2 bg-blue-100 rounded-lg">
+              <Home className="h-5 w-5 text-blue-600" />
+            </div>
+            <span className="ml-2 text-xl font-bold text-gray-900">Admin Panel</span>
+          </Link>
+          
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex space-x-1">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  isActive(item.path)
+                    ? 'bg-blue-50 text-blue-700'
+                    : 'text-gray-600 hover:bg-gray-50'
+                }`}
+              >
+                <div className="flex items-center">
+                  <item.icon className="h-4 w-4 mr-1.5" />
+                  {item.label}
+                </div>
+              </Link>
+            ))}
+            
             <button
               onClick={handleLogout}
-              className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+              className="px-3 py-2 rounded-md text-sm font-medium text-red-600 hover:bg-red-50 transition-colors ml-2"
             >
-              Log Out
+              <div className="flex items-center">
+                <LogOut className="h-4 w-4 mr-1.5" />
+                Logout
+              </div>
             </button>
-          ) : null}
-
-          <button
-            data-collapse-toggle="navbar-sticky"
-            type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100"
-            aria-controls="navbar-sticky"
-            aria-expanded={isMenuOpen}
-            onClick={toggleMenu}
-          >
-            <svg
-              className="w-5 h-5"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 17 14"
+          </nav>
+          
+          {/* Mobile Menu Button */}
+          <div className="md:hidden">
+            <button
+              onClick={toggleMenu}
+              className="text-gray-700 hover:text-blue-600 focus:outline-none"
             >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M1 1h15M1 7h15M1 13h15"
-              />
-            </svg>
-          </button>
-        </div>
-
-        {/* Conditional Navigation */}
-        <div
-          className={`items-center justify-between ${
-            isMenuOpen ? "flex" : "hidden"
-          } w-full md:flex md:w-auto md:order-1`}
-        >
-          <ul className="flex flex-col p-4 md:p-0 mt-4 border rounded-lg bg-gray-50 md:space-x-8 md:flex-row md:mt-0 md:border-0 md:bg-white">
-            <li>
-              <Link
-                to="/dashboard"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100"
-              >
-                Dashboard
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/add"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100"
-              >
-                Add
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/list"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100"
-              >
-                List
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/appointments"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100"
-              >
-                Appointments
-              </Link>
-            </li>
-          </ul>
+              {isMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
-    </nav>
+      
+      {/* Mobile Menu */}
+      {isMenuOpen && (
+        <motion.div
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: 'auto' }}
+          exit={{ opacity: 0, height: 0 }}
+          className="md:hidden bg-white border-t border-gray-100 shadow-lg"
+        >
+          <div className="px-2 pt-2 pb-4 space-y-1">
+            {navItems.map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`block px-3 py-2 rounded-md text-base font-medium ${
+                  isActive(item.path)
+                    ? 'bg-blue-50 text-blue-700'
+                    : 'text-gray-600 hover:bg-gray-50'
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                <div className="flex items-center">
+                  <item.icon className="h-5 w-5 mr-2" />
+                  {item.label}
+                </div>
+              </Link>
+            ))}
+            
+            <button
+              onClick={handleLogout}
+              className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-red-600 hover:bg-red-50"
+            >
+              <div className="flex items-center">
+                <LogOut className="h-5 w-5 mr-2" />
+                Logout
+              </div>
+            </button>
+          </div>
+        </motion.div>
+      )}
+    </header>
   );
-}
+};
+
+export default Navbar;
