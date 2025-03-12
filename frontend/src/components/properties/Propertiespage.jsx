@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
-import { Grid, List, SlidersHorizontal, MapPin, Loader } from "lucide-react";
+import { Grid, List, SlidersHorizontal, MapPin, Home } from "lucide-react";
 import SearchBar from "./Searchbar.jsx";
 import FilterSection from "./Filtersection.jsx";
 import PropertyCard from "./Propertycard.jsx";
@@ -113,36 +113,74 @@ const PropertiesPage = () => {
           animate={{ opacity: 1, y: 0 }}
           className="text-center flex flex-col items-center"
         >
-          <div className="relative mb-4">
-            {/* Animated building icon loader */}
+          <div className="relative mb-6">
+            {/* Main loader animation */}
             <motion.div
-              className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center"
+              className="w-24 h-24 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-2xl flex items-center justify-center relative shadow-lg shadow-blue-500/30"
               animate={{ 
-                scale: [1, 1.1, 1],
-                boxShadow: [
-                  "0 0 0 rgba(59, 130, 246, 0.4)",
-                  "0 0 20px rgba(59, 130, 246, 0.6)",
-                  "0 0 0 rgba(59, 130, 246, 0.4)"
-                ]
+                rotate: [0, 0, 360, 360, 0],
+                scale: [1, 0.9, 0.9, 1, 1],
+                borderRadius: ["16%", "50%", "50%", "16%", "16%"]
               }}
-              transition={{ duration: 1.5, repeat: Infinity }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
             >
-              <Loader className="w-8 h-8 text-blue-600 animate-spin" />
+              <Home className="w-12 h-12 text-white" />
             </motion.div>
             
-            {/* Pulse animation effect */}
-            <div className="absolute inset-0 rounded-full bg-blue-500/20 animate-ping" style={{ animationDuration: '2s' }}></div>
+            {/* Moving dots around the icon */}
+            <motion.div 
+              className="absolute w-3 h-3 bg-blue-300 rounded-full right-4 bottom-10"
+              animate={{
+                x: [0, 30, 0, -30, 0],
+                y: [-30, 0, 30, 0, -30],
+              }}
+              transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+            />
+            
+            <motion.div 
+              className="absolute w-2 h-2 bg-indigo-400 rounded-full"
+              animate={{
+                x: [0, -30, 0, 30, 0],
+                y: [30, 0, -30, 0, 30],
+              }}
+              transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+            />
+  
+            {/* Background pulse effect */}
+            <div className="absolute inset-0 bg-blue-500/10 rounded-full animate-ping" style={{ animationDuration: '3s' }}></div>
           </div>
           
-          <h3 className="text-xl font-medium text-gray-800 mb-2">Loading Properties</h3>
-          <p className="text-gray-600">Finding your perfect home...</p>
+          <h3 className="text-2xl font-bold text-gray-800 mb-3 bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+            Loading Properties
+          </h3>
           
-          <div className="mt-4 w-48 h-1.5 bg-gray-200 rounded-full overflow-hidden">
+          <p className="text-gray-600 mb-5 max-w-xs text-center">
+            {`We're finding the perfect homes that match your preferences...`}
+          </p>
+          
+          {/* Progress bar with animated gradient */}
+          <div className="w-64 h-2 bg-gray-200 rounded-full overflow-hidden relative">
             <motion.div
-              className="h-full bg-gradient-to-r from-blue-500 to-indigo-600"
-              animate={{ width: ["0%", "100%"] }}
-              transition={{ duration: 2, repeat: Infinity }}
-            ></motion.div>
+              className="h-full bg-gradient-to-r from-blue-600 via-indigo-500 to-blue-600 bg-size-200 absolute top-0 left-0 right-0"
+              animate={{ 
+                backgroundPosition: ["0% center", "100% center", "0% center"] 
+              }}
+              style={{ backgroundSize: "200% 100%" }}
+              transition={{ 
+                duration: 2,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            />
+          </div>
+          
+          <div className="flex items-center mt-4 text-xs text-blue-600">
+            <motion.div 
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 1.5, repeat: Infinity }}
+              className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-2"
+            />
+            <span>Please wait while we curate properties for you</span>
           </div>
         </motion.div>
       </div>

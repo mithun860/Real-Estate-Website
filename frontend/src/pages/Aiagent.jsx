@@ -4,8 +4,18 @@ import PropertyCard from "../components/ai/PropertyCard";
 import LocationTrends from "../components/ai/LocationTrends";
 import AnalysisDisplay from "../components/ai/AnalysisDisplay";
 import { searchProperties, getLocationTrends } from "../services/api";
-import { Building, MapPin, TrendingUp, Brain, AlertCircle, Github, Download } from "lucide-react";
+import {
+  Building,
+  MapPin,
+  TrendingUp,
+  Brain,
+  AlertCircle,
+  Github,
+  Download,
+} from "lucide-react";
 import PropTypes from "prop-types";
+import AiHubSEO from "../components/SEO/AiHubSEO";
+import StructuredData from "../components/SEO/StructuredData";
 
 const AIPropertyHub = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -23,10 +33,14 @@ const AIPropertyHub = () => {
   // Timer for loading state
   useEffect(() => {
     // Check if we're running in a deployed environment (not localhost)
-    const isDeployed = window.location.hostname !== "localhost" && 
-                      !window.location.hostname.startsWith("192.168") &&
-                      !window.location.hostname.startsWith("127.0.0.1");
+    const isDeployed =
+      window.location.hostname !== "localhost" &&
+      !window.location.hostname.startsWith("192.168") &&
+      !window.location.hostname.startsWith("127.0.0.1");
     setIsDeployedVersion(isDeployed);
+
+    document.title =
+      "AI Property Hub | BuildEstate - Real Estate Market Analysis";
   }, []);
 
   // Timer for loading state
@@ -39,11 +53,14 @@ const AIPropertyHub = () => {
     } else {
       setLoadingTime(0);
       setLoadingStage("");
-      
+
       // Scroll to results when loading completes and results are available
       if (searchPerformed && contentRef.current) {
         setTimeout(() => {
-          contentRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          contentRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
         }, 100);
       }
     }
@@ -52,15 +69,17 @@ const AIPropertyHub = () => {
 
   const handleSearch = async (searchParams) => {
     if (isDeployedVersion) {
-      setSearchError("AI features are only available in the local development environment. Please download the repository to use this feature.");
+      setSearchError(
+        "AI features are only available in the local development environment. Please download the repository to use this feature."
+      );
       return;
     }
-    
+
     setIsLoading(true);
     setSearchError("");
     setSearchPerformed(true);
     setLoadingTime(0);
-  
+
     try {
       // Fetch property data
       setLoadingStage("properties");
@@ -68,7 +87,7 @@ const AIPropertyHub = () => {
       console.log("Property Response:", propertyResponse); // Debug log
       setProperties(propertyResponse.properties || []);
       setPropertyAnalysis(propertyResponse.analysis || "");
-  
+
       // Fetch location trends for the same city
       setLoadingStage("locations");
       const locationResponse = await getLocationTrends(searchParams.city);
@@ -187,19 +206,31 @@ const AIPropertyHub = () => {
           .pulse-animation {
             animation: pulse 2s ease-in-out infinite;
           }
-          
+
           @media (max-width: 640px) {
             @keyframes orbit {
-              0% { transform: rotate(0deg) translateX(25px) rotate(0deg); }
-              100% { transform: rotate(360deg) translateX(25px) rotate(-360deg); }
+              0% {
+                transform: rotate(0deg) translateX(25px) rotate(0deg);
+              }
+              100% {
+                transform: rotate(360deg) translateX(25px) rotate(-360deg);
+              }
             }
             @keyframes orbit-reverse {
-              0% { transform: rotate(0deg) translateX(30px) rotate(0deg); }
-              100% { transform: rotate(-360deg) translateX(30px) rotate(-360deg); }
+              0% {
+                transform: rotate(0deg) translateX(30px) rotate(0deg);
+              }
+              100% {
+                transform: rotate(-360deg) translateX(30px) rotate(-360deg);
+              }
             }
             @keyframes orbit-slow {
-              0% { transform: rotate(180deg) translateX(30px) rotate(-180deg); }
-              100% { transform: rotate(-180deg) translateX(30px) rotate(180deg); }
+              0% {
+                transform: rotate(180deg) translateX(30px) rotate(-180deg);
+              }
+              100% {
+                transform: rotate(-180deg) translateX(30px) rotate(180deg);
+              }
             }
           }
         `}</style>
@@ -210,7 +241,9 @@ const AIPropertyHub = () => {
               ? "Finding Ideal Properties"
               : "Analyzing Market Trends"}
           </h3>
-          <p className="text-gray-600 text-base sm:text-lg">{getLoadingMessage()}</p>
+          <p className="text-gray-600 text-base sm:text-lg">
+            {getLoadingMessage()}
+          </p>
         </div>
 
         {/* Responsive progress bar */}
@@ -231,7 +264,9 @@ const AIPropertyHub = () => {
                 <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-blue-600" />
               )}
             </div>
-            <h4 className="font-medium text-blue-800 text-sm sm:text-base">AI Processing</h4>
+            <h4 className="font-medium text-blue-800 text-sm sm:text-base">
+              AI Processing
+            </h4>
           </div>
 
           <p className="text-blue-700 text-xs sm:text-sm">
@@ -257,12 +292,14 @@ const AIPropertyHub = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 pt-16 sm:pt-20 pb-8 sm:pb-12">
+      <AiHubSEO />
+      <StructuredData type="aiHub" />
       <div className="container mx-auto px-4">
         {/* Hero section with gradient background - responsive padding */}
         <div className="mb-8 sm:mb-12 bg-gradient-to-r from-blue-600 to-indigo-700 rounded-xl sm:rounded-2xl p-5 sm:p-8 shadow-lg sm:shadow-xl">
           <div className="max-w-3xl mx-auto text-center">
             <h1 className="text-3xl sm:text-4xl font-bold text-white mb-3 sm:mb-4">
-              AI Property Hub
+              AI Property Hub | Real Estate Analysis Tool
             </h1>
             <p className="text-blue-100 text-lg sm:text-xl mb-6 sm:mb-8">
               Discover your perfect property with AI-powered insights and market
@@ -276,12 +313,15 @@ const AIPropertyHub = () => {
                     <AlertCircle className="w-6 h-6 text-amber-600" />
                   </div>
                   <div className="text-center">
-                    <h3 className="text-lg font-semibold mb-2">AI Features Limited Online</h3>
+                    <h3 className="text-lg font-semibold mb-2">
+                      AI Features Limited Online
+                    </h3>
                     <p className="text-gray-600 mb-4">
-                      Due to API limitations, AI property features are only available in local development environment.
+                      Due to API limitations, AI property features are only
+                      available in local development environment.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                      <a 
+                      <a
                         href="https://github.com/AAYUSH412/Real-Estate-Website"
                         target="_blank"
                         rel="noopener noreferrer"
@@ -290,7 +330,7 @@ const AIPropertyHub = () => {
                         <Github className="w-4 h-4" />
                         <span>View on GitHub</span>
                       </a>
-                      <a 
+                      <a
                         href="https://github.com/AAYUSH412/Real-Estate-Website/archive/refs/heads/main.zip"
                         className="flex items-center justify-center gap-2 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors"
                       >
@@ -382,11 +422,13 @@ const AIPropertyHub = () => {
                   Our advanced AI analyzes real estate data to help you make
                   better property decisions
                 </p>
-                
+
                 {isDeployedVersion && (
                   <div className="mt-4 p-4 bg-amber-50 border border-amber-100 rounded-lg text-sm text-amber-800">
                     <p>
-                      <strong>Note:</strong> AI features are currently only available in the local development environment due to API key restrictions.
+                      <strong>Note:</strong> AI features are currently only
+                      available in the local development environment due to API
+                      key restrictions.
                     </p>
                   </div>
                 )}
@@ -420,7 +462,9 @@ const AIPropertyHub = () => {
 const FeatureCard = ({ icon, title, description }) => (
   <div className="bg-gray-50 p-4 sm:p-5 rounded-lg border border-gray-100">
     <div className="text-blue-600 mb-2 sm:mb-3">{icon}</div>
-    <h3 className="font-semibold text-gray-800 mb-1.5 sm:mb-2 text-sm sm:text-base">{title}</h3>
+    <h3 className="font-semibold text-gray-800 mb-1.5 sm:mb-2 text-sm sm:text-base">
+      {title}
+    </h3>
     <p className="text-gray-600 text-xs sm:text-sm">{description}</p>
   </div>
 );

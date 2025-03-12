@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import { HelmetProvider } from 'react-helmet-async';
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Properties from './pages/Properties'
@@ -15,6 +16,7 @@ import Footer from './components/footer';
 import NotFoundPage from './components/Notfound';
 import { AuthProvider } from './context/AuthContext';
 import AIPropertyHub from './pages/Aiagent'
+import StructuredData from './components/SEO/StructuredData';
 import 'react-toastify/dist/ReactToastify.css';
 
 
@@ -22,8 +24,13 @@ export const Backendurl = import.meta.env.VITE_API_BASE_URL;
 
 const App = () => {
   return (
+    <HelmetProvider>
     <AuthProvider>
     <Router>
+      {/* Base website structured data */}
+      <StructuredData type="website" />
+      <StructuredData type="organization" />
+      
       <Navbar />
       <Routes>
         <Route path="/signup" element={<Signup />} />
@@ -42,6 +49,7 @@ const App = () => {
       <ToastContainer />
     </Router>
     </AuthProvider>
+    </HelmetProvider>
   )
 }
 

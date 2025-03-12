@@ -1,9 +1,9 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
 import { ChevronDown, ChevronUp, Info } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import PropTypes from 'prop-types';
 
 const AnalysisDisplay = ({ analysis }) => {
   const [expanded, setExpanded] = useState(true);

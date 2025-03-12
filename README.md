@@ -1,8 +1,5 @@
 # 🏡 BuildEstate - Premium Real Estate Platform
 
-
-![BuildEstate Banner](https://via.placeholder.com/1200x300)
-
 Welcome to BuildEstate, a modern and comprehensive real estate platform built using the MERN stack (MongoDB, Express, React, Node.js). This full-featured application allows users to browse, list, and manage rental and sale properties with an AI-powered recommendation system.
 
 [![GitHub stars](https://img.shields.io/github/stars/AAYUSH412/Real-Estate-Website?style=social)](https://github.com/AAYUSH412/buildEstate/stargazers)
@@ -14,7 +11,7 @@ Welcome to BuildEstate, a modern and comprehensive real estate platform built us
 
 | Platform | Link |
 |----------|------|
-| Frontend Website | [Visit BuildEstate](https://real-estate-website-sepia-two.vercel.app) |
+| Frontend Website | [Visit BuildEstate](https://buildestate.vercel.app) |
 
 ## ✨ Showcase
 
@@ -26,6 +23,12 @@ Welcome to BuildEstate, a modern and comprehensive real estate platform built us
 </p>
 <p align="center">
   <img src="https://ik.imagekit.io/xh3awoalr/Property/github/Screenshot%202025-03-07%20at%2011.29.18%E2%80%AFAM.png" alt="AI agent" width="100%">
+</p>
+<p align="center">
+  <img src="https://ik.imagekit.io/xh3awoalr/Property/github/Screenshot%202025-03-11%20at%204.01.34%E2%80%AFPM.png" alt="AI agent" width="100%">
+</p>
+<p align="center">
+  <img src="https://ik.imagekit.io/xh3awoalr/Property/github/Screenshot%202025-03-11%20at%204.01.51%E2%80%AFPM.png" alt="AI agent" width="100%">
 </p>
 
 
