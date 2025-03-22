@@ -1,296 +1,214 @@
-# 🏡 BuildEstate - Premium Real Estate Platform
+# BuildEstate - Premium Real Estate Platform
 
-Welcome to BuildEstate, a modern and comprehensive real estate platform built using the MERN stack (MongoDB, Express, React, Node.js). This full-featured application allows users to browse, list, and manage rental and sale properties with an AI-powered recommendation system.
+<div align="center">
+  <img src="./frontend/src/assets/home-regular-24.png" alt="BuildEstate Logo" width="120" />
+  <h3>Find Your Perfect Property with AI-Powered Insights</h3>
+</div>
 
-[![GitHub stars](https://img.shields.io/github/stars/AAYUSH412/Real-Estate-Website?style=social)](https://github.com/AAYUSH412/buildEstate/stargazers)
-[![GitHub license](https://img.shields.io/github/license/AAYUSH412/Real-Estate-Website)](https://github.com/AAYUSH412/buildEstate/blob/main/LICENSE)
-[![GitHub issues](https://img.shields.io/github/issues/AAYUSH412/Real-Estate-Website)](https://github.com/AAYUSH412/buildEstate/issues)
-[![GitHub forks](https://img.shields.io/github/forks/AAYUSH412/Real-Estate-Website?style=social)](https://github.com/AAYUSH412/buildEstate/network/members)
+## 📋 Overview
 
-## 🚀 Demo
+BuildEstate is a comprehensive real estate platform built with the MERN stack that provides advanced property search capabilities, AI-powered market insights, and a complete property management system. The platform helps users find their ideal properties while providing valuable investment analysis through cutting-edge AI technology.
 
-| Platform | Link |
-|----------|------|
-| Frontend Website | [Visit BuildEstate](https://buildestate.vercel.app) |
+## ✨ Features
 
-## ✨ Showcase
+### 🏠 User Features
 
-<p align="center">
-  <img src="https://ik.imagekit.io/xh3awoalr/Property/github/Screenshot%202025-03-07%20at%2011.28.47%E2%80%AFAM.png" alt="Homepage" width="100%">
-</p>
-<p align="center">
-  <img src="https://ik.imagekit.io/xh3awoalr/Property/github/Screenshot%202025-03-07%20at%2011.28.54%E2%80%AFAM.png" alt="Property Listing" width="100%">
-</p>
-<p align="center">
-  <img src="https://ik.imagekit.io/xh3awoalr/Property/github/Screenshot%202025-03-07%20at%2011.29.18%E2%80%AFAM.png" alt="AI agent" width="100%">
-</p>
-<p align="center">
-  <img src="https://ik.imagekit.io/xh3awoalr/Property/github/Screenshot%202025-03-11%20at%204.01.34%E2%80%AFPM.png" alt="AI agent" width="100%">
-</p>
-<p align="center">
-  <img src="https://ik.imagekit.io/xh3awoalr/Property/github/Screenshot%202025-03-11%20at%204.01.51%E2%80%AFPM.png" alt="AI agent" width="100%">
-</p>
-
-
-## 🌟 Key Features
-
-### 🔑 User Features
-- **Advanced Property Search**: Filter by location, price, amenities, property type, and more
-- **Detailed Property Listings**: High-quality images, comprehensive property information, and contact details
-- **User Authentication**: Secure registration and login system with JWT authentication
-- **Appointment Scheduling**: Book property viewings with integrated calendar
-- **Responsive Design**: Fully optimized experience across all devices
-- **Favorites System**: Save properties for later viewing
-- **User Reviews**: Leave and view property reviews
+- **Advanced Property Search:** Filter properties by location, price range, amenities, and property type
+- **Virtual Property Tours:** Detailed property listings with high-quality images and comprehensive information
+- **User Authentication:** Secure registration and login with JWT
+- **Appointment Scheduling:** Book and manage property viewings with email notifications
+- **Favorites System:** Save properties for later viewing
+- **Responsive Design:** Fully optimized for all devices
 
 ### 🤖 AI-Powered Features
-- **AI Property Recommendations**: Get personalized property suggestions based on preferences
-- **Location Trend Analysis**: View market trends, rental yields, and property appreciation rates
-- **Investment Insights**: Receive AI-generated investment recommendations for different areas
-- **Natural Language Search**: Find properties using conversational queries
-- **Price Prediction**: AI-powered price estimation for both buyers and sellers
 
-### 👑 Admin Features
-- **Property Management**: Add, edit, and delete property listings with ease
-- **Dashboard Analytics**: Comprehensive statistics on properties, users, and views
-- **Appointment Management**: Handle viewing requests and update appointment status
-- **User Management**: Track user registrations and activities
-- **Performance Metrics**: Analyze platform usage and performance trends
+- **Smart Property Recommendations:** AI-powered search that finds properties matching specific requirements
+- **Location Trend Analysis:** Visualizes market trends, rental yields, and property appreciation rates
+- **Investment Insights:** AI-generated recommendations for different areas
+- **Real-time Property Analysis:** Backend services fetch and analyze property data
 
-## 🛠️ Technology Stack
+### 👩‍💼 Admin Features
+
+- **Dashboard Analytics:** Comprehensive statistics on properties, users, and platform metrics
+- **Property Management:** Add, edit, and delete property listings
+- **Appointment Management:** Handle viewing requests and update appointment status
+- **User Management:** Track user activity and manage accounts
+
+## 🛠️ Technologies
 
 ### Frontend
-- **React 18** with functional components and hooks
-- **TailwindCSS** for modern, responsive UI design
-- **Framer Motion** for smooth animations and transitions
-- **React Router v6** for seamless navigation
-- **Axios** for API communication
-- **React Query** for efficient data fetching
-- **React Hook Form** with Yup for form validation
+- React 18 with functional components and hooks
+- TailwindCSS for styling
+- Framer Motion for animations
+- React Router for navigation
+- Axios for API requests
+- Context API for state management
 
 ### Backend
-- **Node.js & Express** for robust API development
-- **MongoDB** with Mongoose for database management
-- **JWT** for secure authentication
-- **ImageKit** for optimized image storage and delivery
-- **Nodemailer** for email notifications
-- **Hugging Face** for AI model integration
+- Node.js & Express for API
+- MongoDB with Mongoose
+- JWT for authentication
+- Nodemailer for email notifications
+- Express Rate Limit and Helmet for security
 
 ### AI Integration
-- **Hugging Face AI Models** for property and location analysis
-- **FirecrawlJS** for real estate data extraction and processing
-- **TensorFlow.js** for client-side machine learning capabilities
+- Azure AI for text generation
+- FirecrawlJS for real estate data extraction
 
-### DevOps
-- **Vercel** for frontend deployment
-- **Render** for backend deployment
-- **MongoDB Atlas** for database hosting
-- **GitHub Actions** for CI/CD pipeline
-
-## 📋 Installation Guide
+## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js (v16 or higher)
-- MongoDB
-- ImageKit account
-- Hugging Face account (for AI features)
+- Node.js (v16+)
+- npm or yarn
+- MongoDB instance (local or Atlas)
+- API keys for AI services
 
-### Setup Steps
+### Installation
 
 1. **Clone the repository**
    ```bash
    git clone https://github.com/AAYUSH412/Real-Estate-Website.git
-   cd buildEstate
+   cd Real-Estate-Website
    ```
 
-2. **Install dependencies**
-   ```bash
-   # Install backend dependencies
-   cd backend
-   npm install
+2. **Setup environment variables**
+   
+   Create `.env` files in the backend, frontend, and admin directories with the following variables:
 
-   # Install frontend dependencies
-   cd ../frontend
-   npm install
-
-   # Install admin dependencies
-   cd ../admin
-   npm install
-   ```
-
-3. **Environment Setup**
-
-   **Backend `.env.local`:**
+   **Backend (.env)**
    ```
    PORT=4000
    MONGODB_URI=your_mongodb_connection_string
    JWT_SECRET=your_jwt_secret
-   JWT_EXPIRE=30d
-   EMAIL_SERVICE=your_email_service
-   EMAIL_USERNAME=your_email_username
-   EMAIL_PASSWORD=your_email_password
-   EMAIL_FROM=noreply@buildEstate.com
-   IMAGEKIT_PUBLIC_KEY=your_imagekit_public_key
-   IMAGEKIT_PRIVATE_KEY=your_imagekit_private_key
-   IMAGEKIT_URL_ENDPOINT=your_imagekit_url_endpoint
-   HF_API_TOKEN=your_hugging_face_api_token
+   EMAIL=your_email_for_sending_notifications
+   PASSWORD=your_email_password
+   AZURE_API_KEY=your_azure_ai_key
+   FIRECRAWL_API_KEY=your_firecrawl_api_key
    ```
 
-   **Frontend `.env.local`:**
+   **Frontend (.env.local)**
    ```
-   REACT_APP_API_URL=http://localhost:4000/api
-   REACT_APP_IMAGEKIT_PUBLIC_KEY=your_imagekit_public_key
-   REACT_APP_IMAGEKIT_URL_ENDPOINT=your_imagekit_url_endpoint
-   REACT_APP_MAPS_API_KEY=your_google_maps_api_key
+   VITE_BACKEND_URL=http://localhost:4000
    ```
 
-   **Admin `.env.local`:**
+   **Admin (.env.local)**
    ```
-   REACT_APP_API_URL=http://localhost:4000/api
-   REACT_APP_IMAGEKIT_PUBLIC_KEY=your_imagekit_public_key
-   REACT_APP_IMAGEKIT_URL_ENDPOINT=your_imagekit_url_endpoint
-   REACT_APP_ADMIN_TOKEN=your_admin_token
+   VITE_BACKEND_URL=http://localhost:4000
    ```
 
-4. **Start the application**
+3. **Install dependencies**
+
    ```bash
-   # Start backend server
+   # Backend dependencies
+   cd backend
+   npm install
+
+   # Frontend dependencies
+   cd ../frontend
+   npm install
+
+   # Admin dependencies
+   cd ../admin
+   npm install
+   ```
+
+4. **Run the development servers**
+
+   ```bash
+   # Run backend server
    cd backend
    npm run dev
 
-   # Start frontend application (in a new terminal)
+   # Run frontend app (in a new terminal)
    cd frontend
-   npm start
+   npm run dev
 
-   # Start admin dashboard (in a new terminal)
+   # Run admin app (in a new terminal)
    cd admin
-   npm start
+   npm run dev
    ```
 
 5. **Access the applications**
    - Frontend: http://localhost:5173
-   - Admin: http://localhost:5174
+   - Admin Panel: http://localhost:5174
    - Backend API: http://localhost:4000
 
-## 📚 API Documentation
-
-### Authentication Endpoints
-- `POST /api/users/register` - Register new user
-- `POST /api/users/login` - User login
-- `POST /api/users/forgot-password` - Password reset request
-- `POST /api/users/reset-password/:token` - Reset password with token
-- `GET /api/users/profile` - Get user profile (requires auth)
-- `PUT /api/users/profile` - Update user profile (requires auth)
-
-### Property Endpoints
-- `GET /api/products` - List all properties
-- `GET /api/products/single/:id` - Get single property details
-- `POST /api/products` - Add new property (requires auth)
-- `PUT /api/products/:id` - Update property (requires auth)
-- `DELETE /api/products/:id` - Delete property (requires auth)
-- `POST /api/products/:id/favorite` - Add property to favorites (requires auth)
-- `DELETE /api/products/:id/favorite` - Remove property from favorites (requires auth)
-- `GET /api/products/favorites` - Get user's favorite properties (requires auth)
-
-### Appointment Endpoints
-- `POST /api/appointments` - Schedule property viewing
-- `GET /api/appointments/:userId` - Get user appointments
-- `PUT /api/appointments/:id` - Update appointment status (requires admin)
-- `DELETE /api/appointments/:id` - Cancel appointment (requires auth)
-
-### AI Property Endpoints
-- `POST /api/search-properties` - Search properties with AI analysis
-- `GET /api/location-trends/:city` - Get location trends and analysis
-- `POST /api/property-value-prediction` - Get AI-based property value prediction
-- `GET /api/investment-insights/:location` - Get investment insights for location
-
-## 📦 Project Structure
+## 📱 App Structure
 
 ```
-buildEstate/
-├── backend/               # Node.js and Express backend
-│   ├── config/            # Configuration files
-│   ├── controllers/       # Request handlers
-│   ├── middleware/        # Custom middleware
-│   ├── models/            # Mongoose models
+project/
+├── admin/                 # Admin dashboard React app
+├── backend/               # Express server and API
+│   ├── config/            # Server configuration
+│   ├── controller/        # Request handlers
+│   ├── middleware/        # Express middleware
+│   ├── models/            # Mongoose schemas
 │   ├── routes/            # API routes
-│   ├── services/          # Business logic
-│   ├── utils/             # Utility functions
-│   └── server.js          # Entry point
-├── frontend/              # React frontend
-│   ├── public/            # Static files
-│   └── src/
-│       ├── assets/        # Images, fonts, etc.
-│       ├── components/    # Reusable components
-│       ├── context/       # React context
-│       ├── hooks/         # Custom hooks
-│       ├── pages/         # Page components
-│       ├── services/      # API services
-│       ├── utils/         # Utility functions
-│       └── App.js         # Main component
-├── admin/                 # Admin dashboard
-│   ├── public/            # Static files
-│   └── src/
-│       ├── assets/        # Admin assets
-│       ├── components/    # Admin components
-│       ├── pages/         # Admin pages
-│       ├── services/      # Admin services
-│       └── App.js         # Main admin component
-└── README.md              # Project documentation
+│   ├── services/          # External service integrations
+│   └── server.js          # Main server file
+└── frontend/              # User-facing React app
+    ├── public/            # Static assets
+    └── src/
+        ├── assets/        # Images and static resources
+        ├── components/    # Reusable UI components
+        ├── context/       # React context providers
+        ├── pages/         # Main page components
+        └── utils/         # Helper functions
 ```
 
-## 🤝 How to Contribute
+## 🖼️ Screenshots
 
-We welcome contributions to BuildEstate! Here's how you can help:
+### Home Page
+<img src="https://ik.imagekit.io/xh3awoalr/Property/github/Screenshot%202025-03-07%20at%2011.28.47%E2%80%AFAM.png?updatedAt=1741327228785" alt="Home Page" width="100%" />
 
-1. **Fork the repository**
-2. **Create a new branch**:
-   ```bash
-   git checkout -b feature/amazing-feature
-   ```
-3. **Make your changes**
-4. **Commit your changes**:
-   ```bash
-   git commit -m 'Add some amazing feature'
-   ```
-5. **Push to the branch**:
-   ```bash
-   git push origin feature/amazing-feature
-   ```
-6. **Open a Pull Request**
+### Property Listings
+<img src="https://ik.imagekit.io/xh3awoalr/Property/github/Screenshot%202025-03-07%20at%2011.28.54%E2%80%AFAM.png?updatedAt=1741327229157" alt="Property Listings Page" width="100%" />
 
-Please ensure your code follows our coding standards and includes appropriate tests.
+### Property Details
+<img src="https://ik.imagekit.io/xh3awoalr/Property/github/Screenshot%202025-03-07%20at%2011.29.18%E2%80%AFAM.png?updatedAt=1741327228975" alt="Property Details Page" width="100%" />
+
+### AI-Powered Property Analysis
+<img src="https://ik.imagekit.io/xh3awoalr/Property/github/Screenshot%202025-03-11%20at%204.01.34%E2%80%AFPM.png?updatedAt=1741689154739" alt="AI Property Analysis" width="100%" />
+
+### AI-Powered Location Trends
+<img src="https://ik.imagekit.io/xh3awoalr/Property/github/Screenshot%202025-03-11%20at%204.01.51%E2%80%AFPM.png?updatedAt=1741689154924" alt="AI Location Trends" width="100%" />
+
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+See the [CONTRIBUTING.md](CONTRIBUTING.md) file for more details.
 
 ## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🔮 Future Enhancements
+## 🙏 Acknowledgements
 
-- **Mobile Application**: Native experience using React Native
-- **Virtual Property Tours**: Interactive 360° property walkthroughs
-- **Payment Integration**: Secure payment system for rental deposits and purchases
-- **Enhanced AI Capabilities**: More accurate property valuation and recommendations
-- **Multilingual Support**: Expand platform to support multiple languages
-- **Real-time Chat**: Direct communication between users and property owners
-- **Blockchain Integration**: Property verification and smart contracts
+- [React](https://reactjs.org/)
+- [Express](https://expressjs.com/)
+- [MongoDB](https://www.mongodb.com/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [Lucide Icons](https://lucide.dev/)
+- [Azure AI](https://azure.microsoft.com/en-us/services/cognitive-services/ai-services/)
 
-## 👨‍💻 Author
+## 📧 Contact
 
-<p align="center">
-  <a href="https://github.com/AAYUSH412">
-  </a>
-</p>
-<p align="center">
-  <b>Aayush Vaghela</b>
-</p>
-<p align="center">
-  <a href="https://github.com/AAYUSH412">
-    <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" alt="GitHub">
-  </a>
-  <a href="https://linkedin.com/in/AAYUSH412">
-    <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn">
-  </a>
-</p>
+Aayush Vaghela - [GitHub](https://github.com/AAYUSH412)
 
-<p align="center">Made with ❤️ by Aayush Vaghela</p>
+Project Link: [https://github.com/AAYUSH412/Real-Estate-Website](https://github.com/AAYUSH412/Real-Estate-Website)
+
+---
+
+<div align="center">
+  <p>Built with ❤️ by Aayush Vaghela</p>
+  <p>© 2024 BuildEstate. All Rights Reserved.</p>
+</div>

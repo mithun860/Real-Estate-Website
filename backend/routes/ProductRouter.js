@@ -2,7 +2,6 @@ import express from 'express';
 import { addproperty, listproperty, removeproperty, updateproperty,singleproperty } from '../controller/productcontroller.js';
 import upload from '../middleware/multer.js';
 
-
 const propertyrouter = express.Router();
 
 propertyrouter.post('/add', upload.fields([
