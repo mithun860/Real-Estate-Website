@@ -77,7 +77,7 @@ const PropertyCard = ({ property, viewType }) => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="w-full h-full object-fill"
+            className="w-full h-full object-cover rounded-t-xl rounded-b-none"
           />
         </AnimatePresence>
 
