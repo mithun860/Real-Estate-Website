@@ -70,3 +70,7 @@ coverage/
 # Storybook files
 out/
 .storybook-out/
+
+# Do NOT ignore these important files
+!package-lock.json
+!yarn.lock

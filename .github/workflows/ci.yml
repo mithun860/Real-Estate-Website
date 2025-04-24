@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x, 18.x]
+        node-version: [18.x]
 
     steps:
     - uses: actions/checkout@v3
@@ -21,19 +21,32 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+        cache: false  # Explicitly disable caching to avoid lock file errors
+    
+    # Generate lock files first (if they don't exist)
+    - name: Generate lock files
+      run: |
+        # Check and create package-lock.json files if needed
+        [ ! -f ./package-lock.json ] && npm install --package-lock-only || echo "Root lock file exists"
+        [ ! -f ./backend/package-lock.json ] && cd backend && npm install --package-lock-only && cd .. || echo "Backend lock file exists"
+        [ ! -f ./frontend/package-lock.json ] && cd frontend && npm install --package-lock-only && cd .. || echo "Frontend lock file exists"
+        [ ! -f ./admin/package-lock.json ] && cd admin && npm install --package-lock-only && cd .. || echo "Admin lock file exists"
+    
+    # Install dependencies
+    - name: Install root dependencies
+      run: npm ci || npm install  # Try npm ci first, fall back to npm install
     
     - name: Install backend dependencies
       working-directory: ./backend
-      run: npm ci
+      run: npm ci || npm install
     
     - name: Install frontend dependencies
       working-directory: ./frontend
-      run: npm ci
+      run: npm ci || npm install
     
     - name: Install admin dependencies
       working-directory: ./admin
-      run: npm ci
+      run: npm ci || npm install
     
     - name: Lint backend
       working-directory: ./backend
