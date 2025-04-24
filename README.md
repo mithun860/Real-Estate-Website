@@ -18,7 +18,7 @@
   [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white&labelColor=20232A)](https://tailwindcss.com/)
   [![Framer Motion](https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white&labelColor=20232A)](https://www.framer.com/motion/)
   
-  <a href="https://real-estate-website-sepia-two.vercel.app" target="_blank"><img src="https://img.shields.io/badge/LIVE_DEMO-Visit_Site-4285F4?style=for-the-badge&logoColor=white&labelColor=2c3e50" alt="Live Demo" /></a>
+  <a href="https://buildestate.vercel.app" target="_blank"><img src="https://img.shields.io/badge/LIVE_DEMO-Visit_Site-4285F4?style=for-the-badge&logoColor=white&labelColor=2c3e50" alt="Live Demo" /></a>
   <a href="#%EF%B8%8F-installation"><img src="https://img.shields.io/badge/SETUP-Installation_Guide-00C853?style=for-the-badge&logoColor=white&labelColor=2c3e50" alt="Installation Guide" /></a>
   <a href="https://github.com/AAYUSH412/Real-Estate-Website/issues/new"><img src="https://img.shields.io/badge/SUPPORT-Report_Bug-F44336?style=for-the-badge&logoColor=white&labelColor=2c3e50" alt="Report Bug" /></a>
   <a href="#-contributing"><img src="https://img.shields.io/badge/COMMUNITY-Contribute-FF9800?style=for-the-badge&logoColor=white&labelColor=2c3e50" alt="Contribute" /></a>
