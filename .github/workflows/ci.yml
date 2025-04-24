@@ -1,0 +1,56 @@
+name: BuildEstate CI/CD
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x]
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Install backend dependencies
+      working-directory: ./backend
+      run: npm ci
+    
+    - name: Install frontend dependencies
+      working-directory: ./frontend
+      run: npm ci
+    
+    - name: Install admin dependencies
+      working-directory: ./admin
+      run: npm ci
+    
+    - name: Lint backend
+      working-directory: ./backend
+      run: npm run lint || echo "No lint script found"
+    
+    - name: Lint frontend
+      working-directory: ./frontend
+      run: npm run lint || echo "No lint script found"
+    
+    - name: Lint admin
+      working-directory: ./admin
+      run: npm run lint || echo "No lint script found"
+    
+    - name: Build frontend
+      working-directory: ./frontend
+      run: npm run build
+    
+    - name: Build admin dashboard
+      working-directory: ./admin
+      run: npm run build
