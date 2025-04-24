@@ -21,7 +21,8 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-        cache: false  # Explicitly disable caching to avoid lock file errors
+        # Either specify a package manager for caching or remove cache parameter completely
+        # cache: 'npm'  # Uncomment this line if you want to enable npm caching
     
     # Generate lock files first (if they don't exist)
     - name: Generate lock files
