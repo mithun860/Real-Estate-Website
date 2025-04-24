@@ -10,4 +10,23 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    rollupOptions: {
+      external: [],
+      output: {
+        manualChunks: (id) => {
+          // Create a separate chunk for react-helmet-async
+          if (id.includes('node_modules/react-helmet-async')) {
+            return 'react-helmet-async';
+          }
+        }
+      }
+    },
+    commonjsOptions: {
+      include: [/node_modules/],
+    }
+  },
+  optimizeDeps: {
+    include: ['react-helmet-async']
+  }
 })

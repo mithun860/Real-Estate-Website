@@ -21,33 +21,32 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
-        # Either specify a package manager for caching or remove cache parameter completely
-        # cache: 'npm'  # Uncomment this line if you want to enable npm caching
+        cache: 'npm'  # Enable npm caching
+        cache-dependency-path: '**/package-lock.json'
     
-    # Generate lock files first (if they don't exist)
-    - name: Generate lock files
-      run: |
-        # Check and create package-lock.json files if needed
-        [ ! -f ./package-lock.json ] && npm install --package-lock-only || echo "Root lock file exists"
-        [ ! -f ./backend/package-lock.json ] && cd backend && npm install --package-lock-only && cd .. || echo "Backend lock file exists"
-        [ ! -f ./frontend/package-lock.json ] && cd frontend && npm install --package-lock-only && cd .. || echo "Frontend lock file exists"
-        [ ! -f ./admin/package-lock.json ] && cd admin && npm install --package-lock-only && cd .. || echo "Admin lock file exists"
+    # Clean npm cache in case of corrupted cache
+    - name: Clean npm cache
+      run: npm cache clean --force
     
-    # Install dependencies
+    # Install dependencies with a clean installation
     - name: Install root dependencies
-      run: npm ci || npm install  # Try npm ci first, fall back to npm install
+      run: npm ci --prefer-offline || npm install
     
     - name: Install backend dependencies
       working-directory: ./backend
-      run: npm ci || npm install
+      run: npm ci --prefer-offline || npm install
     
     - name: Install frontend dependencies
       working-directory: ./frontend
-      run: npm ci || npm install
+      run: |
+        rm -rf node_modules
+        npm ci --prefer-offline || npm install
+        # Explicitly install react-helmet-async to ensure it's available
+        npm install react-helmet-async --save
     
     - name: Install admin dependencies
       working-directory: ./admin
-      run: npm ci || npm install
+      run: npm ci --prefer-offline || npm install
     
     - name: Lint backend
       working-directory: ./backend
