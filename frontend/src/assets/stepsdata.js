@@ -4,7 +4,7 @@ export const steps = [
   {
     icon: Search,
     title: 'Find Your Property',
-    description: 'Use our AI-powered search to discover properties matching your exact needs. Filter by location, price, amenities and more.',
+    description: 'Use our filtered approach to search to discover properties matching your exact needs. Filter by location, price, amenities and more.',
   },
   {
     icon: Calendar,

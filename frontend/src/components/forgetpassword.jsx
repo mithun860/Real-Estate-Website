@@ -40,8 +40,8 @@ const ForgotPassword = () => {
           {/* Logo & Title */}
           <div className="text-center mb-8">
             <Link to="/" className="inline-block mb-6">
-              <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-                BuildEstate
+              <h2 className="text-4xl font-bold bg-gradient-to-r from-green-600 to-green-700 bg-clip-text text-transparent">
+                THREE LEAF
               </h2>
             </Link>
             <h2 className="text-2xl font-semibold text-gray-800">Forgot Password?</h2>

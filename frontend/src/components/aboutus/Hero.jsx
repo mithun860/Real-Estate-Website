@@ -1,84 +1,137 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
-export default function Hero() {
+const Hero = () => {
+  const [bgAngle, setBgAngle] = useState(0);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setBgAngle((prev) => (prev + 30) % 360);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleExploreClick = () => {
+    navigate("/"); // Navigate to homepage
+  };
+
+  const handleContactClick = () => {
+    navigate("/contact"); // Navigate to contact page
+  };
+
   return (
-    <div className="mt-16">
-      <div className="relative h-[80vh] flex items-center justify-center overflow-hidden">
-        {/* Animated gradient background */}
-        <div className="absolute inset-0 z-0">
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800"
-            animate={{
-              background: [
-                'linear-gradient(to bottom right, rgba(37, 99, 235, 1), rgba(79, 70, 229, 1), rgba(124, 58, 237, 0.8))',
-                'linear-gradient(to bottom right, rgba(79, 70, 229, 1), rgba(124, 58, 237, 0.8), rgba(37, 99, 235, 1))',
-                'linear-gradient(to bottom right, rgba(124, 58, 237, 0.8), rgba(37, 99, 235, 1), rgba(79, 70, 229, 1))'
-              ]
-            }}
-            transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-          />
-          
-          {/* Animated shapes */}
-          <div className="absolute inset-0 opacity-20">
-            <motion.div 
-              className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-blue-300"
-              animate={{ 
-                x: [0, 30, 0, -30, 0],
-                y: [0, -30, 0, 30, 0],
-                scale: [1, 1.1, 1, 0.9, 1]
-              }}
-              transition={{ duration: 15, repeat: Infinity, ease: "easeInOut" }}
-            />
-            
-            <motion.div 
-              className="absolute bottom-1/4 right-1/4 w-64 h-64 rounded-full bg-indigo-300"
-              animate={{ 
-                x: [0, -40, 0, 40, 0],
-                y: [0, 40, 0, -40, 0],
-                scale: [1, 0.9, 1, 1.1, 1]
-              }}
-              transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
-            />
-            
-            <motion.div 
-              className="absolute top-1/3 right-1/3 w-80 h-80 rounded-full bg-purple-300"
-              animate={{ 
-                x: [0, 50, 0, -50, 0],
-                y: [0, -50, 0, 50, 0],
-                scale: [1, 1.2, 1, 0.8, 1]
-              }}
-              transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
-            />
-          </div>
-          
-          {/* Pattern overlay */}
-          <div className="absolute inset-0 opacity-30 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MCIgaGVpZ2h0PSI2MCIgdmlld0JveD0iMCAwIDYwIDYwIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iLjMiPjxwYXRoIGQ9Ik01IDEwQzMuODk1IDEwIDMgMTAuODk1IDMgMTJ2MzhjMCAxLjEwNS44OTUgMiAyIDJoMzhWMTBINXptMzgtMkg1QzIuODEgOCAxIDkuODEgMSAxMnYzOGMwIDIuMTkgMS43OSA0IDQgNGg0MWMxLjEwNSAwIDItLjg5NSAyLTJWMTBjMC0xLjEwNS0uODk1LTItMi0yaC0zeiIvPjwvZz48L2c+PC9zdmc+')]"></div>
-        </div>
+    <div className="relative min-h-screen flex flex-col justify-center items-center px-6 py-24 text-center overflow-hidden bg-slate-950">
+      {/* Animated Background */}
+      <motion.div
+        className="absolute inset-0 z-0 transition-all duration-1000 ease-in-out"
+        style={{
+          background: `linear-gradient(${bgAngle}deg, #0f172a, #1e293b, #1e3a8a)`,
+        }}
+        animate={{ opacity: 1 }}
+        initial={{ opacity: 0 }}
+      />
+      
+      {/* Glow Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-emerald-300/20 via-sky-400/10 to-purple-400/5 blur-sm z-0" />
 
-        {/* Content */}
-        <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-          className="relative text-center text-white px-4 max-w-4xl mx-auto z-10"
-        >
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-bold mb-8 leading-tight">
-            Building Your Future,<br />One Home at a Time
-          </h1>
-          <p className="text-xl md:text-2xl leading-relaxed font-light">
-            We're more than just a property platform - we're your partner in finding the perfect place to call home.
-          </p>
-          
-          {/* Decorative line */}
-          <motion.div 
-            className="w-24 h-1 bg-white mx-auto mt-8"
-            initial={{ width: 0, opacity: 0 }}
-            animate={{ width: 96, opacity: 1 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
+      {/* Particle Background */}
+      <div className="absolute inset-0 z-0 opacity-20">
+        {[...Array(30)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute rounded-full bg-white"
+            style={{
+              width: Math.random() * 5 + 1 + 'px',
+              height: Math.random() * 5 + 1 + 'px',
+              left: Math.random() * 100 + '%',
+              top: Math.random() * 100 + '%',
+            }}
+            animate={{
+              y: [0, (Math.random() - 0.5) * 100],
+              x: [0, (Math.random() - 0.5) * 50],
+              opacity: [0.2, 0.8, 0.2],
+            }}
+            transition={{
+              duration: Math.random() * 10 + 10,
+              repeat: Infinity,
+              repeatType: 'reverse',
+            }}
           />
+        ))}
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 max-w-5xl">
+        <motion.h1
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="text-4xl sm:text-6xl md:text-7xl font-extrabold leading-tight tracking-tight text-white"
+        >
+          <span className="bg-gradient-to-r from-emerald-400 to-sky-400 bg-clip-text text-transparent">
+            Where Luxury Meets Lifestyle
+          </span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 1 }}
+          className="mt-6 text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto"
+        >
+          At <span className="text-emerald-400 font-semibold">SPLR Developers</span>, we craft exceptional living spaces that embody sophistication and comfort. 
+          Our curated portfolio showcases premium properties with cutting-edge design, premium amenities, 
+          and prime locations that redefine urban living.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.2 }}
+          className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
+        >
+          <motion.button
+            onClick={handleExploreClick}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-8 py-3 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-medium rounded-lg shadow-lg hover:shadow-emerald-500/20 transition-all"
+          >
+            Explore Properties
+          </motion.button>
+          <motion.button
+            onClick={handleContactClick}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-8 py-3 bg-transparent border-2 border-emerald-400 text-emerald-400 font-medium rounded-lg hover:bg-emerald-400/10 transition-all"
+          >
+            Contact Our Team
+          </motion.button>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5 }}
+          className="mt-16 flex flex-wrap justify-center gap-6 text-slate-400 text-sm"
+        >
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-emerald-400"></div>
+            <span>Premium Locations</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-emerald-400"></div>
+            <span>Smart Home Technology</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-emerald-400"></div>
+            <span>Sustainable Design</span>
+          </div>
         </motion.div>
       </div>
     </div>
   );
-}
+};
+
+export default Hero;

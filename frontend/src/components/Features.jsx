@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { features } from "../assets/featuredata";
 
-// Enhanced animation variants
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -30,7 +29,7 @@ const cardVariants = {
 
 const Features = () => {
   return (
-    <section className="py-24 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
+    <section className="py-24 bg-gradient-to-b from-green-100 to-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -40,9 +39,9 @@ const Features = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <span className="bg-blue-50 text-blue-600 px-4 py-1.5 rounded-full text-sm font-medium tracking-wide uppercase">Our Strengths</span>
+          <span className="bg-green-50 text-green-600 px-4 py-1.5 rounded-full text-sm font-medium tracking-wide uppercase">Our Strengths</span>
           <h2 className="text-4xl font-bold text-gray-900 mt-4 mb-4">Why Choose Us</h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-indigo-600 mx-auto mb-6 rounded-full"></div>
+          <div className="w-24 h-1 bg-gradient-to-r from-green-500 to-orange-600 mx-auto mb-6 rounded-full"></div>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             We're committed to providing exceptional service and finding the
             perfect home for you with our innovative approach
@@ -67,8 +66,8 @@ const Features = () => {
                 boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)"
               }}
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl flex items-center justify-center mb-6 transform transition-transform duration-300 group-hover:rotate-6">
-                <feature.icon className="h-8 w-8 text-blue-600" />
+              <div className="w-16 h-16 bg-gradient-to-br from-green-50 to-orange-50 rounded-2xl flex items-center justify-center mb-6 transform transition-transform duration-300 group-hover:rotate-6">
+                <feature.icon className="h-8 w-8 text-green-600" />
               </div>
               
               <h3 className="text-xl font-bold text-gray-900 mb-3">
@@ -81,32 +80,13 @@ const Features = () => {
               
               <motion.a 
                 href="#" 
-                className="inline-flex items-center text-blue-600 text-sm font-medium hover:text-blue-800 transition-colors"
+                className="inline-flex items-center text-green-600 text-sm font-medium hover:text-green-800 transition-colors"
                 whileHover={{ x: 5 }}
               >
                 Learn more <ArrowRight className="ml-2 h-4 w-4" />
               </motion.a>
             </motion.div>
           ))}
-        </motion.div>
-        
-        {/* Call to action */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.5 }}
-          className="flex justify-center mt-16"
-        >
-          <motion.a
-            href="/properties"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-medium rounded-lg shadow-lg hover:shadow-xl transition-all shadow-blue-500/30 flex items-center"
-          >
-            Browse Our Properties
-            <ArrowRight className="ml-2 h-5 w-5" />
-          </motion.a>
         </motion.div>
       </div>
     </section>

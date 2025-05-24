@@ -7,7 +7,6 @@ export const config = {
     huggingfaceApiKey: process.env.HUGGINGFACE_API_KEY,
     modelId: process.env.MODEL_ID || 'mistralai/Mistral-7B-Instruct-v0.2',
     openRouterApiKey: process.env.OPENROUTER_API_KEY,
-    openAIApiKey: process.env.OPENAI_API_KEY,
     azureApiKey: process.env.AZURE_API_KEY,
     useAzure: process.env.USE_AZURE === 'true',
 };

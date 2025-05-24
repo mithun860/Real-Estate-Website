@@ -7,20 +7,20 @@ const contactInfo = [
   {
     icon: Phone,
     title: 'Phone',
-    content: '+1 (234) 567-890',
-    link: 'tel:+1234567890',
+    content: '+918600315351',
+    link: 'tel:+918600315351',
   },
   {
     icon: Mail,
     title: 'Email',
-    content: 'support@buildestate.com',
-    link: 'mailto:support@buildestate.com',
+    content: 'splr@gmail.com',
+    link: 'mailto:splr@gmail.com',
   },
   {
     icon: MapPin,
     title: 'Address',
-    content: '123 Main Street, City, Country',
-    link: '#map',
+    content: 'Flat no 15 Shivom apt, Near Madhuel Electronics, Mahatma nagar Nashik',
+    link: '#Map',
   },
   {
     icon: Clock,

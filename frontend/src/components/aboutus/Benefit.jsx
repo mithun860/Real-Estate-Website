@@ -27,39 +27,44 @@ const benefits = [
 
 export default function Benefits() {
   return (
-    <section className="py-24 bg-gradient-to-b from-white to-gray-50">
+    <section className="py-24 bg-gradient-to-br from-green-50 via-white to-emerald-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
         <motion.div
-          initial={{ y: 20, opacity: 0 }}
+          initial={{ y: 30, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4">Why Choose BuildEstate?</h2>
-          <div className="w-24 h-1 bg-blue-600 mx-auto mb-6"></div>
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            Experience the difference with our comprehensive property solutions
+          <h2 className="text-4xl font-extrabold text-emerald-700 mb-4">
+            Why Choose SPLR?
+          </h2>
+          <div className="w-24 h-1 bg-emerald-500 mx-auto mb-6 rounded-full"></div>
+          <p className="text-gray-700 text-lg max-w-2xl mx-auto">
+            Experience the advantage of modern, transparent, and efficient real estate solutions.
           </p>
         </motion.div>
 
+        {/* Benefits Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {benefits.map((benefit, index) => {
             const Icon = benefit.icon;
             return (
               <motion.div
                 key={benefit.title}
-                initial={{ y: 20, opacity: 0 }}
-                whileInView={{ y: 0, opacity: 1 }}
-                viewport={{ once: true }}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.2 }}
-                className="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
-                whileHover={{ y: -5 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.05 }}
+                className="bg-white p-8 rounded-3xl shadow-md hover:shadow-2xl transition-all duration-300 text-center"
               >
-                <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 transform transition-transform duration-300 hover:rotate-6">
-                  <Icon className="w-8 h-8 text-blue-600" />
+                <div className="w-16 h-16 bg-emerald-100 rounded-xl flex items-center justify-center mx-auto mb-5 hover:rotate-3 transition-transform duration-300">
+                  <Icon className="w-8 h-8 text-emerald-600" />
                 </div>
-                <h3 className="text-xl font-bold mb-4">{benefit.title}</h3>
-                <p className="text-gray-600 text-lg">{benefit.description}</p>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">{benefit.title}</h3>
+                <p className="text-gray-600 text-md">{benefit.description}</p>
               </motion.div>
             );
           })}

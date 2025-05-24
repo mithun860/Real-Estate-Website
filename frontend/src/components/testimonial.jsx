@@ -116,9 +116,9 @@ const Testimonials = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <span className="text-blue-600 font-semibold tracking-wider text-sm uppercase">Testimonials</span>
+          <span className="text-green-600 font-semibold tracking-wider text-sm uppercase">Testimonials</span>
           <h2 className="text-4xl font-bold text-gray-900 mt-2 mb-4">What Our Clients Say</h2>
-          <div className="w-24 h-1 bg-blue-600 mx-auto mb-6 rounded-full"></div>
+          <div className="w-24 h-1 bg-green-600 mx-auto mb-6 rounded-full"></div>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Discover why homeowners trust BuildEstate to find their perfect property
           </p>
@@ -221,7 +221,7 @@ const Testimonials = () => {
         >
           <a 
             href="/contact" 
-            className="inline-flex items-center bg-blue-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-blue-700 transition-colors shadow-lg shadow-blue-600/20"
+            className="inline-flex items-center bg-green-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-orange-700 transition-colors shadow-lg shadow-orange-600/20"
           >
             Share Your Experience
             <ArrowRight className="ml-2 w-4 h-4" />

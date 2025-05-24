@@ -6,11 +6,9 @@ import {
   Instagram, 
   Github, 
   Mail, 
-  Send, 
   MapPin, 
   Phone,
   ChevronRight,
-  ArrowRight,
   ChevronDown
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -116,114 +114,29 @@ const SocialLinks = () => {
   );
 };
 
-// Newsletter Component
-const Newsletter = () => {
-  const [email, setEmail] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!email) {
-      toast.error('Please enter your email');
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const response = await axios.post(`${Backendurl || 'http://localhost:4000'}/news/newsdata`, { email });
-      if (response.status === 200) {
-        toast.success('Successfully subscribed to our newsletter!');
-        setEmail('');
-      } else {
-        toast.error('Failed to subscribe. Please try again.');
-      }
-    } catch (error) {
-      console.error('Error subscribing to newsletter:', error);
-      toast.error('Failed to subscribe. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <div className="w-full">
-      <h3 className="text-sm font-bold tracking-wider text-gray-700 uppercase mb-4">Stay Updated</h3>
-      
-      <p className="text-gray-600 mb-4 text-sm">
-        Subscribe to our newsletter for the latest property listings and real estate insights.
-      </p>
-      
-      <form onSubmit={handleSubmit} className="mt-3">
-        <div className="flex flex-col sm:flex-row gap-3">
-          <div className="relative flex-grow">
-            <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
-            <input
-              type="email"
-              name="email"
-              id="email"
-              placeholder="Your email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="pl-10 pr-4 py-3 w-full text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
-            />
-          </div>
-          <motion.button
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            type="submit"
-            disabled={loading}
-            className="bg-blue-600 text-white px-4 py-3 rounded-lg flex items-center justify-center hover:bg-blue-700 transition-colors duration-200 disabled:opacity-70 sm:w-auto w-full"
-          >
-            {loading ? (
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-            ) : (
-              <>
-                <Send className="w-4 h-4 mr-2" />
-                <span>Subscribe</span>
-              </>
-            )}
-          </motion.button>
-        </div>
-      </form>
-
-      <p className="mt-3 text-xs text-gray-500">
-        By subscribing, you agree to our <a href="#" className="underline hover:text-blue-600">Privacy Policy</a>.
-      </p>
-    </div>
-  );
-};
-
 // Main Footer Component
 const companyLinks = [
   { name: 'Home', href: '/' },
-  { name: 'Properties', href: '/properties' },
   { name: 'About Us', href: '/about' },
   { name: 'Contact', href: '/contact' },
-  { name: 'AI Property Hub', href: '/ai-agent' },
-];
-
-const helpLinks = [
-  { name: 'Customer Support', href: '/' },
-  { name: 'FAQs', href: '/' },
-  { name: 'Terms & Conditions', href: '/' },
-  { name: 'Privacy Policy', href: '/' },
+  { name: 'Sign In', href: '/signin' },
 ];
 
 const contactInfo = [
   { 
     icon: MapPin, 
-    text: '123 Property Plaza, Silicon Valley, CA 94088',
-    href: 'https://maps.google.com/?q=123+Property+Plaza,Silicon+Valley,CA+94088' 
+    text: 'Flat no 15 Shivom apt, Near Madhuel Electronics, Mahatma nagar Nashik',
+    href: 'https://maps.google.com/?q=Flat+no+15+Shivom+apt,+Near+Madhuel+Electronics,+Mahatma+nagar+Nashik' 
   },
   { 
     icon: Phone, 
-    text: '+1 (234) 567-890',
-    href: 'tel:+1234567890'
+    text: '8600315351',
+    href: 'tel:8600315351'
   },
   { 
     icon: Mail, 
-    text: 'support@buildestate.com',
-    href: 'mailto:support@buildestate.com' 
+    text: 'splr@gmail.com',
+    href: 'mailto:splr@gmail.com' 
   },
 ];
 
@@ -239,13 +152,13 @@ const Footer = () => {
               <div className="p-2 bg-blue-100 rounded-lg">
                 <Home className="h-6 w-6 text-blue-600" />
               </div>
-              <span className="ml-3 text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
-                BuildEstate
+              <span className="ml-3 text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-green-700">
+                SPLR Developers
               </span>
             </div>
             
             <p className="text-gray-600 mt-4 text-center lg:text-left lg:mt-6 max-w-md mx-auto lg:mx-0 leading-relaxed">
-              Your trusted partner in finding the perfect home. We make property hunting simple, efficient, and tailored to your unique needs.
+              Your reliable companion in discovering your ideal home. We streamline property searching, making it effortless, efficient, and perfectly suited to your individual preferences.
             </p>
             
             <div className="flex justify-center lg:justify-start">
@@ -256,7 +169,7 @@ const Footer = () => {
           {/* Desktop layout */}
           <div className="hidden lg:grid grid-cols-12 gap-8">
             {/* Quick Links Column */}
-            <FooterColumn title="Quick Links" className="col-span-2" delay={0.2}>
+            <FooterColumn title="Quick Links" className="col-span-3" delay={0.2}>
               <ul className="space-y-3">
                 {companyLinks.map(link => (
                   <li key={link.name} className="group">
@@ -266,19 +179,8 @@ const Footer = () => {
               </ul>
             </FooterColumn>
 
-            {/* Help Column */}
-            <FooterColumn title="Support" className="col-span-2" delay={0.3}>
-              <ul className="space-y-3">
-                {helpLinks.map(link => (
-                  <li key={link.name} className="group">
-                    <FooterLink href={link.href}>{link.name}</FooterLink>
-                  </li>
-                ))}
-              </ul>
-            </FooterColumn>
-
             {/* Contact Info */}
-            <FooterColumn title="Contact Us" className="col-span-3" delay={0.4}>
+            <FooterColumn title="Contact Us" className="col-span-9" delay={0.4}>
               <ul className="space-y-4">
                 {contactInfo.map((item, index) => (
                   <li key={index}>
@@ -295,11 +197,6 @@ const Footer = () => {
                 ))}
               </ul>
             </FooterColumn>
-            
-            {/* Newsletter */}
-            <div className="col-span-5">
-              <Newsletter />
-            </div>
           </div>
 
           {/* Mobile Accordions */}
@@ -307,16 +204,6 @@ const Footer = () => {
             <MobileFooterSection title="Quick Links">
               <ul className="space-y-2 py-2">
                 {companyLinks.map(link => (
-                  <li key={link.name} className="group">
-                    <FooterLink href={link.href}>{link.name}</FooterLink>
-                  </li>
-                ))}
-              </ul>
-            </MobileFooterSection>
-
-            <MobileFooterSection title="Support">
-              <ul className="space-y-2 py-2">
-                {helpLinks.map(link => (
                   <li key={link.name} className="group">
                     <FooterLink href={link.href}>{link.name}</FooterLink>
                   </li>
@@ -341,30 +228,16 @@ const Footer = () => {
                 ))}
               </ul>
             </MobileFooterSection>
-
-            <div className="pt-6 pb-4">
-              <Newsletter />
-            </div>
           </div>
         </div>
       </div>
       
       {/* Bottom Bar */}
       <div className="bg-gray-100 border-t border-gray-200 py-6">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-sm text-gray-600 mb-4 md:mb-0 text-center md:text-left">
-            © {new Date().getFullYear()} BuildEstate. All Rights Reserved.
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <p className="text-sm text-gray-600 text-center">
+            © {new Date().getFullYear()} SPLR Developers. All Rights Reserved.
           </p>
-          
-          <motion.a
-            href="/properties"
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
-            className="flex items-center text-blue-600 hover:text-blue-700 text-sm font-medium"
-          >
-            Browse Our Properties
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </motion.a>
         </div>
       </div>
 

@@ -1,10 +1,16 @@
-import path from "path"
-import react from "@vitejs/plugin-react"
-import { defineConfig } from "vite"
+import path from "path";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [react()],
-  server:{port:5173},
+  server: {
+    port: 5173,
+    // Allow all ngrok subdomains to avoid host blocking errors.
+    allowedHosts: [
+     '.ngrok-free.app'
+   ],
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -29,4 +35,4 @@ export default defineConfig({
   optimizeDeps: {
     include: ['react-helmet-async']
   }
-})
+});

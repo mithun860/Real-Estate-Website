@@ -1,81 +1,51 @@
 import { useEffect, useRef } from "react";
 import { useInView, useMotionValue, useSpring } from "framer-motion";
 
-export default function CountUp({
-  to,
+const CountUp = ({
   from = 0,
-  direction = "up",
-  delay = 0,
+  to,
   duration = 1,
+  delay = 0,
+  separator = ",",
   className = "",
-  startWhen = true,
-  separator = "",
-  onStart,
-  onEnd,
-}) {
+}) => {
   const ref = useRef(null);
-  const motionValue = useMotionValue(direction === "down" ? to : from);
-
-  const damping = 20 + 40 * (1 / duration);
-  const stiffness = 100 * (1 / duration);
-
+  const motionValue = useMotionValue(from);
   const springValue = useSpring(motionValue, {
-    damping,
-    stiffness,
+    damping: 20 + 40 * (1 / duration),
+    stiffness: 100 * (1 / duration),
   });
-
-  const isInView = useInView(ref, { once: true, margin: "0px" });
-
-  useEffect(() => {
-    if (ref.current) {
-      ref.current.textContent = String(direction === "down" ? to : from);
-    }
-  }, [from, to, direction]);
+  const isInView = useInView(ref, { once: true });
 
   useEffect(() => {
-    if (isInView && startWhen) {
-      if (typeof onStart === "function") {
-        onStart();
-      }
-
-      const timeoutId = setTimeout(() => {
-        motionValue.set(direction === "down" ? from : to);
+    if (isInView) {
+      const timeout = setTimeout(() => {
+        motionValue.set(to);
       }, delay * 1000);
 
-      const durationTimeoutId = setTimeout(() => {
-        if (typeof onEnd === "function") {
-          onEnd();
-        }
-      }, delay * 1000 + duration * 1000);
-
-      return () => {
-        clearTimeout(timeoutId);
-        clearTimeout(durationTimeoutId);
-      };
+      return () => clearTimeout(timeout);
     }
-  }, [isInView, startWhen, motionValue, direction, from, to, delay, onStart, onEnd, duration]);
+  }, [isInView, motionValue, to, delay]);
 
   useEffect(() => {
     const unsubscribe = springValue.on("change", (latest) => {
       if (ref.current) {
-        const options = {
+        const formatted = new Intl.NumberFormat("en-US", {
           useGrouping: !!separator,
           minimumFractionDigits: 0,
           maximumFractionDigits: 0,
-        };
-
-        const formattedNumber = Intl.NumberFormat("en-US", options).format(
-          latest.toFixed(0)
-        );
+        }).format(latest);
 
         ref.current.textContent = separator
-          ? formattedNumber.replace(/,/g, separator)
-          : formattedNumber;
+          ? formatted.replace(/,/g, separator)
+          : formatted;
       }
     });
 
     return () => unsubscribe();
   }, [springValue, separator]);
 
-  return <span className={`${className}`} ref={ref} />;
-}
+  return <span ref={ref} className={className}></span>;
+};
+
+export default CountUp;
