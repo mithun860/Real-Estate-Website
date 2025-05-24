@@ -74,38 +74,38 @@ const Hero = () => {
         initial="hidden"
         animate="visible"
         variants={container}
-        className="relative z-20 text-center max-w-4xl mx-auto flex flex-col justify-center items-center min-h-screen px-6"
+        className="relative z-20 text-center max-w-4xl mx-auto flex flex-col justify-center items-center min-h-screen px-6 font-montserrat"
       >
         {/* Community Name */}
         <motion.div variants={item} className="mb-8">
-          <h1 className="text-5xl md:text-6xl font-normal text-white mb-4 tracking-tight">
+          <h1 className="text-6xl md:text-8xl font-bold text-white mb-4 tracking-tight">
             <AnimatedText text="THREE LEAF" />
           </h1>
-          <p className="text-xl text-gray-300 font-light">
+          <p className="text-xl text-white font-bold">
             <AnimatedText text="52-Acre Gated Community" />
           </p>
         </motion.div>
 
         {/* Property Types */}
         <motion.div variants={item} className="mb-8">
-          <p className="text-lg text-white font-medium mb-1">
+          <p className="text-lg text-white font-bold mb-1">
             <AnimatedText text="Farmhouse Plots • Bungalow Plots" />
           </p>
-          <p className="text-gray-300">
+          <p className="text-white font-bold">
             <AnimatedText text="Premium Plotted Developments" />
           </p>
         </motion.div>
 
         {/* Description */}
         <motion.div variants={item} className="max-w-2xl mb-8">
-          <p className="text-gray-300 text-lg leading-relaxed font-light">
+          <p className="text-white text-lg leading-relaxed font-bold">
             <AnimatedText text="A serene gated community offering premium plotted developments amidst nature, designed for those who value space, privacy, and quality living." />
           </p>
         </motion.div>
 
         {/* Location */}
-        <motion.div variants={item} className="flex items-center gap-2 text-gray-400 text-sm">
-          <FaMapMarkerAlt className="text-gray-400" />
+        <motion.div variants={item} className="flex items-center gap-2 text-white text-sm font-bold">
+          <FaMapMarkerAlt className="text-white" />
           <span>
             <AnimatedText text="Prime Location • Premium Amenities • Secure Environment" />
           </span>

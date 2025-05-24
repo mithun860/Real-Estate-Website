@@ -200,9 +200,9 @@ const Navbar = () => {
           : "bg-transparent shadow-none"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-32"> {/* Increased height to accommodate larger logo */}
-          {/* Logo Only (w-32 h-32) */}
+      <div className="w-full">
+        <div className="flex items-center justify-between h-32 px-4 sm:px-6 lg:px-8">
+          {/* Logo - left side */}
           <Link to="/" className="flex items-center">
             <motion.div
               whileHover={{ rotate: [0, -10, 10, -10, 0] }}
@@ -211,77 +211,81 @@ const Navbar = () => {
               <img 
                 src={logo} 
                 alt="SPLR logo" 
-                className="w-32 h-32 object-contain"  // Set to w-32 h-32
+                className="w-32 h-32 object-contain"
               />
             </motion.div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            <NavLinks currentPath={location.pathname} />
+          {/* Main content area that will push everything to the sides */}
+          <div className="flex-1 flex items-center justify-end gap-6">
+            {/* Navigation links - positioned towards the right but not at the edge */}
+            <div className="hidden md:flex items-center gap-6 mr-8">
+              <NavLinks currentPath={location.pathname} />
+            </div>
 
-            {/* If logged in, show dropdown */}
-            {isLoggedIn && (
-              <div className="relative" ref={dropdownRef}>
-                <motion.button
-                  whileTap={{ scale: 0.97 }}
-                  onClick={toggleDropdown}
-                  className="flex items-center space-x-3 focus:outline-none"
-                >
-                  <div className="relative">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-r from-green-600 to-orange-600 flex items-center justify-center text-white font-medium text-sm shadow-md hover:shadow-lg transition-shadow">
-                      {getInitials(user?.name)}
-                    </div>
-                    <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-white rounded-full"></div>
-                  </div>
-                  <motion.div
-                    animate={{ rotate: isDropdownOpen ? 180 : 0 }}
-                    transition={{ duration: 0.3 }}
+            {/* User dropdown and mobile menu button - far right */}
+            <div className="flex items-center gap-4">
+              {isLoggedIn && (
+                <div className="relative" ref={dropdownRef}>
+                  <motion.button
+                    whileTap={{ scale: 0.97 }}
+                    onClick={toggleDropdown}
+                    className="flex items-center space-x-3 focus:outline-none"
                   >
-                    <ChevronDown className="w-4 h-4 text-gray-600" />
-                  </motion.div>
-                </motion.button>
-
-                <AnimatePresence>
-                  {isDropdownOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -10, scale: 0.95 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg py-2 border border-gray-100 overflow-hidden"
-                    >
-                      <div className="px-4 py-3 border-b border-gray-100">
-                        <p className="text-sm font-semibold text-gray-900">
-                          {user?.name}
-                        </p>
-                        <p className="text-sm text-gray-500 truncate">
-                          {user?.email}
-                        </p>
+                    <div className="relative">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-r from-green-600 to-orange-600 flex items-center justify-center text-white font-medium text-sm shadow-md hover:shadow-lg transition-shadow">
+                        {getInitials(user?.name)}
                       </div>
-                      <motion.button
-                        whileHover={{ x: 5 }}
-                        onClick={handleLogout}
-                        className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 flex items-center space-x-2 transition-colors"
-                      >
-                        <LogOut className="w-4 h-4" />
-                        <span>Sign out</span>
-                      </motion.button>
+                      <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-white rounded-full"></div>
+                    </div>
+                    <motion.div
+                      animate={{ rotate: isDropdownOpen ? 180 : 0 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <ChevronDown className="w-4 h-4 text-gray-600" />
                     </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-            )}
-          </div>
+                  </motion.button>
 
-          {/* Mobile menu button */}
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            onClick={toggleMobileMenu}
-            className="md:hidden rounded-lg p-2 hover:bg-gray-100 transition-colors focus:outline-none"
-          >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </motion.button>
+                  <AnimatePresence>
+                    {isDropdownOpen && (
+                      <motion.div
+                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg py-2 border border-gray-100 overflow-hidden"
+                      >
+                        <div className="px-4 py-3 border-b border-gray-100">
+                          <p className="text-sm font-semibold text-gray-900">
+                            {user?.name}
+                          </p>
+                          <p className="text-sm text-gray-500 truncate">
+                            {user?.email}
+                          </p>
+                        </div>
+                        <motion.button
+                          whileHover={{ x: 5 }}
+                          onClick={handleLogout}
+                          className="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 flex items-center space-x-2 transition-colors"
+                        >
+                          <LogOut className="w-4 h-4" />
+                          <span>Sign out</span>
+                        </motion.button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              )}
+
+              <motion.button
+                whileTap={{ scale: 0.9 }}
+                onClick={toggleMobileMenu}
+                className="md:hidden rounded-lg p-2 hover:bg-gray-100 transition-colors focus:outline-none"
+              >
+                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </motion.button>
+            </div>
+          </div>
         </div>
       </div>
 
