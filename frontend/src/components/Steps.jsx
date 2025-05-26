@@ -3,7 +3,7 @@ import { steps } from '../assets/stepsdata';
 import { ArrowRight, ChevronRight, Download } from 'lucide-react';
 import { motion } from 'framer-motion';
 import brochure from '../assets/three-leaf-brochure.pdf';
-import howItWorksBg from '../assets/how-it-works-bg.jpg'; // Background image import
+import howItWorksBg from '../assets/how-it-works-bg.JPG'; // Background image import
 
 const containerVariants = {
   hidden: { opacity: 0 },
