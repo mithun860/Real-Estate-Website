@@ -6,7 +6,6 @@ import Properties from '../components/propertiesshow'
 import Steps from '../components/Steps'
 import Testimonials from '../components/testimonial'
 import Blog from '../components/Blog'
-import BackToTopButton from '../components/BackToTopButton' // Import the button
 import WhatsAppFloatingIcon from '../components/WhatsAppFloatingIcon.jsx';
 
 const Home = () => {
@@ -24,7 +23,6 @@ const Home = () => {
       <Testimonials />
       <WhatsAppFloatingIcon />
       <Blog />
-      <BackToTopButton />  {/* Add the button here */}
     </div>
   )
 }

@@ -35,5 +35,8 @@
   "homepage": "https://github.com/AAYUSH412/Real-Estate-Website#readme",
   "devDependencies": {
     "concurrently": "^8.0.0"
+  },
+  "dependencies": {
+    "ngrok": "^5.0.0-beta.2"
   }
 }
