@@ -2,8 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Home, TreePalm, Umbrella, Shield, Sparkles, Infinity, Download } from 'lucide-react';
 import ThreeLeafBrochure from '../assets/Three_Leaf_Brochure.pdf';
-import backgroundImage from '../assets/how-it-works-bg.jpg'; // Make sure to import your background image
-
+import backgroundImage from '../assets/how-it-works-bg.JPG'; // Make sure to import your background image
 const LifestyleShowcase = () => {
   const features = [
     {
