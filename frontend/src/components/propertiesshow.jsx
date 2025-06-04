@@ -3,10 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Download } from 'lucide-react';
 
-import image1 from '../assets/three-leaf-1.jpg';
-import image2 from '../assets/three-leaf-2.jpg';
-import image3 from '../assets/three-leaf-3.jpg';
-import image4 from '../assets/three-leaf-4.jpg';
 import brochure from '../assets/three-leaf-brochure.pdf';
 
 const ThreeLeafShowcase = () => {
@@ -16,7 +12,7 @@ const ThreeLeafShowcase = () => {
 
   const slides = [
     {
-      image: image1,
+      image: 'images/three-leaf-1.jpg',
       title: "52 Acres of Serenity",
       description: "Three Leaf offers expansive 52 acres of meticulously planned gated community farmhouse plots, blending modern amenities with natural beauty.",
       features: [
@@ -26,7 +22,7 @@ const ThreeLeafShowcase = () => {
       ]
     },
     {
-      image: image2,
+      image: 'images/three-leaf-2.jpg',
       title: "Sustainable Living",
       description: "Our eco-friendly design promotes sustainable living with rainwater harvesting, solar energy options, and organic farming spaces.",
       features: [
@@ -36,7 +32,7 @@ const ThreeLeafShowcase = () => {
       ]
     },
     {
-      image: image3,
+      image: 'images/three-leaf-3.jpg',
       title: "Modern Amenities",
       description: "Enjoy premium amenities including clubhouse, swimming pool, walking trails, and community spaces designed for your comfort.",
       features: [
@@ -46,7 +42,7 @@ const ThreeLeafShowcase = () => {
       ]
     },
     {
-      image: image4,
+      image: 'images/three-leaf-4.jpg',
       title: "Strategic Location",
       description: "Disconnect to reconnect — Three Leaf invites you to slow down, breathe deeper, and live naturally.",
       features: [
@@ -128,7 +124,7 @@ const ThreeLeafShowcase = () => {
                 </p>
                 <ul className="mb-6 space-y-2">
                   {slides[currentSlide].features.map((feature, index) => (
-                    <li key={index} className="flex items-start text-base text-gray-700" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                    <li key={index} className="flex items-start text-base text-gray-700">
                       <svg
                         className="h-5 w-5 mr-2 mt-0.5"
                         fill="none"
@@ -200,7 +196,7 @@ const ThreeLeafShowcase = () => {
                 </p>
                 <ul className="mb-8 space-y-2">
                   {slides[currentSlide].features.map((feature, index) => (
-                    <li key={index} className="flex items-start text-base text-gray-700" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                    <li key={index} className="flex items-start text-base text-gray-700">
                       <svg
                         className="h-5 w-5 mr-2 mt-0.5"
                         fill="none"

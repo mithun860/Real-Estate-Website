@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-import threeLeafVideo from "../assets/three-leaf-video.mov";
 
 const Hero = () => {
   return (
@@ -13,7 +12,7 @@ const Hero = () => {
           muted
           playsInline
           className="w-full h-full object-cover opacity-80"
-          src={threeLeafVideo}
+          src="/three-leaf-video.mov" // ✅ Now coming from public folder
         />
         <div className="absolute inset-0 bg-black/40" />
       </div>
@@ -38,13 +37,13 @@ const Hero = () => {
           style={{ fontFamily: "'Montserrat', sans-serif" }}
         >
           A 52-acre gated community farmhouse plots project by{" "}
-          <span className="text-[#e3b07b] font-semibold" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+          <span className="text-[#e3b07b] font-semibold">
             SPLR Developers
           </span>
           .
           <br className="hidden sm:block" />
           Experience the perfect blend of nature and luxury starting at just{" "}
-          <span className="font-semibold" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+          <span className="font-semibold">
             35 Lacs
           </span>
           .
