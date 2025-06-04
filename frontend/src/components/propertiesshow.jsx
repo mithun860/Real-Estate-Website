@@ -6,7 +6,7 @@ import { ArrowRight, Download } from 'lucide-react';
 import image1 from '../assets/three-leaf-1.jpg';
 import image2 from '../assets/three-leaf-2.jpg';
 import image3 from '../assets/three-leaf-3.jpg';
-import image4 from '../assets/three-leaf-4.JPG';
+import image4 from '../assets/three-leaf-4.jpg';
 import brochure from '../assets/three-leaf-brochure.pdf';
 
 const ThreeLeafShowcase = () => {
