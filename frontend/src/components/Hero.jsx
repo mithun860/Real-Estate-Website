@@ -12,7 +12,7 @@ const Hero = () => {
           muted
           playsInline
           className="w-full h-full object-cover opacity-80"
-          src="/three-leaf-video.mov" // ✅ Now coming from public folder
+          src="/three-leaf-video.mp4" // ✅ Now coming from public folder
         />
         <div className="absolute inset-0 bg-black/40" />
       </div>
