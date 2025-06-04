@@ -8,8 +8,8 @@ export default defineConfig({
     port: 5173,
     // Allow all ngrok subdomains to avoid host blocking errors.
     allowedHosts: [
-     '.ngrok-free.app'
-   ],
+      '.ngrok-free.app'
+    ],
   },
   resolve: {
     alias: {
@@ -34,5 +34,8 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: ['react-helmet-async']
-  }
+  },
+
+  // Treat these file types as static assets
+  assetsInclude: ['**/*.mov', '**/*.png', '**/*.jpg', '**/*.svg']
 });
