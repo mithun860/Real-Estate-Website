@@ -1,44 +1,56 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Home, Target } from 'lucide-react';
-import CountUp from './Contup';
+import React from "react";
+import { motion } from "framer-motion";
+import { Home, Target } from "lucide-react";
+import CountUp from "./Contup";
 
 const milestones = [
   {
     icon: Home,
-    title: 'Properties Listed',
-    value: 500,
-    description: 'Curated with care across regions',
+    title: "Properties Listed",
+    value: 110,
+    suffix: "",
+    description: "Curated with care across regions",
   },
   {
     icon: Target,
-    title: 'Happy Clients',
-    value: 1000,
-    description: 'Turning dreams into addresses',
+    title: "Happy Clients",
+    value: 400,
+    suffix: "+",
+    description: "Turning dreams into addresses",
   },
 ];
 
 export default function Milestones() {
   return (
-    <section className="py-24 bg-gradient-to-r from-green-50 via-white to-emerald-100 relative overflow-hidden">
-      {/* Floating decorative blobs or subtle animation (optional) */}
-      <div className="absolute -top-20 -left-20 w-96 h-96 bg-green-200 opacity-20 rounded-full filter blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 bg-emerald-100 opacity-20 rounded-full filter blur-3xl animate-pulse delay-1000"></div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section
+      className="py-24 relative overflow-hidden"
+      style={{
+        backgroundColor: "#066b70",
+        fontFamily: "'Montserrat', sans-serif",
+        color: "#f3f3f3",
+      }}
+    >
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Header */}
         <motion.div
           initial={{ y: 30, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          style={{ fontFamily: "'Oswald', sans-serif" }}
+          className="mb-16"
         >
-          <h2 className="text-4xl font-extrabold text-emerald-700 mb-4 drop-shadow">
+          <h2 className="text-4xl font-extrabold mb-4 drop-shadow-lg">
             Our Journey So Far
           </h2>
-          <div className="w-24 h-1 bg-emerald-500 mx-auto mb-4 rounded-full"></div>
-          <p className="text-lg text-gray-700 max-w-xl mx-auto">
+          <div
+            className="w-24 h-1 mx-auto mb-4 rounded-full"
+            style={{ backgroundColor: "#e3b070", opacity: 0.9 }}
+          />
+          <p
+            className="text-lg max-w-xl mx-auto"
+            style={{ fontFamily: "'Montserrat', sans-serif", color: "#dcdcdc" }}
+          >
             Every number tells a story of trust, growth, and transformation.
           </p>
         </motion.div>
@@ -55,16 +67,38 @@ export default function Milestones() {
                 transition={{ duration: 0.6, delay: index * 0.2 }}
                 viewport={{ once: true }}
                 whileHover={{ scale: 1.05 }}
-                className="bg-white p-8 rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-300 text-center"
+                className="bg-white bg-opacity-10 p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 text-center backdrop-blur-md"
               >
-                <div className="w-20 h-20 bg-emerald-100 rounded-full flex items-center justify-center mx-auto mb-5">
-                  <Icon className="w-10 h-10 text-emerald-600" />
+                <div
+                  className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5"
+                  style={{ backgroundColor: "#e3b070" }}
+                >
+                  <Icon className="w-10 h-10 text-[#066b70]" />
                 </div>
-                <h3 className="text-5xl font-bold text-emerald-700 mb-2">
-                  <CountUp from={0} to={milestone.value} duration={2} separator="," />
+                <h3
+                  className="text-5xl font-bold mb-2"
+                  style={{ fontFamily: "'Oswald', sans-serif", color: "#e3b070" }}
+                >
+                  <CountUp
+                    from={0}
+                    to={milestone.value}
+                    duration={2}
+                    separator=","
+                  />
+                  {milestone.suffix}
                 </h3>
-                <p className="text-xl font-semibold text-gray-800 mb-2">{milestone.title}</p>
-                <p className="text-gray-600 text-md">{milestone.description}</p>
+                <p
+                  className="text-xl font-semibold mb-2"
+                  style={{ fontFamily: "'Oswald', sans-serif", color: "#f3f3f3" }}
+                >
+                  {milestone.title}
+                </p>
+                <p
+                  className="text-md"
+                  style={{ fontFamily: "'Montserrat', sans-serif", color: "#dcdcdc" }}
+                >
+                  {milestone.description}
+                </p>
               </motion.div>
             );
           })}

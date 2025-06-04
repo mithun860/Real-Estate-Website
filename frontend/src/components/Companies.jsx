@@ -30,10 +30,23 @@ const MinimalQuoteSlider = () => {
             transition={{ duration: 0.5 }}
             className="flex items-start"
           >
-            <Quote className="w-5 h-5 text-green-600 mt-0.5 mr-3 flex-shrink-0" />
+            <Quote
+              className="w-5 h-5 mt-0.5 mr-3 flex-shrink-0"
+              style={{ color: '#066b70' }}
+            />
             <div>
-              <p className="text-gray-800 font-medium leading-snug">"{quotes[index].text}"</p>
-              <p className="text-gray-600 text-sm mt-1">— {quotes[index].author}</p>
+              <p
+                className="font-medium leading-snug"
+                style={{ fontFamily: "'Oswald', sans-serif", color: '#1f2937' }}
+              >
+                "{quotes[index].text}"
+              </p>
+              <p
+                className="text-sm mt-1"
+                style={{ fontFamily: "'Montserrat', sans-serif", color: '#4b5563' }}
+              >
+                — {quotes[index].author}
+              </p>
             </div>
           </motion.div>
         </AnimatePresence>

@@ -29,7 +29,10 @@ const cardVariants = {
 
 const Features = () => {
   return (
-    <section className="py-24 bg-gradient-to-b from-green-100 to-white overflow-hidden">
+    <section
+      className="py-24 overflow-hidden"
+      style={{ backgroundColor: "#066b70" }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <motion.div
@@ -38,11 +41,22 @@ const Features = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
+          style={{ fontFamily: "'Oswald', sans-serif" }}
         >
-          <span className="bg-green-50 text-green-600 px-4 py-1.5 rounded-full text-sm font-medium tracking-wide uppercase">Our Strengths</span>
-          <h2 className="text-4xl font-bold text-gray-900 mt-4 mb-4">Why Choose Us</h2>
+          <span className="bg-green-50 text-green-600 px-4 py-1.5 rounded-full text-sm font-medium tracking-wide uppercase" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+            Our Strengths
+          </span>
+          <h2
+            className="text-4xl font-bold text-white mt-4 mb-4"
+            style={{ fontFamily: "'Oswald', sans-serif" }}
+          >
+            Why Choose Us
+          </h2>
           <div className="w-24 h-1 bg-gradient-to-r from-green-500 to-orange-600 mx-auto mb-6 rounded-full"></div>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p
+            className="text-xl text-green-200 max-w-2xl mx-auto"
+            style={{ fontFamily: "'Montserrat', sans-serif" }}
+          >
             We're committed to providing exceptional service and finding the
             perfect home for you with our innovative approach
           </p>
@@ -70,11 +84,17 @@ const Features = () => {
                 <feature.icon className="h-8 w-8 text-green-600" />
               </div>
               
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
+              <h3
+                className="text-xl font-bold text-gray-900 mb-3"
+                style={{ fontFamily: "'Oswald', sans-serif" }}
+              >
                 {feature.title}
               </h3>
               
-              <p className="text-gray-600 leading-relaxed mb-6">
+              <p
+                className="text-gray-600 leading-relaxed mb-6"
+                style={{ fontFamily: "'Montserrat', sans-serif" }}
+              >
                 {feature.description}
               </p>
               
@@ -82,6 +102,7 @@ const Features = () => {
                 href="#" 
                 className="inline-flex items-center text-green-600 text-sm font-medium hover:text-green-800 transition-colors"
                 whileHover={{ x: 5 }}
+                style={{ fontFamily: "'Montserrat', sans-serif" }}
               >
                 Learn more <ArrowRight className="ml-2 h-4 w-4" />
               </motion.a>

@@ -1,7 +1,6 @@
 import express from 'express';
-import { login, register, forgotpassword,adminlogin,resetpassword,getname } from '../controller/Usercontroller.js';
-import authMiddleware from '../middleware/authmiddleware.js';
-
+import { login, register, forgotpassword, adminlogin, resetpassword, getname } from '../controller/Usercontroller.js';
+import { protect } from '../middleware/authMiddleware.js';
 
 const userrouter = express.Router();
 
@@ -10,6 +9,6 @@ userrouter.post('/register', register);
 userrouter.post('/forgot', forgotpassword);
 userrouter.post('/reset/:token', resetpassword);
 userrouter.post('/admin', adminlogin);
-userrouter.get('/me', authMiddleware, getname);
+userrouter.get('/me', protect, getname);
 
 export default userrouter;

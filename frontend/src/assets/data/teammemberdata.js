@@ -1,26 +1,75 @@
-import nakulimage from '../images/nakul.png';
-import aayushimage from '../images/aayush.png';
+import prakashImage from '../images/prakashgaj.jpg';
+import laxmanImage from '../images/laxmanlah.jpg';
+import rahulImage from '../images/rahultho.jpg';
+import kiranImage from '../images/kirandes1.jpg';
+import anitaImage from '../images/anitalah.jpg';
+import shreyasImage from '../images/shreyasmal.jpg';
 
 export const teamMembers = [
-    {
-      name: 'Yash Shirapure',
-      position: 'Founder & CEO',
-      bio: 'With 1 year in real estate, Yash leads our vision of transforming property search.',
-      image: nakulimage,
-      social: {
-        linkedin: '#',
-        twitter: '#',
-        instagram: '#',
-      },
+  {
+    name: 'Prakash Gajare',
+    position: 'Director',
+    bio: '',
+    image: prakashImage,
+    social: {
+      linkedin: '',
+      twitter: '',
+      instagram: '',
     },
-    {
-      name: 'Mithun Upadhyay',
-      position: 'Chief Technology Officer',
-      bio: "Tech innovator driving our platform's cutting-edge solutions.",
-      image: aayushimage,
-      social: {
-        linkedin: '#',
-        twitter: '#',
-      },
-    }
-  ];
+  },
+  {
+    name: 'Laxman Lahamge',
+    position: 'Director',
+    bio: '',
+    image: laxmanImage,
+    social: {
+      linkedin: '',
+      twitter: '',
+      instagram: '',
+    },
+  },
+  {
+    name: 'Rahul Thorat',
+    position: 'Director',
+    bio: '',
+    image: rahulImage,
+    social: {
+      linkedin: '',
+      twitter: '',
+      instagram: '',
+    },
+  },
+  {
+    name: 'Kiran Deshmukh',
+    position: 'Director',
+    bio: '',
+    image: kiranImage,
+    social: {
+      linkedin: '',
+      twitter: '',
+      instagram: '',
+    },
+  },
+  {
+    name: 'Anita Lahamge',
+    position: 'Director',
+    bio: '',
+    image: anitaImage,
+    social: {
+      linkedin: '',
+      twitter: '',
+      instagram: '',
+    },
+  },
+  {
+    name: 'Shreyas Malve',
+    position: 'Sales',
+    bio: '',
+    image: shreyasImage,
+    social: {
+      linkedin: '',
+      twitter: '',
+      instagram: '',
+    },
+  },
+];

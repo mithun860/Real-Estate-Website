@@ -3,11 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Download } from 'lucide-react';
 
-// Import images
 import image1 from '../assets/three-leaf-1.jpg';
 import image2 from '../assets/three-leaf-2.jpg';
 import image3 from '../assets/three-leaf-3.jpg';
-import image4 from '../assets/three-leaf-4.jpg';
+import image4 from '../assets/three-leaf-4.JPG';
 import brochure from '../assets/three-leaf-brochure.pdf';
 
 const ThreeLeafShowcase = () => {
@@ -49,9 +48,9 @@ const ThreeLeafShowcase = () => {
     {
       image: image4,
       title: "Strategic Location",
-      description: "Located just minutes from the city yet surrounded by nature, offering the perfect balance between convenience and tranquility.",
+      description: "Disconnect to reconnect — Three Leaf invites you to slow down, breathe deeper, and live naturally.",
       features: [
-        "Easy access to city center",
+        "Nestled amidst lush greenery",
         "Proximity to major highways",
         "Peaceful natural surroundings"
       ]
@@ -59,9 +58,9 @@ const ThreeLeafShowcase = () => {
   ];
 
   useEffect(() => {
-    const interval = isAutoPlaying ? 
-      setInterval(() => setCurrentSlide(prev => (prev + 1) % slides.length), 5000) : 
-      null;
+    const interval = isAutoPlaying ? setInterval(() => {
+      setCurrentSlide(prev => (prev + 1) % slides.length);
+    }, 5000) : null;
     return () => clearInterval(interval);
   }, [isAutoPlaying, slides.length]);
 
@@ -90,15 +89,14 @@ const ThreeLeafShowcase = () => {
   };
 
   return (
-    <section className="relative h-screen overflow-hidden bg-gray-100">
-      {/* Navigation dots */}
+    <section className="relative h-screen overflow-hidden bg-gray-100 font-montserrat">
+      {/* Dots */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => goToSlide(index)}
-            className={`w-3 h-3 rounded-full transition-all ${currentSlide === index ? 'bg-green-600 w-6' : 'bg-white bg-opacity-50'}`}
-            aria-label={`Go to slide ${index + 1}`}
+            className={`w-3 h-3 rounded-full transition-all ${currentSlide === index ? 'bg-[#066b70] w-6' : 'bg-white bg-opacity-50'}`}
           />
         ))}
       </div>
@@ -112,9 +110,8 @@ const ThreeLeafShowcase = () => {
           transition={{ duration: 0.5 }}
           className="relative h-full w-full"
         >
-          {/* Mobile Layout - Stacked with solid background */}
+          {/* Mobile Layout */}
           <div className="md:hidden flex flex-col h-full">
-            {/* Content Section - Solid white background */}
             <div className="bg-white p-6 flex-1 flex flex-col justify-center">
               <motion.div
                 initial={{ y: 20, opacity: 0 }}
@@ -122,34 +119,42 @@ const ThreeLeafShowcase = () => {
                 transition={{ delay: 0.2, duration: 0.5 }}
                 className="max-w-lg mx-auto"
               >
-                <h2 className="text-3xl font-bold text-gray-900 mb-2">Three Leaf</h2>
-                <h3 className="text-xl font-semibold text-green-600 mb-4">
+                <h2 className="text-3xl font-bold mb-2 font-oswald" style={{ color: '#066b70' }}>Three Leaf</h2>
+                <h3 className="text-xl font-semibold mb-4 font-oswald" style={{ color: '#e3b07b' }}>
                   {slides[currentSlide].title}
                 </h3>
-                <p className="text-gray-600 mb-4 text-base">
+                <p className="mb-4 text-base text-gray-600" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                   {slides[currentSlide].description}
                 </p>
                 <ul className="mb-6 space-y-2">
                   {slides[currentSlide].features.map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                      <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    <li key={index} className="flex items-start text-base text-gray-700" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                      <svg
+                        className="h-5 w-5 mr-2 mt-0.5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="#e3b07b"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M5 13l4 4L19 7" />
                       </svg>
-                      <span className="text-gray-700 text-base">{feature}</span>
+                      {feature}
                     </li>
                   ))}
                 </ul>
                 <div className="flex flex-col sm:flex-row gap-3">
                   <button
                     onClick={() => navigate('/contact')}
-                    className="px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors flex items-center justify-center"
+                    className="px-6 py-3 bg-[#066b70] text-white font-medium rounded-lg hover:bg-[#055a5f] transition-colors flex items-center justify-center"
                   >
                     Enquire Now
                     <ArrowRight className="ml-2 w-4 h-4" />
                   </button>
                   <button
                     onClick={downloadBrochure}
-                    className="px-6 py-3 border-2 border-green-600 text-green-600 font-medium rounded-lg hover:bg-green-50 transition-colors flex items-center justify-center"
+                    className="px-6 py-3 border-2 border-[#066b70] text-[#066b70] font-medium rounded-lg hover:bg-[#066b70]/10 transition-colors flex items-center justify-center"
                   >
                     Download Brochure
                     <Download className="ml-2 w-4 h-4" />
@@ -157,8 +162,7 @@ const ThreeLeafShowcase = () => {
                 </div>
               </motion.div>
             </div>
-            
-            {/* Image Section - Fixed height with gradient overlay */}
+
             <div className="h-64 w-full relative">
               <img
                 src={slides[currentSlide].image}
@@ -169,9 +173,8 @@ const ThreeLeafShowcase = () => {
             </div>
           </div>
 
-          {/* Desktop Layout - Side by side */}
+          {/* Desktop Layout */}
           <div className="hidden md:flex h-full">
-            {/* Image half */}
             <div className="w-1/2 h-full relative overflow-hidden">
               <img
                 src={slides[currentSlide].image}
@@ -181,7 +184,6 @@ const ThreeLeafShowcase = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent" />
             </div>
 
-            {/* Content half */}
             <div className="w-1/2 h-full bg-white p-12 lg:p-16 flex flex-col justify-center">
               <motion.div
                 initial={{ x: 50, opacity: 0 }}
@@ -189,34 +191,42 @@ const ThreeLeafShowcase = () => {
                 transition={{ delay: 0.3, duration: 0.5 }}
                 className="max-w-lg mx-auto"
               >
-                <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">Three Leaf</h2>
-                <h3 className="text-3xl font-semibold text-green-600 mb-6">
+                <h2 className="text-4xl lg:text-5xl font-bold mb-4 font-oswald" style={{ color: '#066b70' }}>Three Leaf</h2>
+                <h3 className="text-3xl font-semibold mb-6 font-oswald" style={{ color: '#e3b07b' }}>
                   {slides[currentSlide].title}
                 </h3>
-                <p className="text-gray-600 mb-6 text-lg">
+                <p className="mb-6 text-lg text-gray-600" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                   {slides[currentSlide].description}
                 </p>
                 <ul className="mb-8 space-y-2">
                   {slides[currentSlide].features.map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                      <svg className="h-5 w-5 text-green-500 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    <li key={index} className="flex items-start text-base text-gray-700" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                      <svg
+                        className="h-5 w-5 mr-2 mt-0.5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="#e3b07b"
+                        strokeWidth={2}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      >
+                        <path d="M5 13l4 4L19 7" />
                       </svg>
-                      <span className="text-gray-700 text-base">{feature}</span>
+                      {feature}
                     </li>
                   ))}
                 </ul>
                 <div className="flex gap-4">
                   <button
                     onClick={() => navigate('/contact')}
-                    className="px-8 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors flex items-center"
+                    className="px-8 py-3 bg-[#066b70] text-white font-medium rounded-lg hover:bg-[#055a5f] transition-colors flex items-center"
                   >
                     Enquire Now
                     <ArrowRight className="ml-2 w-4 h-4" />
                   </button>
                   <button
                     onClick={downloadBrochure}
-                    className="px-8 py-3 border-2 border-green-600 text-green-600 font-medium rounded-lg hover:bg-green-50 transition-colors flex items-center"
+                    className="px-8 py-3 border-2 border-[#066b70] text-[#066b70] font-medium rounded-lg hover:bg-[#066b70]/10 transition-colors flex items-center"
                   >
                     Download Brochure
                     <Download className="ml-2 w-4 h-4" />
@@ -228,11 +238,10 @@ const ThreeLeafShowcase = () => {
         </motion.div>
       </AnimatePresence>
 
-      {/* Navigation arrows */}
+      {/* Arrows */}
       <button
         onClick={handlePrev}
         className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 p-2 rounded-full bg-white bg-opacity-50 hover:bg-opacity-80 transition-all"
-        aria-label="Previous slide"
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -241,7 +250,6 @@ const ThreeLeafShowcase = () => {
       <button
         onClick={handleNext}
         className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 p-2 rounded-full bg-white bg-opacity-50 hover:bg-opacity-80 transition-all"
-        aria-label="Next slide"
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-800" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />

@@ -4,7 +4,7 @@ import './WhatsAppFloatingIcon.css'; // We'll add styles here
 const WhatsAppFloatingIcon = () => {
   return (
     <a
-      href="https://wa.me/918766435787"
+      href="https://wa.me/918600315351"
       className="whatsapp-float"
       target="_blank"
       rel="noopener noreferrer"

@@ -43,20 +43,20 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-      
+
       setScrolled(currentScrollY > 10);
-      
+
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
         setVisible(false);
       } else if (currentScrollY < lastScrollY) {
         setVisible(true);
       }
-      
+
       setLastScrollY(currentScrollY);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
   useEffect(() => {
@@ -86,7 +86,7 @@ const Navbar = () => {
       { name: "About Us", path: "/about", icon: Users },
       { name: "Contact", path: "/contact", icon: MessageCircle },
     ];
-  
+
     return (
       <div className="flex space-x-6 items-center">
         {navLinks.map(({ name, path, icon: Icon }) => {
@@ -99,8 +99,8 @@ const Navbar = () => {
               className={`relative font-medium transition-colors duration-200 flex items-center gap-1.5 px-2 py-1 rounded-md
                 ${
                   isActive
-                    ? "text-green-600 bg-green-50"
-                    : "text-gray-700 hover:text-green-600 hover:bg-green-50/50"
+                    ? "text-[#066b70] bg-[#e3b07b]/10"
+                    : "text-gray-700 hover:text-[#066b70] hover:bg-[#e3b07b]/10"
                 }
               `}
             >
@@ -109,7 +109,7 @@ const Navbar = () => {
               {isActive && (
                 <motion.div
                   layoutId="activeIndicator"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-green-600 rounded-full"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#066b70] rounded-full"
                   initial={false}
                 />
               )}
@@ -132,7 +132,7 @@ const Navbar = () => {
       { name: "About Us", path: "/about", icon: Users },
       { name: "Contact", path: "/contact", icon: MessageCircle },
     ];
-  
+
     return (
       <div className="flex flex-col space-y-1 pb-3">
         {navLinks.map(({ name, path, icon: Icon }) => {
@@ -145,8 +145,8 @@ const Navbar = () => {
                 className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors
                   ${
                     isActive
-                      ? "bg-green-50 text-green-600 font-medium"
-                      : "text-gray-700 hover:bg-gray-50 hover:text-green-600"
+                      ? "bg-[#e3b07b]/10 text-[#066b70] font-medium"
+                      : "text-gray-700 hover:bg-gray-50 hover:text-[#066b70]"
                   }
                 `}
                 onClick={() => setMobileMenuOpen(false)}
@@ -157,11 +157,11 @@ const Navbar = () => {
             </motion.div>
           );
         })}
-  
+
         {isLoggedIn && (
           <div className="pt-4 mt-2 border-t border-gray-100 space-y-3 px-3">
             <div className="flex items-center space-x-3 p-2 bg-gray-50 rounded-lg">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-r from-green-600 to-orange-600 flex items-center justify-center text-white font-medium text-sm shadow-sm">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#066b70] to-[#e3b07b] flex items-center justify-center text-white font-medium text-sm shadow-sm">
                 {user?.name ? user.name[0].toUpperCase() : "U"}
               </div>
               <div className="flex-1">
@@ -189,10 +189,7 @@ const Navbar = () => {
   return (
     <motion.nav
       initial={{ opacity: 0, y: -10 }}
-      animate={{ 
-        opacity: visible ? 1 : 0,
-        y: visible ? 0 : -100
-      }}
+      animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : -100 }}
       transition={{ duration: 0.3 }}
       className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
         scrolled
@@ -202,28 +199,26 @@ const Navbar = () => {
     >
       <div className="w-full">
         <div className="flex items-center justify-between h-32 px-4 sm:px-6 lg:px-8">
-          {/* Logo - left side */}
+          {/* Logo */}
           <Link to="/" className="flex items-center">
             <motion.div
               whileHover={{ rotate: [0, -10, 10, -10, 0] }}
               transition={{ duration: 0.5 }}
             >
-              <img 
-                src={logo} 
-                alt="SPLR logo" 
+              <img
+                src={logo}
+                alt="SPLR logo"
                 className="w-32 h-32 object-contain"
               />
             </motion.div>
           </Link>
 
-          {/* Main content area that will push everything to the sides */}
+          {/* Nav and Buttons */}
           <div className="flex-1 flex items-center justify-end gap-6">
-            {/* Navigation links - positioned towards the right but not at the edge */}
             <div className="hidden md:flex items-center gap-6 mr-8">
               <NavLinks currentPath={location.pathname} />
             </div>
 
-            {/* User dropdown and mobile menu button - far right */}
             <div className="flex items-center gap-4">
               {isLoggedIn && (
                 <div className="relative" ref={dropdownRef}>
@@ -233,7 +228,7 @@ const Navbar = () => {
                     className="flex items-center space-x-3 focus:outline-none"
                   >
                     <div className="relative">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-r from-green-600 to-orange-600 flex items-center justify-center text-white font-medium text-sm shadow-md hover:shadow-lg transition-shadow">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#066b70] to-[#e3b07b] flex items-center justify-center text-white font-medium text-sm shadow-md hover:shadow-lg transition-shadow">
                         {getInitials(user?.name)}
                       </div>
                       <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-white rounded-full"></div>
@@ -256,7 +251,7 @@ const Navbar = () => {
                         className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg py-2 border border-gray-100 overflow-hidden"
                       >
                         <div className="px-4 py-3 border-b border-gray-100">
-                          <p className="text-sm font-semibold text-gray-900">
+                          <p className="text-sm font-semibold text-gray-900" style={{ fontFamily: "'Playfair Display', serif" }}>
                             {user?.name}
                           </p>
                           <p className="text-sm text-gray-500 truncate">
@@ -282,7 +277,11 @@ const Navbar = () => {
                 onClick={toggleMobileMenu}
                 className="md:hidden rounded-lg p-2 hover:bg-gray-100 transition-colors focus:outline-none"
               >
-                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                {isMobileMenuOpen ? (
+                  <X className="w-6 h-6" />
+                ) : (
+                  <Menu className="w-6 h-6" />
+                )}
               </motion.button>
             </div>
           </div>
@@ -316,11 +315,11 @@ const Navbar = () => {
 };
 
 Navbar.propTypes = {
-  currentPath: PropTypes.string.isRequired,
-  setMobileMenuOpen: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
+  currentPath: PropTypes.string,
+  setMobileMenuOpen: PropTypes.func,
+  isLoggedIn: PropTypes.bool,
   user: PropTypes.object,
-  handleLogout: PropTypes.func.isRequired,
+  handleLogout: PropTypes.func,
 };
 
 export default Navbar;

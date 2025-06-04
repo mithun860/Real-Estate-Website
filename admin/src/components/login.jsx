@@ -19,7 +19,7 @@ const Login = () => {
     
     try {
       // Change the endpoint to /api/users/admin for admin login
-      const response = await axios.post(`${backendUrl}/api/users/admin`, {
+      const response = await axios.post(`${backendUrl}/api/admin/login`, {
         email,
         password
       });

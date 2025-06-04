@@ -12,41 +12,26 @@ const TestimonialCard = ({ testimonial, index, activeIndex, direction }) => {
       exit={{ opacity: 0, x: direction === 'right' ? -50 : 50 }}
       transition={{ duration: 0.5, ease: "easeInOut" }}
       className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 relative"
+      style={{ fontFamily: 'Montserrat, sans-serif' }}
     >
       {/* Quote icon */}
       <div className="absolute top-4 right-4 opacity-10">
-        <Quote className="w-12 h-12 text-blue-500" />
+        <Quote className="w-12 h-12" style={{ color: '#066b70' }} />
       </div>
 
       {/* Testimonial content */}
-      <p className="text-gray-700 italic mb-6 text-lg leading-relaxed relative z-10">
+      <p className="italic mb-6 text-lg leading-relaxed relative z-10" style={{ fontFamily: 'Montserrat, sans-serif', color: '#374151' }}>
         "{testimonial.text}"
       </p>
 
       <div className="mt-8 flex items-center">
-        {/* Profile image */}
-        <div className="relative">
-          <img
-            src={testimonial.image}
-            alt={testimonial.name}
-            className="w-16 h-16 rounded-full object-cover border-2 border-blue-100"
-            loading="lazy"
-          />
-          <motion.div 
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.3 }}
-            className="absolute -bottom-2 -right-2 bg-blue-600 text-white rounded-full w-7 h-7 flex items-center justify-center shadow-md"
-          >
-            <Quote className="w-3 h-3" />
-          </motion.div>
-        </div>
+        {/* Removed image section */}
 
-        <div className="ml-4">
+        <div>
           {/* Client info */}
-          <h3 className="font-bold text-gray-900 text-lg">{testimonial.name}</h3>
-          <p className="text-sm text-gray-600 flex items-center">
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-600 mr-2"></span>
+          <h3 className="font-bold text-lg" style={{ fontFamily: 'Oswald, sans-serif', color: '#06494c' }}>{testimonial.name}</h3>
+          <p className="text-sm flex items-center" style={{ fontFamily: 'Montserrat, sans-serif', color: '#4b5563' }}>
+            <span className="inline-block w-1.5 h-1.5 rounded-full mr-2" style={{ backgroundColor: '#066b70' }}></span>
             {testimonial.location}
           </p>
           
@@ -55,7 +40,8 @@ const TestimonialCard = ({ testimonial, index, activeIndex, direction }) => {
             {[...Array(5)].map((_, i) => (
               <Star
                 key={i}
-                className={`w-4 h-4 ${i < testimonial.rating ? 'text-yellow-400 fill-current' : 'text-gray-200'}`}
+                className={`w-4 h-4 ${i < testimonial.rating ? 'fill-current' : ''}`}
+                style={{ color: i < testimonial.rating ? '#e3b070' : '#d1d5db' }}
               />
             ))}
           </div>
@@ -67,9 +53,8 @@ const TestimonialCard = ({ testimonial, index, activeIndex, direction }) => {
         {testimonials.map((_, i) => (
           <div
             key={i}
-            className={`w-2 h-2 rounded-full ${
-              i === index ? 'bg-blue-600 w-6 transition-all duration-300' : 'bg-gray-300'
-            }`}
+            className={`rounded-full ${i === index ? 'w-6 transition-all duration-300' : 'w-2'}`}
+            style={{ backgroundColor: i === index ? '#066b70' : '#d1d5db', height: '0.5rem' }}
           />
         ))}
       </div>
@@ -82,7 +67,6 @@ const Testimonials = () => {
   const [direction, setDirection] = useState('right');
   const [autoplay, setAutoplay] = useState(true);
 
-  // Auto-rotate testimonials
   useEffect(() => {
     if (!autoplay) return;
     
@@ -107,7 +91,7 @@ const Testimonials = () => {
   };
 
   return (
-    <section className="py-24 bg-gradient-to-b from-gray-50 to-white">
+    <section className="py-24 bg-gradient-to-b" style={{ background: 'linear-gradient(to bottom, #f9fafb, #ffffff)' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -116,11 +100,11 @@ const Testimonials = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <span className="text-green-600 font-semibold tracking-wider text-sm uppercase">Testimonials</span>
-          <h2 className="text-4xl font-bold text-gray-900 mt-2 mb-4">What Our Clients Say</h2>
-          <div className="w-24 h-1 bg-green-600 mx-auto mb-6 rounded-full"></div>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Discover why homeowners trust BuildEstate to find their perfect property
+          <span className="font-semibold tracking-wider text-sm uppercase" style={{ fontFamily: 'Oswald, sans-serif', color: '#066b70' }}>Testimonials</span>
+          <h2 className="text-4xl font-bold mt-2 mb-4" style={{ fontFamily: 'Oswald, sans-serif', color: '#06494c' }}>What Our Clients Say</h2>
+          <div className="mx-auto mb-6 rounded-full" style={{ width: '6rem', height: '0.25rem', backgroundColor: '#066b70' }}></div>
+          <p className="text-xl max-w-3xl mx-auto" style={{ fontFamily: 'Montserrat, sans-serif', color: '#4B5563' }}>
+            Discover why homeowners trust SPLR to find their perfect property
           </p>
         </motion.div>
 
@@ -136,31 +120,23 @@ const Testimonials = () => {
                 transition={{ duration: 0.5, delay: testimonial.id * 0.1 }}
                 whileHover={{ y: -10 }}
                 className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 relative"
+                style={{ fontFamily: 'Montserrat, sans-serif' }}
               >
                 <div className="absolute top-4 right-4 opacity-10">
-                  <Quote className="w-12 h-12 text-blue-500" />
+                  <Quote className="w-12 h-12" style={{ color: '#066b70' }} />
                 </div>
 
-                <p className="text-gray-700 italic mb-6 text-lg leading-relaxed relative z-10">
+                <p className="italic mb-6 text-lg leading-relaxed relative z-10" style={{ color: '#374151' }}>
                   "{testimonial.text}"
                 </p>
 
                 <div className="mt-8 flex items-center">
-                  <div className="relative">
-                    <img
-                      src={testimonial.image}
-                      alt={testimonial.name}
-                      className="w-16 h-16 rounded-full object-cover border-2 border-blue-100"
-                    />
-                    <div className="absolute -bottom-2 -right-2 bg-blue-600 text-white rounded-full w-7 h-7 flex items-center justify-center shadow-md">
-                      <Quote className="w-3 h-3" />
-                    </div>
-                  </div>
+                  {/* Removed image section */}
 
-                  <div className="ml-4">
-                    <h3 className="font-bold text-gray-900 text-lg">{testimonial.name}</h3>
-                    <p className="text-sm text-gray-600 flex items-center">
-                      <span className="inline-block w-1.5 h-1.5 rounded-full bg-blue-600 mr-2"></span>
+                  <div>
+                    <h3 className="font-bold text-lg" style={{ fontFamily: 'Oswald, sans-serif', color: '#06494c' }}>{testimonial.name}</h3>
+                    <p className="text-sm flex items-center" style={{ fontFamily: 'Montserrat, sans-serif', color: '#4b5563' }}>
+                      <span className="inline-block w-1.5 h-1.5 rounded-full mr-2" style={{ backgroundColor: '#066b70' }}></span>
                       {testimonial.location}
                     </p>
                     
@@ -168,7 +144,8 @@ const Testimonials = () => {
                       {[...Array(5)].map((_, i) => (
                         <Star
                           key={i}
-                          className={`w-4 h-4 ${i < testimonial.rating ? 'text-yellow-400 fill-current' : 'text-gray-200'}`}
+                          className={`w-4 h-4 ${i < testimonial.rating ? 'fill-current' : ''}`}
+                          style={{ color: i < testimonial.rating ? '#e3b070' : '#d1d5db' }}
                         />
                       ))}
                     </div>
@@ -196,14 +173,14 @@ const Testimonials = () => {
           <div className="flex justify-center mt-10 space-x-4">
             <button
               onClick={handlePrev}
-              className="p-3 rounded-full bg-white shadow-md border border-gray-200 text-gray-700 hover:bg-blue-600 hover:text-white transition-colors"
+              className="p-3 rounded-full bg-white shadow-md border border-gray-200 text-gray-700 hover:bg-[#066b70] hover:text-white transition-colors"
               aria-label="Previous testimonial"
             >
               <ArrowLeft className="w-5 h-5" />
             </button>
             <button
               onClick={handleNext}
-              className="p-3 rounded-full bg-white shadow-md border border-gray-200 text-gray-700 hover:bg-blue-600 hover:text-white transition-colors"
+              className="p-3 rounded-full bg-white shadow-md border border-gray-200 text-gray-700 hover:bg-[#066b70] hover:text-white transition-colors"
               aria-label="Next testimonial"
             >
               <ArrowRight className="w-5 h-5" />
@@ -221,7 +198,10 @@ const Testimonials = () => {
         >
           <a 
             href="/contact" 
-            className="inline-flex items-center bg-green-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-orange-700 transition-colors shadow-lg shadow-orange-600/20"
+            className="inline-flex items-center py-3 px-6 rounded-lg font-medium shadow-lg transition-colors"
+            style={{ backgroundColor: '#066b70', color: '#fff', fontFamily: 'Oswald, sans-serif' }}
+            onMouseEnter={e => e.currentTarget.style.backgroundColor = '#e3b070'}
+            onMouseLeave={e => e.currentTarget.style.backgroundColor = '#066b70'}
           >
             Share Your Experience
             <ArrowRight className="ml-2 w-4 h-4" />

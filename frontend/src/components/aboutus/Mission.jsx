@@ -1,13 +1,36 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useViewportScroll, useTransform } from "framer-motion";
 
 export default function Mission() {
-  return (
-    <section className="py-24 relative overflow-hidden bg-gradient-to-br from-white via-slate-50 to-emerald-50">
-      {/* Soft overlay for elegant glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(209,250,229,0.4),_transparent)] pointer-events-none" />
+  // Get scroll progress for parallax
+  const { scrollY } = useViewportScroll();
 
-      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-10 lg:px-16">
+  // Move the glow overlay slower than scroll (parallax)
+  // Map scrollY (0 - 500) to translateY (0 to -50px)
+  const yParallax = useTransform(scrollY, [0, 500], [0, -50]);
+
+  return (
+    <section
+      className="py-24 relative overflow-hidden"
+      style={{
+        background:
+          "linear-gradient(135deg, #f9faf8 0%, #d6e9e6 60%, #e3b070 100%)",
+        fontFamily: "'Montserrat', sans-serif",
+      }}
+    >
+      {/* Parallax soft overlay for elegant glow */}
+      <motion.div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse at top right, rgba(6,107,112,0.3), transparent 60%)",
+          filter: "blur(100px)",
+          zIndex: 0,
+          y: yParallax,
+        }}
+      />
+
+      <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 text-gray-800">
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
@@ -15,12 +38,21 @@ export default function Mission() {
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-extrabold text-emerald-800 mb-4">
+          <h2
+            className="text-4xl font-bold mb-4"
+            style={{ fontFamily: "'Oswald', sans-serif", color: "#066b70" }}
+          >
             Our Mission at SPLR
           </h2>
-          <div className="w-24 h-1 bg-emerald-600 mx-auto mb-6 rounded-full" />
-          <p className="text-gray-700 max-w-3xl mx-auto text-lg leading-relaxed">
-            At <span className="text-emerald-700 font-semibold"> SPLR</span>, we don’t just build homes—we cultivate trust, lifestyle, and luxury. 
+          <div
+            className="w-24 h-1 mx-auto mb-6 rounded-full"
+            style={{ backgroundColor: "#e3b070", opacity: 0.9 }}
+          />
+          <p
+            className="max-w-3xl mx-auto text-lg leading-relaxed"
+            style={{ fontFamily: "'Montserrat', sans-serif", color: "#333" }}
+          >
+            At <span className="font-semibold" style={{ color: "#066b70" }}> SPLR</span>, we don’t just build homes—we cultivate trust, lifestyle, and luxury. 
             Our mission is to craft premium living experiences that blend architectural excellence with human values.
           </p>
         </motion.div>
@@ -53,12 +85,16 @@ export default function Mission() {
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.2 }}
+              style={{ fontFamily: "'Montserrat', sans-serif", color: "#333" }}
             >
               <div className="text-4xl mb-4">{item.icon}</div>
-              <h3 className="text-xl font-semibold text-emerald-800 mb-2">
+              <h3
+                className="text-xl font-semibold mb-2"
+                style={{ fontFamily: "'Oswald', sans-serif", color: "#066b70" }}
+              >
                 {item.title}
               </h3>
-              <p className="text-gray-600 text-base">{item.description}</p>
+              <p className="text-base">{item.description}</p>
             </motion.div>
           ))}
         </div>

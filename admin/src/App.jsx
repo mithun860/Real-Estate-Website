@@ -11,9 +11,9 @@ import ErrorFallback from "./components/ErrorFallback";
 // Pages
 import Login from "./components/login";
 import Dashboard from "./pages/Dashboard";
-import List from "./pages/List";
+import List from "./pages/list";
 import Add from "./pages/Add";
-import Update from "./pages/Update";
+import Update from "./pages/Update";  
 import Appointments from "./pages/Appointments";
 
 // Config
