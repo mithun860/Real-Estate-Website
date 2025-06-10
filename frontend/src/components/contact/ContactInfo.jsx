@@ -13,13 +13,13 @@ const contactInfo = [
   {
     icon: Mail,
     title: 'Email',
-    content: 'splr@gmail.com',
-    link: 'mailto:splr@gmail.com',
+    content: 'splrdevelopers02@gmail.com',
+    link: 'mailto:splrdevelopers02@gmail.com',
   },
   {
     icon: MapPin,
     title: 'Address',
-    content: 'Flat no 15 Shivom apt, Near Madhuel Electronics, Mahatma nagar Nashik',
+    content: 'Flat no 15 Shivom apt, Near Madhu Electronics, Mahatma nagar Nashik',
     link: '#Map',
   },
   {

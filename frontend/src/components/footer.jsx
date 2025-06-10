@@ -95,7 +95,7 @@ const companyLinks = [
 const contactInfo = [
   { 
     icon: MapPin, 
-    text: 'Flat no 15 Shivom apt, Near Madhuel Electronics, Mahatma nagar Nashik',
+    text: 'Flat no 15 Shivom apt, Near Madhu Electronics, Mahatma nagar Nashik',
     href: 'https://maps.google.com/?q=Flat+no+15+Shivom+apt,+Near+Madhuel+Electronics,+Mahatma+nagar+Nashik' 
   },
   { 
@@ -105,8 +105,8 @@ const contactInfo = [
   },
   { 
     icon: Mail, 
-    text: 'splr@gmail.com',
-    href: 'mailto:splr@gmail.com' 
+    text: 'splrdevelopers02@gmail.com',
+    href: 'mailto:splrdevelopers02@gmail.com' 
   },
 ];
 
