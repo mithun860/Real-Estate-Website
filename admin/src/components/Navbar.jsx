@@ -2,15 +2,11 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
-  Home, 
-  List, 
-  PlusSquare, 
+  LayoutDashboard, 
   Calendar, 
   Menu, 
   X, 
-  LogOut, 
-  LayoutDashboard, 
-  Database 
+  LogOut 
 } from 'lucide-react';
 
 const Navbar = () => {
@@ -34,9 +30,7 @@ const Navbar = () => {
 
   const navItems = [
     { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { path: '/list', label: 'Properties', icon: List },
-    { path: '/add', label: 'Add Property', icon: PlusSquare },
-    { path: '/appointments', label: 'Appointments', icon: Calendar },
+    { path: '/appointments', label: 'Contacts', icon: Calendar },
   ];
 
   return (
@@ -46,9 +40,9 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/dashboard" className="flex items-center">
             <div className="p-2 bg-blue-100 rounded-lg">
-              <Home className="h-5 w-5 text-blue-600" />
+              <LayoutDashboard className="h-5 w-5 text-blue-600" />
             </div>
-            <span className="ml-2 text-xl font-bold text-gray-900">Admin Panel</span>
+            <span className="ml-2 text-xl font-bold text-gray-900">Admin Portal</span>
           </Link>
           
           {/* Desktop Navigation */}
