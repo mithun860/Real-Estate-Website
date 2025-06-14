@@ -1,6 +1,6 @@
 import fs from "fs";
 import imagekit from "../config/imagekit.js";
-import Property from "../models/propertymodel.js";
+import Property from "../models/propertyModel.js";
 
 const addproperty = async (req, res) => {
     try {
