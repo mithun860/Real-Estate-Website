@@ -1,5 +1,5 @@
 import Stats from '../models/statsModel.js';
-import Property from '../models/propertymodel.js';
+import Property from '../models/propertyModel.js';
 import Appointment from '../models/appointmentModel.js';
 import User from '../models/Usermodel.js';
 import transporter from "../config/nodemailer.js";
