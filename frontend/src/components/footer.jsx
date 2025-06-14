@@ -89,7 +89,7 @@ const companyLinks = [
   { name: 'Home', href: '/' },
   { name: 'About Us', href: '/about' },
   { name: 'Contact', href: '/contact' },
-  { name: 'Sign In', href: './signin' },
+  { name: 'Sign In', href: 'https://real-estate-website-admin.vercel.app/login', external: true },
 ];
 
 const contactInfo = [
