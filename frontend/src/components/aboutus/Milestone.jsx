@@ -7,8 +7,8 @@ const milestones = [
   {
     icon: Home,
     title: "Properties Listed",
-    value: 110,
-    suffix: "",
+    value: 100,
+    suffix: "+",
     description: "Curated with care across regions",
   },
   {

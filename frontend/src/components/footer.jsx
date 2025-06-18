@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import { 
   Home, 
-  Twitter, 
   Facebook, 
   Instagram, 
-  Github, 
   Mail, 
   MapPin, 
   Phone,
@@ -14,6 +12,7 @@ import {
 import { motion, AnimatePresence } from 'framer-motion';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import credaiLogo from '../assets/credaiLogo.png';
 
 const MobileFooterSection = ({ title, children }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -60,10 +59,8 @@ const FooterLink = ({ href, children }) => (
 );
 
 const socialLinks = [
-  { icon: Twitter, href: '#', label: 'Twitter', color: 'bg-[#1DA1F2]', hoverColor: 'hover:bg-[#1DA1F2]/90' },
   { icon: Facebook, href: '#', label: 'Facebook', color: 'bg-[#1877F2]', hoverColor: 'hover:bg-[#1877F2]/90' },
   { icon: Instagram, href: '#', label: 'Instagram', color: 'bg-gradient-to-tr from-[#fd5949] via-[#d6249f] to-[#285AEB]', hoverColor: 'hover:opacity-90' },
-  { icon: Github, href: 'https://github.com/mithun860/Real-Estate-Website', label: 'GitHub', color: 'bg-[#333]', hoverColor: 'hover:bg-gray-800' },
 ];
 
 const SocialLinks = () => (
@@ -95,8 +92,8 @@ const companyLinks = [
 const contactInfo = [
   { 
     icon: MapPin, 
-    text: 'Flat no 15 Shivom apt, Near Madhu Electronics, Mahatma nagar Nashik',
-    href: 'https://maps.google.com/?q=Flat+no+15+Shivom+apt,+Near+Madhuel+Electronics,+Mahatma+nagar+Nashik' 
+    text: 'FLAT NO 15 SHIVOM APT, NEAR MADHU ELECTRONICS, MAHATMA NAGAR NASHIK',
+    href: 'https://maps.app.goo.gl/b9wppF2RowaC14Ck8' 
   },
   { 
     icon: Phone, 
@@ -113,30 +110,35 @@ const contactInfo = [
 const Footer = () => {
   return (
     <footer>
-      {/* Main Footer */}
       <div className="bg-black pt-12 lg:pt-16 pb-12 border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white font-body">
-          {/* Brand + Video side-by-side */}
           <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-8">
-            {/* Brand & Tagline */}
-            <div className="max-w-md text-center lg:text-left">
-              <div className="flex items-center justify-center lg:justify-start">
-                <div className="p-2 bg-[#066b70] rounded-lg">
-                  <Home className="h-6 w-6 text-white" />
+            <div className="flex flex-col items-center lg:items-start gap-6 w-full lg:w-auto">
+              <div className="flex flex-col items-center lg:items-start w-full">
+                <div className="flex items-center justify-center lg:justify-start">
+                  <div className="p-2 bg-[#066b70] rounded-lg">
+                    <Home className="h-6 w-6 text-white" />
+                  </div>
+                  <span className="ml-3 text-2xl font-heading font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#066b70] to-[#066b70]">
+                    SPLR Developers
+                  </span>
                 </div>
-                <span className="ml-3 text-2xl font-heading font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#066b70] to-[#066b70]">
-                  SPLR Developers
-                </span>
+                {/* CREDAI Logo positioned below SPLR Developers and made larger */}
+                <img 
+                  src={credaiLogo} 
+                  alt="CREDAI Nashik" 
+                  className="h-20 object-contain mt-4" 
+                />
               </div>
               
-              <p className="text-gray-300 mt-4 leading-relaxed">
-                Your reliable companion in discovering your ideal home. We streamline property searching, making it effortless, efficient, and perfectly suited to your individual preferences.
-              </p>
-              
-              <SocialLinks />
+              <div className="max-w-md text-center lg:text-left">
+                <p className="text-gray-300 mt-4 leading-relaxed">
+                  Your reliable companion in discovering your ideal home. We streamline property searching, making it effortless, efficient, and perfectly suited to your individual preferences.
+                </p>
+                <SocialLinks />
+              </div>
             </div>
 
-            {/* YouTube video */}
             <div className="w-full max-w-sm aspect-video rounded-md overflow-hidden shadow-lg border border-gray-700">
               <iframe
                 title="SPLR Developers Video"
@@ -150,7 +152,6 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Footer links and contact info below */}
           <div className="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div className="lg:col-span-3">
               <h3 className="hidden lg:block text-sm font-heading font-bold tracking-wider text-white uppercase mb-4">
@@ -175,8 +176,8 @@ const Footer = () => {
                     <a 
                       href={item.href} 
                       className="flex items-start text-gray-300 hover:text-[#066b70] transition-colors duration-200"
-                      target={item.icon === MapPin ? "_blank" : undefined}
-                      rel={item.icon === MapPin ? "noopener noreferrer" : undefined}
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       <item.icon className="w-4 h-4 mt-1 mr-3 flex-shrink-0 text-[#066b70]" />
                       <span className="text-sm">{item.text}</span>
@@ -192,8 +193,8 @@ const Footer = () => {
               </h3>
               <div className="w-full h-48 rounded-md overflow-hidden shadow-lg border border-gray-700">
                 <iframe
-                  title="Three Leaf Location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.190800301357!2d73.77914841490606!3d20.00287808579127!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bddeb08bc13e3ff%3A0x4e4e4f4d7a441390!2sFlat%20No.%2015%20Shivom%20Apt%2C%20Near%20Madhuel%20Electronics%2C%20Mahatma%20Nagar%2C%20Nashik%2C%20Maharashtra%20422003!5e0!3m2!1sen!2sin!4v1683380318345!5m2!1sen!2sin"
+                  title="SPLR Developers Location"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3749.074097642072!2d73.756031!3d20.0079378!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bddeb08bc13e3ff%3A0x4e4e4f4d7a441390!2sFlat%20No.%2015%20Shivom%20Apt%2C%20Near%20Madhuel%20Electronics%2C%20Mahatma%20Nagar%2C%20Nashik%2C%20Maharashtra%20422003!5e0!3m2!1sen!2sin!4v1683380318345!5m2!1sen!2sin"
                   width="100%"
                   height="100%"
                   loading="lazy"
@@ -201,12 +202,19 @@ const Footer = () => {
                   className="border-0"
                 />
               </div>
+              <a 
+                href="https://maps.app.goo.gl/b9wppF2RowaC14Ck8" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="mt-2 inline-block text-sm text-[#066b70] hover:underline"
+              >
+                View on Google Maps
+              </a>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom Bar */}
       <div className="bg-black border-t border-gray-800 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-sm text-gray-400 text-center">

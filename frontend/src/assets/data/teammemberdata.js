@@ -2,7 +2,6 @@ import prakashImage from '../images/prakashgaj.jpg';
 import laxmanImage from '../images/laxmanlah.jpg';
 import rahulImage from '../images/rahultho.jpg';
 import kiranImage from '../images/kirandes1.jpg';
-import anitaImage from '../images/anitalah.jpg';
 import shreyasImage from '../images/shreyasmal.jpg';
 
 export const teamMembers = [
@@ -44,17 +43,6 @@ export const teamMembers = [
     position: 'Director',
     bio: '',
     image: kiranImage,
-    social: {
-      linkedin: '',
-      twitter: '',
-      instagram: '',
-    },
-  },
-  {
-    name: 'Anita Lahamge',
-    position: 'Director',
-    bio: '',
-    image: anitaImage,
     social: {
       linkedin: '',
       twitter: '',

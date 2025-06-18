@@ -7,7 +7,6 @@ import { Backendurl } from '../../App';
 export default function useContactForm() {
   const [formData, setFormData] = useState({
     name: '',
-    email: '',
     phone: '',
     message: '',
   });
@@ -21,14 +20,10 @@ export default function useContactForm() {
       newErrors.name = 'Name is required';
     }
 
-    if (!formData.email.trim()) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
-    }
-
-    if (!formData.message.trim()) {
-      newErrors.message = 'Message is required';
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone number is required';
+    } else if (!/^[0-9]{10,15}$/.test(formData.phone)) {
+      newErrors.phone = 'Please enter a valid phone number';
     }
 
     setErrors(newErrors);
@@ -50,7 +45,7 @@ export default function useContactForm() {
         const response = await axios.post(`${Backendurl}/api/forms/submit`, formData);
         toast.success('Form submitted successfully!');
         // Reset form
-        setFormData({ name: '', email: '', phone: '', message: '' });
+        setFormData({ name: '', phone: '', message: '' });
       } catch (error) {
         toast.error('Error submitting form. Please try again.');
         console.error('Error submitting form:', error);

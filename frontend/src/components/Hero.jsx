@@ -12,22 +12,31 @@ const Hero = () => {
           muted
           playsInline
           className="w-full h-full object-cover opacity-80"
-          src="/three-leaf-video.mp4" // ✅ Now coming from public folder
+          src="/three-leaf-video.mp4"
         />
         <div className="absolute inset-0 bg-black/40" />
       </div>
 
       {/* Main Content */}
       <div className="relative z-10 max-w-5xl">
-        <motion.h1
+        <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-[#e3b07b] text-4xl sm:text-6xl md:text-7xl font-bold uppercase tracking-wide"
-          style={{ fontFamily: "'Oswald', sans-serif" }}
         >
-          Three Leaf Farm Plots
-        </motion.h1>
+          <h1 
+            className="text-[#3a7ca5] text-outline text-4xl sm:text-6xl md:text-7xl font-bold uppercase tracking-wide mb-2"
+            style={{ fontFamily: "'Oswald', sans-serif" }}
+          >
+            THREE LEAF
+          </h1>
+          <h2 
+            className="text-[#3a7ca5] text-outline text-2xl sm:text-4xl font-semibold uppercase tracking-wide"
+            style={{ fontFamily: "'Oswald', sans-serif" }}
+          >
+            GREEN SPACE
+          </h2>
+        </motion.div>
 
         <motion.p
           initial={{ opacity: 0, y: 30 }}
@@ -36,17 +45,8 @@ const Hero = () => {
           className="mt-6 text-lg sm:text-xl text-slate-200 max-w-3xl mx-auto leading-relaxed"
           style={{ fontFamily: "'Montserrat', sans-serif" }}
         >
-          A 52-acre gated community farmhouse plots project by{" "}
-          <span className="text-[#e3b07b] font-semibold">
-            SPLR Developers
-          </span>
-          .
-          <br className="hidden sm:block" />
-          Experience the perfect blend of nature and luxury starting at just{" "}
-          <span className="font-semibold">
-            35 Lacs
-          </span>
-          .
+          A villa that makes every day<br />
+          <span className="text-[#e3b07b]">A picnic in nature</span>
         </motion.p>
 
         <motion.div

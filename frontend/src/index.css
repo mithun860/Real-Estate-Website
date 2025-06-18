@@ -13,3 +13,8 @@
 .filter-label {
   @apply flex items-center text-gray-700 font-medium text-sm;
 }
+
+.text-outline {
+  -webkit-text-stroke: 0.5px white;
+  text-stroke: 0.5px white;
+}

@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import TeamMember from "./TeamMember";
 import { teamMembers } from "../../assets/data/teammemberdata";
 
 export default function Team() {
   const { scrollY } = useScroll();
+  const [selectedMember, setSelectedMember] = useState(null);
 
-  // Different parallax speeds for layers
+  // Parallax layers
   const y1 = useTransform(scrollY, [0, 500], [0, 60]);
   const y2 = useTransform(scrollY, [0, 500], [0, 40]);
   const y3 = useTransform(scrollY, [0, 500], [0, 20]);
@@ -20,7 +21,7 @@ export default function Team() {
         color: "#f5f5f5",
       }}
     >
-      {/* Parallax Background Layers */}
+      {/* Parallax background layers */}
       <motion.div
         style={{
           position: "absolute",
@@ -106,20 +107,19 @@ export default function Team() {
         </p>
       </motion.div>
 
-      {/* Team grid */}
-      <div className="relative max-w-7xl mx-auto grid gap-12 sm:grid-cols-2 md:grid-cols-3 z-10">
+      {/* Team Grid */}
+      <div className="relative max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 z-10">
         {teamMembers.map((member, index) => (
           <motion.div
             key={index}
+            onClick={() => setSelectedMember(member)}
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: index * 0.15, duration: 0.6 }}
-            className="bg-white rounded-2xl p-8 flex flex-col items-center text-center shadow-lg hover:shadow-2xl hover:scale-105 transition-transform duration-300 cursor-default"
+            transition={{ delay: index * 0.1, duration: 0.6 }}
+            className="cursor-pointer bg-white p-6 rounded-2xl shadow-md hover:shadow-xl hover:scale-105 transition duration-300 flex flex-col items-center text-center"
           >
-            <div
-              className="w-28 h-28 rounded-full overflow-hidden mb-6 border-4 border-[#e3b070] shadow-lg"
-            >
+            <div className="w-24 h-24 rounded-full overflow-hidden mb-4 border-4 border-[#e3b070] shadow">
               <img
                 src={member.image}
                 alt={member.name}
@@ -127,20 +127,52 @@ export default function Team() {
               />
             </div>
             <h3
-              className="text-2xl font-oswald mb-1"
-              style={{ color: "#066b70", fontFamily: "'Oswald', sans-serif" }}
+              className="text-xl font-oswald mb-1"
+              style={{ color: "#066b70" }}
             >
               {member.name}
             </h3>
-            <p
-              className="text-sm font-semibold mb-3 text-[#066b70]"
-            >
+            <p className="text-sm font-semibold text-[#066b70] mb-2">
               {member.position}
             </p>
-            <p className="text-gray-700 text-sm opacity-90">{member.bio}</p>
+            <p className="text-sm text-gray-600 line-clamp-2">
+              {member.bio}
+            </p>
           </motion.div>
         ))}
       </div>
+
+      {/* Modal for selected member */}
+      {selectedMember && (
+        <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-white rounded-2xl max-w-md w-full p-8 relative shadow-2xl"
+          >
+            <button
+              onClick={() => setSelectedMember(null)}
+              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-2xl"
+            >
+              ✕
+            </button>
+            <div className="flex flex-col items-center text-center text-[#066b70]">
+              <img
+                src={selectedMember.image}
+                alt={selectedMember.name}
+                className="w-28 h-28 object-cover rounded-full border-4 border-[#e3b070] mb-4"
+              />
+              <h3 className="text-2xl font-bold mb-1">
+                {selectedMember.name}
+              </h3>
+              <p className="text-sm font-semibold mb-3 text-[#066b70]">
+                {selectedMember.position}
+              </p>
+              <p className="text-sm text-gray-700">{selectedMember.bio}</p>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </section>
   );
 }

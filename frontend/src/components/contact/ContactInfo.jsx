@@ -7,7 +7,7 @@ const contactInfo = [
   {
     icon: Phone,
     title: 'Phone',
-    content: '+918600315351',
+    content: '8600315351',
     link: 'tel:+918600315351',
   },
   {
@@ -19,13 +19,13 @@ const contactInfo = [
   {
     icon: MapPin,
     title: 'Address',
-    content: 'Flat no 15 Shivom apt, Near Madhu Electronics, Mahatma nagar Nashik',
+    content: 'FLAT NO 15 SHIVOM APT, NEAR MADHU ELECTRONICS, MAHATMA NAGAR NASHIK',
     link: '#Map',
   },
   {
     icon: Clock,
     title: 'Working Hours',
-    content: 'Mon-Fri: 9 AM - 6 PM',
+    content: 'All Day: 24/7',
   },
 ];
 

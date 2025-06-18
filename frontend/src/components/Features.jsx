@@ -52,7 +52,7 @@ const Features = () => {
           >
             Why Choose Us
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-green-500 to-orange-600 mx-auto mb-6 rounded-full"></div>
+          <div className="w-24 h-1 mx-auto mb-6 rounded-full" style={{ backgroundColor: "#e3b070" }}></div>
           <p
             className="text-xl text-green-200 max-w-2xl mx-auto"
             style={{ fontFamily: "'Montserrat', sans-serif" }}

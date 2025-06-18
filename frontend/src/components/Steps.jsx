@@ -35,7 +35,7 @@ function Step({ icon: Icon, title, description }) {
     >
       <div className="w-20 h-20 bg-gradient-to-br from-[#e0f0f0] to-[#f7f3f3] rounded-2xl flex items-center justify-center mb-5 shadow-md relative overflow-hidden group">
         <div className="absolute inset-0 bg-gradient-to-r from-[#066b70] to-[#066b70] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-        <Icon className="h-10 w-10 text-[#066b70] group-hover:text-white relative z-10 transition-colors duration-300" />
+        <Icon className="h-10 w-10 text-[#066b70] group-hover:text-[#e3b070] relative z-10 transition-colors duration-300" />
       </div>
 
       <h3
@@ -77,7 +77,7 @@ export default function HowItWorks() {
   return (
     <section
       className="relative overflow-hidden py-28"
-      style={{ backgroundColor: '#e3b07b' }}
+      style={{ backgroundColor: '#e3b070' }} // Changed from #e3b07b to #e3b070
     >
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
@@ -104,8 +104,7 @@ export default function HowItWorks() {
           >
             How It Works
           </h2>
-          <div className="w-24 h-1 mx-auto mb-6 rounded-full" 
-            style={{ background: 'linear-gradient(to right, #066b70, #f97316)' }}></div>
+          <div className="w-24 h-1 mx-auto mb-6 rounded-full" style={{ backgroundColor: '#066b70' }}></div>
           <p
             className="text-xl max-w-2xl mx-auto"
             style={{ fontFamily: "'Montserrat', sans-serif", color: '#374151' }}
@@ -121,17 +120,7 @@ export default function HowItWorks() {
           viewport={{ once: true, margin: '-100px' }}
           className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8 lg:gap-16 relative"
         >
-          <div className="hidden md:block absolute top-10 left-[20%] right-[20%] h-0.5 bg-gray-100">
-            <div className="absolute left-0 right-0 top-0 h-full">
-              <div
-                className="h-full w-full bg-size-200 animate-bg-pos-x"
-                style={{
-                  background:
-                    'linear-gradient(to right, #066b70, #f97316, #066b70)',
-                }}
-              ></div>
-            </div>
-          </div>
+          <div className="hidden md:block absolute top-10 left-[20%] right-[20%] h-0.5" style={{ backgroundColor: '#066b70' }}></div>
 
           {steps.map((step, index) => (
             <React.Fragment key={index}>
@@ -176,10 +165,9 @@ export default function HowItWorks() {
             onClick={downloadBrochure}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center px-6 py-3 text-white font-medium rounded-lg shadow-green-500/30 hover:shadow-lg transition-all"
+            className="inline-flex items-center px-6 py-3 text-white font-medium rounded-lg hover:shadow-lg transition-all"
             style={{
-              background:
-                'linear-gradient(to right, #066b70, #f97316)',
+              backgroundColor: '#066b70', // Changed from gradient to solid #066b70
               boxShadow: '0 10px 20px rgba(6, 107, 112, 0.3)',
             }}
           >
