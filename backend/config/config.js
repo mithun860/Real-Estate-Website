@@ -10,5 +10,3 @@ export const config = {
     azureApiKey: process.env.AZURE_API_KEY,
     useAzure: process.env.USE_AZURE === 'true',
 };
-
-

@@ -9,6 +9,7 @@ import Footer from './components/footer';
 import Home from './pages/Home';
 import Aboutus from './pages/About';
 import Contact from './pages/Contact';
+import Properties from './pages/Properties';
 
 import Login from './components/login';
 import SignIn from './pages/signin';
@@ -59,6 +60,7 @@ const App = () => {
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<Aboutus />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/properties" element={<Properties />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </LayoutWrapper>

@@ -8,6 +8,8 @@ import ErrorFallback from "./components/ErrorFallback";
 import Login from "./components/login";
 import Dashboard from "./pages/Dashboard";
 import Appointments from "./pages/Appointments";
+import AddProperty from "./pages/Add"; // ✅ new
+import UploadProperty from "./pages/UploadProperty";
 
 export const backendurl = import.meta.env.VITE_BACKEND_URL;
 
@@ -37,6 +39,8 @@ const App = () => {
               <Route element={<ProtectedRoute />}>
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/appointments" element={<Appointments />} />
+                <Route path="/add-property" element={<AddProperty />} /> {/* ✅ new */}
+                <Route path="/upload-property" element={<UploadProperty />} />
               </Route>
 
               <Route path="*" element={<Navigate to="/dashboard" replace />} />

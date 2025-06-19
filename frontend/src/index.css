@@ -18,3 +18,8 @@
   -webkit-text-stroke: 0.5px white;
   text-stroke: 0.5px white;
 }
+
+.glow-text {
+  text-shadow: 0 0 6px rgba(13, 148, 136, 0.5), 0 0 12px rgba(13, 148, 136, 0.4);
+  transition: text-shadow 0.3s ease-in-out;
+}

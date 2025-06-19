@@ -1,36 +1,34 @@
 import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { 
-  LayoutDashboard, 
-  Calendar, 
-  Menu, 
-  X, 
-  LogOut 
+import {
+  LayoutDashboard,
+  Calendar,
+  Menu,
+  X,
+  LogOut,
+  UploadCloud,
 } from 'lucide-react';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
-  const isActive = (path) => {
-    return location.pathname === path;
-  };
-  
+
+  const isActive = (path) => location.pathname === path;
+
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('isAdmin');
     navigate('/login');
   };
-  
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const navItems = [
     { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { path: '/appointments', label: 'Contacts', icon: Calendar },
+    { path: '/add-property', label: 'Upload Property', icon: UploadCloud }, // ✅ Added
   ];
 
   return (
@@ -44,7 +42,7 @@ const Navbar = () => {
             </div>
             <span className="ml-2 text-xl font-bold text-gray-900">Admin Portal</span>
           </Link>
-          
+
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-1">
             {navItems.map((item) => (
@@ -63,7 +61,7 @@ const Navbar = () => {
                 </div>
               </Link>
             ))}
-            
+
             <button
               onClick={handleLogout}
               className="px-3 py-2 rounded-md text-sm font-medium text-red-600 hover:bg-red-50 transition-colors ml-2"
@@ -74,7 +72,7 @@ const Navbar = () => {
               </div>
             </button>
           </nav>
-          
+
           {/* Mobile Menu Button */}
           <div className="md:hidden">
             <button
@@ -90,7 +88,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Mobile Menu */}
       {isMenuOpen && (
         <motion.div
@@ -117,7 +115,7 @@ const Navbar = () => {
                 </div>
               </Link>
             ))}
-            
+
             <button
               onClick={handleLogout}
               className="w-full text-left px-3 py-2 rounded-md text-base font-medium text-red-600 hover:bg-red-50"

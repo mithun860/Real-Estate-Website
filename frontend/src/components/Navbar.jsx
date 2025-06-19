@@ -9,6 +9,7 @@ import {
   Home,
   Users,
   MessageCircle,
+  Building,
 } from "lucide-react";
 import logo from "../assets/splr-logo.png";
 import { useAuth } from "../context/AuthContext";
@@ -30,11 +31,9 @@ const Navbar = () => {
         setIsDropdownOpen(false);
       }
     };
-
     if (isDropdownOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     }
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -43,18 +42,14 @@ const Navbar = () => {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
-
       setScrolled(currentScrollY > 10);
-
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
         setVisible(false);
       } else if (currentScrollY < lastScrollY) {
         setVisible(true);
       }
-
       setLastScrollY(currentScrollY);
     };
-
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
@@ -80,45 +75,43 @@ const Navbar = () => {
       .toUpperCase();
   };
 
-  const NavLinks = ({ currentPath }) => {
-    const navLinks = [
-      { name: "Home", path: "/", icon: Home },
-      { name: "About Us", path: "/about", icon: Users },
-      { name: "Contact", path: "/contact", icon: MessageCircle },
-    ];
+  const navLinks = [
+    { name: "Home", path: "/", icon: Home },
+    { name: "About Us", path: "/about", icon: Users },
+    { name: "Contact", path: "/contact", icon: MessageCircle },
+    { name: "Properties", path: "/properties", icon: Building },
+  ];
 
-    return (
-      <div className="flex space-x-6 items-center">
-        {navLinks.map(({ name, path, icon: Icon }) => {
-          const isActive =
-            path === "/" ? currentPath === path : currentPath.startsWith(path);
-          return (
-            <Link
-              key={name}
-              to={path}
-              className={`relative font-medium transition-colors duration-200 flex items-center gap-1.5 px-2 py-1 rounded-md
-                ${
-                  isActive
-                    ? "text-[#066b70] bg-[#e3b07b]/10"
-                    : "text-gray-700 hover:text-[#066b70] hover:bg-[#e3b07b]/10"
-                }
-              `}
-            >
-              <Icon className="w-4 h-4" />
-              <span>{name}</span>
-              {isActive && (
-                <motion.div
-                  layoutId="activeIndicator"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#066b70] rounded-full"
-                  initial={false}
-                />
-              )}
-            </Link>
-          );
-        })}
-      </div>
-    );
-  };
+  const NavLinks = ({ currentPath }) => (
+    <div className="flex space-x-6 items-center">
+      {navLinks.map(({ name, path, icon: Icon }) => {
+        const isActive =
+          path === "/" ? currentPath === path : currentPath.startsWith(path);
+        return (
+          <Link
+            key={name}
+            to={path}
+            className={`relative font-medium transition-colors duration-200 flex items-center gap-1.5 px-2 py-1 rounded-md
+              ${
+                isActive
+                  ? "text-[#066b70] bg-[#e3b07b]/10"
+                  : "text-gray-700 hover:text-[#066b70] hover:bg-[#e3b07b]/10"
+              }`}
+          >
+            <Icon className="w-4 h-4" />
+            <span>{name}</span>
+            {isActive && (
+              <motion.div
+                layoutId="activeIndicator"
+                className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#066b70] rounded-full"
+                initial={false}
+              />
+            )}
+          </Link>
+        );
+      })}
+    </div>
+  );
 
   const MobileNavLinks = ({
     setMobileMenuOpen,
@@ -126,65 +119,55 @@ const Navbar = () => {
     user,
     handleLogout,
     currentPath,
-  }) => {
-    const navLinks = [
-      { name: "Home", path: "/", icon: Home },
-      { name: "About Us", path: "/about", icon: Users },
-      { name: "Contact", path: "/contact", icon: MessageCircle },
-    ];
-
-    return (
-      <div className="flex flex-col space-y-1 pb-3">
-        {navLinks.map(({ name, path, icon: Icon }) => {
-          const isActive =
-            path === "/" ? currentPath === path : currentPath.startsWith(path);
-          return (
-            <motion.div key={name} whileTap={{ scale: 0.97 }}>
-              <Link
-                to={path}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors
-                  ${
-                    isActive
-                      ? "bg-[#e3b07b]/10 text-[#066b70] font-medium"
-                      : "text-gray-700 hover:bg-gray-50 hover:text-[#066b70]"
-                  }
-                `}
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <Icon className="w-5 h-5" />
-                {name}
-              </Link>
-            </motion.div>
-          );
-        })}
-
-        {isLoggedIn && (
-          <div className="pt-4 mt-2 border-t border-gray-100 space-y-3 px-3">
-            <div className="flex items-center space-x-3 p-2 bg-gray-50 rounded-lg">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#066b70] to-[#e3b07b] flex items-center justify-center text-white font-medium text-sm shadow-sm">
-                {user?.name ? user.name[0].toUpperCase() : "U"}
-              </div>
-              <div className="flex-1">
-                <p className="text-sm font-medium text-gray-900">{user?.name}</p>
-                <p className="text-xs text-gray-500 truncate">{user?.email}</p>
-              </div>
-            </div>
-            <motion.button
-              whileTap={{ scale: 0.97 }}
-              onClick={() => {
-                handleLogout();
-                setMobileMenuOpen(false);
-              }}
-              className="w-full flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+  }) => (
+    <div className="flex flex-col space-y-1 pb-3">
+      {navLinks.map(({ name, path, icon: Icon }) => {
+        const isActive =
+          path === "/" ? currentPath === path : currentPath.startsWith(path);
+        return (
+          <motion.div key={name} whileTap={{ scale: 0.97 }}>
+            <Link
+              to={path}
+              className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors
+                ${
+                  isActive
+                    ? "bg-[#e3b07b]/10 text-[#066b70] font-medium"
+                    : "text-gray-700 hover:bg-gray-50 hover:text-[#066b70]"
+                }`}
+              onClick={() => setMobileMenuOpen(false)}
             >
-              <LogOut className="w-5 h-5" />
-              <span className="font-medium">Sign out</span>
-            </motion.button>
+              <Icon className="w-5 h-5" />
+              {name}
+            </Link>
+          </motion.div>
+        );
+      })}
+      {isLoggedIn && (
+        <div className="pt-4 mt-2 border-t border-gray-100 space-y-3 px-3">
+          <div className="flex items-center space-x-3 p-2 bg-gray-50 rounded-lg">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#066b70] to-[#e3b07b] flex items-center justify-center text-white font-medium text-sm shadow-sm">
+              {user?.name ? user.name[0].toUpperCase() : "U"}
+            </div>
+            <div className="flex-1">
+              <p className="text-sm font-medium text-gray-900">{user?.name}</p>
+              <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+            </div>
           </div>
-        )}
-      </div>
-    );
-  };
+          <motion.button
+            whileTap={{ scale: 0.97 }}
+            onClick={() => {
+              handleLogout();
+              setMobileMenuOpen(false);
+            }}
+            className="w-full flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+          >
+            <LogOut className="w-5 h-5" />
+            <span className="font-medium">Sign out</span>
+          </motion.button>
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <motion.nav
@@ -199,7 +182,6 @@ const Navbar = () => {
     >
       <div className="w-full">
         <div className="flex items-center justify-between h-32 px-4 sm:px-6 lg:px-8">
-          {/* Logo */}
           <Link to="/" className="flex items-center">
             <motion.div
               whileHover={{ rotate: [0, -10, 10, -10, 0] }}
@@ -213,7 +195,6 @@ const Navbar = () => {
             </motion.div>
           </Link>
 
-          {/* Nav and Buttons */}
           <div className="flex-1 flex items-center justify-end gap-6">
             <div className="hidden md:flex items-center gap-6 mr-8">
               <NavLinks currentPath={location.pathname} />
@@ -288,7 +269,6 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
