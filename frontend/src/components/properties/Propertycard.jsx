@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import {
   MapPin,
   IndianRupee,
-  BedDouble,
-  Bath,
   Maximize,
   Share2,
   ChevronLeft,
@@ -83,7 +81,6 @@ const PropertyCard = ({ property, viewType }) => {
           />
         </AnimatePresence>
 
-        {/* ◀▶ Carousel Controls */}
         {showControls && images.length > 1 && (
           <div className="absolute inset-0 flex items-center justify-between px-2">
             <motion.button
@@ -103,7 +100,6 @@ const PropertyCard = ({ property, viewType }) => {
           </div>
         )}
 
-        {/* ⏺ Indicators */}
         {images.length > 1 && (
           <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1">
             {images.map((_, i) => (
@@ -117,7 +113,6 @@ const PropertyCard = ({ property, viewType }) => {
           </div>
         )}
 
-        {/* 🔖 Tags & Share */}
         <div className="absolute top-4 left-4 flex flex-col gap-2">
           <span className="bg-[#066b70] text-white px-3 py-1 rounded-full text-sm font-semibold">
             {property.type}
@@ -158,7 +153,6 @@ const PropertyCard = ({ property, viewType }) => {
             {property.title}
           </h3>
 
-          {/* 💰 Price */}
           <div>
             <p className="text-sm text-gray-500 mb-1">Price</p>
             <div className="flex items-center gap-1">
@@ -170,21 +164,9 @@ const PropertyCard = ({ property, viewType }) => {
           </div>
         </div>
 
-        {/* 📐 Features */}
-        <div className="grid grid-cols-3 gap-3 mt-6">
-          <div className="flex flex-col items-center bg-[#f0fdfa] p-2 rounded-md">
-            <BedDouble className="w-5 h-5 text-[#066b70]" />
-            <span className="text-sm font-medium text-gray-600">
-              {property.beds} {property.beds === 1 ? 'Bed' : 'Beds'}
-            </span>
-          </div>
-          <div className="flex flex-col items-center bg-[#fef7f1] p-2 rounded-md">
-            <Bath className="w-5 h-5 text-[#e3b07b]" />
-            <span className="text-sm font-medium text-gray-600">
-              {property.baths} {property.baths === 1 ? 'Bath' : 'Baths'}
-            </span>
-          </div>
-          <div className="flex flex-col items-center bg-[#f0fdfa] p-2 rounded-md">
+        {/* 📐 Area Section Only */}
+        <div className="mt-6">
+          <div className="flex flex-col items-center bg-[#f0fdfa] p-3 rounded-md">
             <Maximize className="w-5 h-5 text-[#066b70]" />
             <span className="text-sm font-medium text-gray-600">{property.sqft} sqft</span>
           </div>

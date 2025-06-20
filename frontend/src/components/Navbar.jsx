@@ -10,6 +10,7 @@ import {
   Users,
   MessageCircle,
   Building,
+  Link as LinkIcon,
 } from "lucide-react";
 import logo from "../assets/splr-logo.png";
 import { useAuth } from "../context/AuthContext";
@@ -43,11 +44,7 @@ const Navbar = () => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       setScrolled(currentScrollY > 10);
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setVisible(false);
-      } else if (currentScrollY < lastScrollY) {
-        setVisible(true);
-      }
+      setVisible(currentScrollY < lastScrollY || currentScrollY < 100);
       setLastScrollY(currentScrollY);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -66,20 +63,15 @@ const Navbar = () => {
     setIsDropdownOpen(false);
   };
 
-  const getInitials = (name) => {
-    if (!name) return "U";
-    return name
-      .split(" ")
-      .map((word) => word[0])
-      .join("")
-      .toUpperCase();
-  };
+  const getInitials = (name) =>
+    name ? name.split(" ").map((w) => w[0]).join("").toUpperCase() : "U";
 
   const navLinks = [
     { name: "Home", path: "/", icon: Home },
     { name: "About Us", path: "/about", icon: Users },
     { name: "Contact", path: "/contact", icon: MessageCircle },
     { name: "Properties", path: "/properties", icon: Building },
+    { name: "More Details", path: "/more-details", icon: LinkIcon },
   ];
 
   const NavLinks = ({ currentPath }) => (
@@ -91,12 +83,11 @@ const Navbar = () => {
           <Link
             key={name}
             to={path}
-            className={`relative font-medium transition-colors duration-200 flex items-center gap-1.5 px-2 py-1 rounded-md
-              ${
-                isActive
-                  ? "text-[#066b70] bg-[#e3b07b]/10"
-                  : "text-gray-700 hover:text-[#066b70] hover:bg-[#e3b07b]/10"
-              }`}
+            className={`relative font-medium transition-colors duration-200 flex items-center gap-1.5 px-2 py-1 rounded-md ${
+              isActive
+                ? "text-[#066b70] bg-[#e3b07b]/10"
+                : "text-gray-700 hover:text-[#066b70] hover:bg-[#e3b07b]/10"
+            }`}
           >
             <Icon className="w-4 h-4" />
             <span>{name}</span>
@@ -128,13 +119,12 @@ const Navbar = () => {
           <motion.div key={name} whileTap={{ scale: 0.97 }}>
             <Link
               to={path}
-              className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors
-                ${
-                  isActive
-                    ? "bg-[#e3b07b]/10 text-[#066b70] font-medium"
-                    : "text-gray-700 hover:bg-gray-50 hover:text-[#066b70]"
-                }`}
               onClick={() => setMobileMenuOpen(false)}
+              className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                isActive
+                  ? "bg-[#e3b07b]/10 text-[#066b70] font-medium"
+                  : "text-gray-700 hover:bg-gray-50 hover:text-[#066b70]"
+              }`}
             >
               <Icon className="w-5 h-5" />
               {name}
@@ -182,17 +172,13 @@ const Navbar = () => {
     >
       <div className="w-full">
         <div className="flex items-center justify-between h-32 px-4 sm:px-6 lg:px-8">
+          {/* ✅ Static Logo (No Animation) */}
           <Link to="/" className="flex items-center">
-            <motion.div
-              whileHover={{ rotate: [0, -10, 10, -10, 0] }}
-              transition={{ duration: 0.5 }}
-            >
-              <img
-                src={logo}
-                alt="SPLR logo"
-                className="w-32 h-32 object-contain"
-              />
-            </motion.div>
+            <img
+              src={logo}
+              alt="SPLR logo"
+              className="w-32 h-32 object-contain"
+            />
           </Link>
 
           <div className="flex-1 flex items-center justify-end gap-6">
@@ -232,7 +218,10 @@ const Navbar = () => {
                         className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg py-2 border border-gray-100 overflow-hidden"
                       >
                         <div className="px-4 py-3 border-b border-gray-100">
-                          <p className="text-sm font-semibold text-gray-900" style={{ fontFamily: "'Playfair Display', serif" }}>
+                          <p
+                            className="text-sm font-semibold text-gray-900"
+                            style={{ fontFamily: "'Playfair Display', serif" }}
+                          >
                             {user?.name}
                           </p>
                           <p className="text-sm text-gray-500 truncate">

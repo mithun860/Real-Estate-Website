@@ -5,6 +5,7 @@ import { HelmetProvider } from 'react-helmet-async';
 
 import Navbar from './components/Navbar';
 import Footer from './components/footer';
+import ScrollToTop from "./components/ScrollToTop"; // ✅ import
 
 import Home from './pages/Home';
 import Aboutus from './pages/About';
@@ -18,12 +19,13 @@ import ResetPassword from './components/resetpassword';
 import NotFoundPage from './components/Notfound';
 import StructuredData from './components/SEO/StructuredData';
 import { AuthProvider } from './context/AuthContext';
+import MoreDetails from './pages/MoreDetails';
 
 import 'react-toastify/dist/ReactToastify.css';
 
 export const Backendurl = import.meta.env.VITE_API_BASE_URL;
 
-// 🧠 A wrapper to access location inside JSX
+// Layout wrapper with conditional Navbar/Footer
 const LayoutWrapper = ({ children }) => {
   const location = useLocation();
   const hideLayoutPaths = ['/login', '/signin', '/forgot-password', '/reset'];
@@ -32,12 +34,8 @@ const LayoutWrapper = ({ children }) => {
 
   return (
     <>
-      {/* Show Navbar only if not on login-related pages */}
       {!shouldHideLayout && <Navbar />}
-
       {children}
-
-      {/* Show Footer only if not on login-related pages */}
       {!shouldHideLayout && <Footer />}
     </>
   );
@@ -48,9 +46,10 @@ const App = () => {
     <HelmetProvider>
       <AuthProvider>
         <Router>
+          <ScrollToTop /> {/* ✅ This solves the scroll issue */}
           <StructuredData type="website" />
           <StructuredData type="organization" />
-          
+
           <LayoutWrapper>
             <Routes>
               <Route path="/signin" element={<SignIn />} />
@@ -61,6 +60,7 @@ const App = () => {
               <Route path="/about" element={<Aboutus />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/properties" element={<Properties />} />
+              <Route path="/more-details" element={<MoreDetails />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </LayoutWrapper>
