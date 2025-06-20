@@ -42,7 +42,7 @@ export default function Values() {
     <section className="py-24 bg-[#e3b070] relative overflow-hidden font-[Montserrat]">
       {/* Decorative Blur Elements */}
       <div className="absolute -top-10 -left-10 w-72 h-72 bg-white/10 rounded-full blur-3xl opacity-20" />
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-[#066b70]/20 rounded-full blur-3xl opacity-30" />
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-[#425036]/20 rounded-full blur-3xl opacity-30" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -53,7 +53,8 @@ export default function Values() {
           className="text-center mb-20"
         >
           <motion.h2
-            className="text-4xl font-extrabold mb-4 text-[#066b70] font-[Oswald]"
+            className="text-4xl font-extrabold mb-4"
+            style={{ color: '#425036', fontFamily: "'Queensides Medium', serif" }}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -61,11 +62,11 @@ export default function Values() {
             What Drives Us at SPLR
           </motion.h2>
           <motion.div
-            className="w-24 h-1 bg-[#066b70] mx-auto mb-6 rounded-full"
+            className="w-24 h-1 mx-auto mb-6 rounded-full"
+            style={{ backgroundColor: '#425036' }}
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ duration: 0.5 }}
-            style={{ transformOrigin: 'left' }}
           />
           <motion.p
             className="text-white max-w-2xl mx-auto text-lg leading-relaxed font-[Montserrat]"
@@ -88,15 +89,23 @@ export default function Values() {
           {values.map(({ icon: Icon, title, description }) => (
             <motion.div
               key={title}
-              className="bg-white p-8 rounded-2xl shadow-md border border-[#066b70]/20 hover:shadow-xl transition-all duration-300"
+              className="bg-white p-8 rounded-2xl shadow-md border border-[#425036]/20 hover:shadow-xl transition-all duration-300"
               variants={cardVariants}
               whileHover={{ y: -5 }}
             >
-              <div className="w-16 h-16 bg-[#066b70]/10 rounded-xl flex items-center justify-center mb-6 hover:rotate-6 transition-transform duration-300">
-                <Icon className="w-8 h-8 text-[#066b70]" />
+              <div className="w-16 h-16 bg-[#425036]/10 rounded-xl flex items-center justify-center mb-6 hover:rotate-6 transition-transform duration-300">
+                <Icon className="w-8 h-8 text-[#425036]" />
               </div>
-              <h3 className="text-2xl font-semibold mb-3 text-[#066b70] font-[Oswald]">{title}</h3>
-              <p className="text-gray-700 text-base leading-relaxed font-[Montserrat]">
+              <h3
+                className="text-2xl font-semibold mb-3"
+                style={{ color: '#425036', fontFamily: "'Queensides Medium', serif" }}
+              >
+                {title}
+              </h3>
+              <p
+                className="text-gray-700 text-base leading-relaxed"
+                style={{ fontFamily: "'Montserrat', sans-serif" }}
+              >
                 {description}
               </p>
             </motion.div>

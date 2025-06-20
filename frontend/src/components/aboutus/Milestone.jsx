@@ -25,7 +25,7 @@ export default function Milestones() {
     <section
       className="py-24 relative overflow-hidden"
       style={{
-        backgroundColor: "#066b70",
+        backgroundColor: "#425036",
         fontFamily: "'Montserrat', sans-serif",
         color: "#f3f3f3",
       }}
@@ -37,15 +37,17 @@ export default function Milestones() {
           whileInView={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          style={{ fontFamily: "'Oswald', sans-serif" }}
           className="mb-16"
         >
-          <h2 className="text-4xl font-extrabold mb-4 drop-shadow-lg">
+          <h2
+            className="text-4xl font-extrabold mb-4 drop-shadow-lg"
+            style={{ fontFamily: "'Queensides Medium', serif" }}
+          >
             Our Journey So Far
           </h2>
           <div
             className="w-24 h-1 mx-auto mb-4 rounded-full"
-            style={{ backgroundColor: "#e3b070", opacity: 0.9 }}
+            style={{ backgroundColor: "#DAA520", opacity: 0.95 }}
           />
           <p
             className="text-lg max-w-xl mx-auto"
@@ -71,13 +73,13 @@ export default function Milestones() {
               >
                 <div
                   className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5"
-                  style={{ backgroundColor: "#e3b070" }}
+                  style={{ backgroundColor: "#DAA520" }}
                 >
-                  <Icon className="w-10 h-10 text-[#066b70]" />
+                  <Icon className="w-10 h-10 text-[#425036]" />
                 </div>
                 <h3
                   className="text-5xl font-bold mb-2"
-                  style={{ fontFamily: "'Oswald', sans-serif", color: "#e3b070" }}
+                  style={{ fontFamily: "'Queensides Medium', serif", color: "#DAA520" }}
                 >
                   <CountUp
                     from={0}
@@ -89,7 +91,7 @@ export default function Milestones() {
                 </h3>
                 <p
                   className="text-xl font-semibold mb-2"
-                  style={{ fontFamily: "'Oswald', sans-serif", color: "#f3f3f3" }}
+                  style={{ fontFamily: "'Queensides Medium', serif", color: "#ffffff" }}
                 >
                   {milestone.title}
                 </p>

@@ -31,7 +31,6 @@ const cardVariants = {
 const Features = () => {
   const navigate = useNavigate();
 
-  // 📍 Route mapper for each feature title
   const getRouteForFeature = (title) => {
     switch (title.toLowerCase()) {
       case "direct communication":
@@ -48,7 +47,7 @@ const Features = () => {
   };
 
   return (
-    <section className="py-24 overflow-hidden" style={{ backgroundColor: "#066b70" }}>
+    <section className="py-24 overflow-hidden" style={{ backgroundColor: "#425036" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
@@ -58,16 +57,26 @@ const Features = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
-          style={{ fontFamily: "'Oswald', sans-serif" }}
+          style={{ fontFamily: "'Queensides', serif" }}
         >
-          <span className="bg-green-50 text-green-600 px-4 py-1.5 rounded-full text-sm font-medium tracking-wide uppercase" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+          <span
+            className="px-4 py-1.5 rounded-full text-sm font-medium tracking-wide uppercase"
+            style={{
+              fontFamily: "'Montserrat', sans-serif",
+              backgroundColor: "#f3f4f6",
+              color: "#425036"
+            }}
+          >
             Our Strengths
           </span>
           <h2 className="text-4xl font-bold text-white mt-4 mb-4">Why Choose Us</h2>
-          <div className="w-24 h-1 mx-auto mb-6 rounded-full" style={{ backgroundColor: "#e3b070" }}></div>
-          <p className="text-xl text-green-200 max-w-2xl mx-auto" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+          <div className="w-24 h-1 mx-auto mb-6 rounded-full" style={{ backgroundColor: "#F9B113" }}></div>
+          <p
+            className="text-xl text-white/80 max-w-2xl mx-auto"
+            style={{ fontFamily: "'Montserrat', sans-serif" }}
+          >
             We're committed to providing exceptional service and finding the
-            perfect home for you with our innovative approach
+            perfect home for you with our innovative approach.
           </p>
         </motion.div>
 
@@ -89,21 +98,27 @@ const Features = () => {
                 boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.15)"
               }}
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-green-50 to-orange-50 rounded-2xl flex items-center justify-center mb-6">
-                <feature.icon className="h-8 w-8 text-green-600" />
+              <div className="w-16 h-16 bg-[#f3f4f6] rounded-2xl flex items-center justify-center mb-6">
+                <feature.icon className="h-8 w-8" style={{ color: "#425036" }} />
               </div>
-              
-              <h3 className="text-xl font-bold text-gray-900 mb-3" style={{ fontFamily: "'Oswald', sans-serif" }}>
+
+              <h3
+                className="text-xl font-bold text-gray-900 mb-3"
+                style={{ fontFamily: "'Queensides', serif" }}
+              >
                 {feature.title}
               </h3>
-              
-              <p className="text-gray-600 leading-relaxed mb-6" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+
+              <p
+                className="text-gray-600 leading-relaxed mb-6"
+                style={{ fontFamily: "'Montserrat', sans-serif" }}
+              >
                 {feature.description}
               </p>
 
-              <motion.button 
+              <motion.button
                 onClick={() => navigate(getRouteForFeature(feature.title))}
-                className="inline-flex items-center text-green-600 text-sm font-medium hover:text-green-800 transition-colors"
+                className="inline-flex items-center text-[#425036] text-sm font-medium hover:text-[#2c3a2a] transition-colors"
                 whileHover={{ x: 5 }}
                 style={{ fontFamily: "'Montserrat', sans-serif" }}
               >

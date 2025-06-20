@@ -32,12 +32,12 @@ const MinimalQuoteSlider = () => {
           >
             <Quote
               className="w-5 h-5 mt-0.5 mr-3 flex-shrink-0"
-              style={{ color: '#066b70' }}
+              style={{ color: '#425036' }}
             />
             <div>
               <p
                 className="font-medium leading-snug"
-                style={{ fontFamily: "'Oswald', sans-serif", color: '#1f2937' }}
+                style={{ fontFamily: "'Queensides', serif", color: '#1f2937' }}
               >
                 "{quotes[index].text}"
               </p>

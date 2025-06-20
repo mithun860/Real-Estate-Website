@@ -4,37 +4,37 @@ import { Home, TreePalm, Umbrella, Shield, Sparkles, Infinity, Download } from '
 import ThreeLeafBrochure from '../assets/Three_Leaf_Brochure.pdf';
 import backgroundImage from '../assets/how-it-works-bg.JPG';
 
-const customGreen = "#066b70";
+const customGreen = "#425036";
 
 const LifestyleShowcase = () => {
   const features = [
     {
-      icon: <Home className="w-6 h-6" style={{ color: customGreen }} />,
+      icon: <Home className="w-6 h-6 text-[#425036]" />,
       title: "Premium Residences",
       description: "Thoughtfully designed homes with luxury finishes and smart technology"
     },
     {
-      icon: <TreePalm className="w-6 h-6" style={{ color: customGreen }} />,
+      icon: <TreePalm className="w-6 h-6 text-[#425036]" />,
       title: "Lush Green Spaces",
       description: "52 acres of beautifully landscaped gardens and walking trails"
     },
     {
-      icon: <Umbrella className="w-6 h-6" style={{ color: customGreen }} />,
+      icon: <Umbrella className="w-6 h-6 text-[#425036]" />,
       title: "Resort-Style Amenities",
       description: "Clubhouse, pools, and recreational facilities for all ages"
     },
     {
-      icon: <Shield className="w-6 h-6" style={{ color: customGreen }} />,
+      icon: <Shield className="w-6 h-6 text-[#425036]" />,
       title: "24/7 Security",
       description: "Gated community with advanced surveillance and patrols"
     },
     {
-      icon: <Sparkles className="w-6 h-6" style={{ color: customGreen }} />,
+      icon: <Sparkles className="w-6 h-6 text-[#425036]" />,
       title: "Exclusive Lifestyle",
       description: "Curated events and community activities year-round"
     },
     {
-      icon: <Infinity className="w-6 h-6" style={{ color: customGreen }} />,
+      icon: <Infinity className="w-6 h-6 text-[#425036]" />,
       title: "Sustainable Living",
       description: "Eco-friendly design with renewable energy solutions"
     }
@@ -52,6 +52,7 @@ const LifestyleShowcase = () => {
 
   return (
     <section className="relative py-16 overflow-hidden">
+      {/* Background Image */}
       <motion.div
         className="absolute inset-0 z-0"
         style={{
@@ -66,9 +67,11 @@ const LifestyleShowcase = () => {
         viewport={{ once: true }}
       />
 
+      {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black bg-opacity-40 z-0"></div>
 
       <div className="relative max-w-4xl mx-auto px-6 z-10">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -81,11 +84,11 @@ const LifestyleShowcase = () => {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
-            style={{ fontFamily: "'Oswald', sans-serif" }}
+            style={{ fontFamily: "'Queensides', serif" }}
           >
             Experience Elevated Community Living
           </motion.h2>
-          
+
           <motion.p
             className="text-gray-200 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 10 }}
@@ -97,6 +100,7 @@ const LifestyleShowcase = () => {
           </motion.p>
         </motion.div>
 
+        {/* Features */}
         <motion.div
           className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12"
           initial="hidden"
@@ -135,8 +139,8 @@ const LifestyleShowcase = () => {
               </div>
               <div>
                 <h3 
-                  className="text-lg font-medium text-gray-900 group-hover:text-[${customGreen}] transition-colors"
-                  style={{ fontFamily: "'Oswald', sans-serif", color: undefined /* keep default */ }}
+                  className="text-lg font-medium text-gray-900 transition-colors group-hover:text-[#425036]"
+                  style={{ fontFamily: "'Queensides', serif" }}
                 >
                   {feature.title}
                 </h3>
@@ -151,6 +155,7 @@ const LifestyleShowcase = () => {
           ))}
         </motion.div>
 
+        {/* CTA Button */}
         <motion.div
           className="text-center"
           initial={{ opacity: 0 }}
@@ -162,7 +167,7 @@ const LifestyleShowcase = () => {
             onClick={handleDownloadBrochure}
             className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white transition-colors duration-200 shadow-sm"
             style={{ backgroundColor: customGreen }}
-            whileHover={{ scale: 1.05, backgroundColor: '#055658' }}
+            whileHover={{ scale: 1.05, backgroundColor: '#36412e' }}
             whileTap={{ scale: 0.95 }}
           >
             <Download className="w-5 h-5 mr-2" />

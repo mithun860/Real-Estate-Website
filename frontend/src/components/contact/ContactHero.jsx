@@ -20,7 +20,8 @@ export default function Hero() {
       {/* Content */}
       <motion.div className="relative text-center text-white px-4 max-w-xl z-10">
         <motion.h1
-          className="text-2xl sm:text-3xl font-bold font-[Oswald]"
+          className="text-2xl sm:text-3xl font-bold"
+          style={{ fontFamily: "'Queensides', serif" }}
           initial={{ scale: 0.95 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.5 }}

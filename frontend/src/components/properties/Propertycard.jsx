@@ -114,7 +114,7 @@ const PropertyCard = ({ property, viewType }) => {
         )}
 
         <div className="absolute top-4 left-4 flex flex-col gap-2">
-          <span className="bg-[#066b70] text-white px-3 py-1 rounded-full text-sm font-semibold">
+          <span className="bg-[#425036] text-white px-3 py-1 rounded-full text-sm font-semibold">
             {property.type}
           </span>
           <span className="bg-[#e3b07b] text-white px-3 py-1 rounded-full text-sm font-semibold">
@@ -137,7 +137,7 @@ const PropertyCard = ({ property, viewType }) => {
         <div className="space-y-4">
           <div className="flex justify-between items-center text-sm text-gray-500">
             <div className="flex items-center gap-1">
-              <MapPin className="w-4 h-4 text-[#066b70]" />
+              <MapPin className="w-4 h-4 text-[#425036]" />
               {property.location}
             </div>
             <div className="flex items-center gap-1">
@@ -147,8 +147,8 @@ const PropertyCard = ({ property, viewType }) => {
           </div>
 
           <h3
-            className="text-xl font-semibold text-gray-900 line-clamp-2 transition-colors group-hover:text-[#066b70]"
-            style={{ fontFamily: "'Playfair Display', serif" }}
+            className="text-xl font-semibold text-gray-900 line-clamp-2 transition-colors group-hover:text-[#425036]"
+            style={{ fontFamily: "'Queensides', serif" }}
           >
             {property.title}
           </h3>
@@ -157,7 +157,7 @@ const PropertyCard = ({ property, viewType }) => {
             <p className="text-sm text-gray-500 mb-1">Price</p>
             <div className="flex items-center gap-1">
               <IndianRupee className="w-5 h-5 text-[#e3b07b]" />
-              <span className="text-2xl font-bold text-[#066b70]">
+              <span className="text-2xl font-bold text-[#425036]">
                 {Number(property.price).toLocaleString('en-IN')}
               </span>
             </div>
@@ -167,7 +167,7 @@ const PropertyCard = ({ property, viewType }) => {
         {/* 📐 Area Section Only */}
         <div className="mt-6">
           <div className="flex flex-col items-center bg-[#f0fdfa] p-3 rounded-md">
-            <Maximize className="w-5 h-5 text-[#066b70]" />
+            <Maximize className="w-5 h-5 text-[#425036]" />
             <span className="text-sm font-medium text-gray-600">{property.sqft} sqft</span>
           </div>
         </div>

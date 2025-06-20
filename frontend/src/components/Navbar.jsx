@@ -1,3 +1,4 @@
+// ⛳️ No changes to imports except logo and colors
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -85,16 +86,17 @@ const Navbar = () => {
             to={path}
             className={`relative font-medium transition-colors duration-200 flex items-center gap-1.5 px-2 py-1 rounded-md ${
               isActive
-                ? "text-[#066b70] bg-[#e3b07b]/10"
-                : "text-gray-700 hover:text-[#066b70] hover:bg-[#e3b07b]/10"
+                ? "text-[#425036] bg-[#e3b07b]/10"
+                : "text-gray-700 hover:text-[#425036] hover:bg-[#e3b07b]/10"
             }`}
+            style={{ fontFamily: "'Montserrat', sans-serif" }}
           >
             <Icon className="w-4 h-4" />
             <span>{name}</span>
             {isActive && (
               <motion.div
                 layoutId="activeIndicator"
-                className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#066b70] rounded-full"
+                className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#425036] rounded-full"
                 initial={false}
               />
             )}
@@ -122,9 +124,10 @@ const Navbar = () => {
               onClick={() => setMobileMenuOpen(false)}
               className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                 isActive
-                  ? "bg-[#e3b07b]/10 text-[#066b70] font-medium"
-                  : "text-gray-700 hover:bg-gray-50 hover:text-[#066b70]"
+                  ? "bg-[#e3b07b]/10 text-[#425036] font-medium"
+                  : "text-gray-700 hover:bg-gray-50 hover:text-[#425036]"
               }`}
+              style={{ fontFamily: "'Montserrat', sans-serif" }}
             >
               <Icon className="w-5 h-5" />
               {name}
@@ -135,12 +138,16 @@ const Navbar = () => {
       {isLoggedIn && (
         <div className="pt-4 mt-2 border-t border-gray-100 space-y-3 px-3">
           <div className="flex items-center space-x-3 p-2 bg-gray-50 rounded-lg">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#066b70] to-[#e3b07b] flex items-center justify-center text-white font-medium text-sm shadow-sm">
+            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#425036] to-[#e3b07b] flex items-center justify-center text-white font-medium text-sm shadow-sm">
               {user?.name ? user.name[0].toUpperCase() : "U"}
             </div>
             <div className="flex-1">
-              <p className="text-sm font-medium text-gray-900">{user?.name}</p>
-              <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+              <p className="text-sm font-medium text-gray-900" style={{ fontFamily: "'Queensides', serif" }}>
+                {user?.name}
+              </p>
+              <p className="text-xs text-gray-500 truncate" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                {user?.email}
+              </p>
             </div>
           </div>
           <motion.button
@@ -172,7 +179,6 @@ const Navbar = () => {
     >
       <div className="w-full">
         <div className="flex items-center justify-between h-32 px-4 sm:px-6 lg:px-8">
-          {/* ✅ Static Logo (No Animation) */}
           <Link to="/" className="flex items-center">
             <img
               src={logo}
@@ -195,7 +201,7 @@ const Navbar = () => {
                     className="flex items-center space-x-3 focus:outline-none"
                   >
                     <div className="relative">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#066b70] to-[#e3b07b] flex items-center justify-center text-white font-medium text-sm shadow-md hover:shadow-lg transition-shadow">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-r from-[#425036] to-[#e3b07b] flex items-center justify-center text-white font-medium text-sm shadow-md hover:shadow-lg transition-shadow">
                         {getInitials(user?.name)}
                       </div>
                       <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-white rounded-full"></div>
@@ -220,11 +226,14 @@ const Navbar = () => {
                         <div className="px-4 py-3 border-b border-gray-100">
                           <p
                             className="text-sm font-semibold text-gray-900"
-                            style={{ fontFamily: "'Playfair Display', serif" }}
+                            style={{ fontFamily: "'Queensides', serif" }}
                           >
                             {user?.name}
                           </p>
-                          <p className="text-sm text-gray-500 truncate">
+                          <p
+                            className="text-sm text-gray-500 truncate"
+                            style={{ fontFamily: "'Montserrat', sans-serif" }}
+                          >
                             {user?.email}
                           </p>
                         </div>

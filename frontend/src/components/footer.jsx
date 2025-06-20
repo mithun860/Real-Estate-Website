@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { 
-  Home, 
-  Facebook, 
-  Instagram, 
-  Mail, 
-  MapPin, 
+import {
+  Home,
+  Facebook,
+  Instagram,
+  Mail,
+  MapPin,
   Phone,
   ChevronRight,
   ChevronDown
@@ -14,53 +14,31 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import credaiLogo from '../assets/credaiLogo.png';
 
-const MobileFooterSection = ({ title, children }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <div className="border-b border-gray-800 py-3 lg:border-none lg:py-0">
-      <button 
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex w-full items-center justify-between text-left lg:hidden"
-      >
-        <h3 className="text-sm font-heading font-bold tracking-wider text-white uppercase">
-          {title}
-        </h3>
-        <ChevronDown 
-          className={`w-5 h-5 text-gray-400 transition-transform duration-300 ${isOpen ? 'transform rotate-180' : ''}`} 
-        />
-      </button>
-      
-      <AnimatePresence>
-        {(isOpen || window.innerWidth >= 1024) && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-            className="overflow-hidden mt-3 lg:mt-0 lg:h-auto lg:opacity-100"
-          >
-            {children}
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-};
-
 const FooterLink = ({ href, children }) => (
-  <a 
-    href={href} 
-    className="flex items-center text-base text-gray-300 transition-all duration-200 hover:text-[#066b70] hover:translate-x-1 py-1.5 lg:py-0"
+  <a
+    href={href}
+    className="group flex items-center text-base text-gray-300 transition-all duration-200 hover:text-[#425036] hover:translate-x-1 py-1.5 lg:py-0"
   >
-    <ChevronRight className="w-3.5 h-3.5 mr-1 text-[#066b70] opacity-0 transition-all duration-200 group-hover:opacity-100" />
+    <ChevronRight className="w-3.5 h-3.5 mr-1 text-[#425036] opacity-0 transition-all duration-200 group-hover:opacity-100" />
     {children}
   </a>
 );
 
 const socialLinks = [
-  { icon: Facebook, href: '#', label: 'Facebook', color: 'bg-[#1877F2]', hoverColor: 'hover:bg-[#1877F2]/90' },
-  { icon: Instagram, href: '#', label: 'Instagram', color: 'bg-gradient-to-tr from-[#fd5949] via-[#d6249f] to-[#285AEB]', hoverColor: 'hover:opacity-90' },
+  {
+    icon: Facebook,
+    href: '#',
+    label: 'Facebook',
+    color: 'bg-[#1877F2]',
+    hoverColor: 'hover:bg-[#1877F2]/90'
+  },
+  {
+    icon: Instagram,
+    href: '#',
+    label: 'Instagram',
+    color: 'bg-gradient-to-tr from-[#fd5949] via-[#d6249f] to-[#285AEB]',
+    hoverColor: 'hover:opacity-90'
+  }
 ];
 
 const SocialLinks = () => (
@@ -86,54 +64,64 @@ const companyLinks = [
   { name: 'Home', href: '/' },
   { name: 'About Us', href: '/about' },
   { name: 'Contact', href: '/contact' },
-  { name: 'Sign In', href: 'https://real-estate-website-admin.vercel.app/login', external: true },
+  {
+    name: 'Sign In',
+    href: 'https://real-estate-website-admin.vercel.app/login',
+    external: true
+  }
 ];
 
 const contactInfo = [
-  { 
-    icon: MapPin, 
-    text: 'FLAT NO 15 SHIVOM APT, NEAR MADHU ELECTRONICS, MAHATMA NAGAR NASHIK',
-    href: 'https://maps.app.goo.gl/b9wppF2RowaC14Ck8' 
+  {
+    icon: MapPin,
+    text:
+      'FLAT NO 15 SHIVOM APT, NEAR MADHU ELECTRONICS, MAHATMA NAGAR NASHIK',
+    href: 'https://maps.app.goo.gl/b9wppF2RowaC14Ck8'
   },
-  { 
-    icon: Phone, 
+  {
+    icon: Phone,
     text: '8600315351',
     href: 'tel:8600315351'
   },
-  { 
-    icon: Mail, 
+  {
+    icon: Mail,
     text: 'splrdevelopers02@gmail.com',
-    href: 'mailto:splrdevelopers02@gmail.com' 
-  },
+    href: 'mailto:splrdevelopers02@gmail.com'
+  }
 ];
 
 const Footer = () => {
   return (
     <footer>
-      <div className="bg-black pt-12 lg:pt-16 pb-12 border-t border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white font-body">
+      <div className="bg-black pt-12 lg:pt-16 pb-12 border-t border-gray-800 font-[Montserrat]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-white">
           <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-8">
             <div className="flex flex-col items-center lg:items-start gap-6 w-full lg:w-auto">
               <div className="flex flex-col items-center lg:items-start w-full">
                 <div className="flex items-center justify-center lg:justify-start">
-                  <div className="p-2 bg-[#066b70] rounded-lg">
+                  <div className="p-2 bg-[#425036] rounded-lg">
                     <Home className="h-6 w-6 text-white" />
                   </div>
-                  <span className="ml-3 text-2xl font-heading font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#066b70] to-[#066b70]">
+                  <span
+                    className="ml-3 text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#425036] to-[#425036]"
+                    style={{ fontFamily: "'Queensides', serif" }}
+                  >
                     SPLR Developers
                   </span>
                 </div>
-                {/* CREDAI Logo positioned below SPLR Developers and made larger */}
-                <img 
-                  src={credaiLogo} 
-                  alt="CREDAI Nashik" 
-                  className="h-20 object-contain mt-4" 
+                <img
+                  src={credaiLogo}
+                  alt="CREDAI Nashik"
+                  className="h-20 object-contain mt-4"
                 />
               </div>
-              
+
               <div className="max-w-md text-center lg:text-left">
                 <p className="text-gray-300 mt-4 leading-relaxed">
-                  Your reliable companion in discovering your ideal home. We streamline property searching, making it effortless, efficient, and perfectly suited to your individual preferences.
+                  Your reliable companion in discovering your ideal home. We
+                  streamline property searching, making it effortless,
+                  efficient, and perfectly suited to your individual
+                  preferences.
                 </p>
                 <SocialLinks />
               </div>
@@ -154,7 +142,10 @@ const Footer = () => {
 
           <div className="mt-12 grid grid-cols-1 lg:grid-cols-12 gap-8">
             <div className="lg:col-span-3">
-              <h3 className="hidden lg:block text-sm font-heading font-bold tracking-wider text-white uppercase mb-4">
+              <h3
+                className="hidden lg:block text-sm font-bold tracking-wider text-white uppercase mb-4"
+                style={{ fontFamily: "'Queensides', serif" }}
+              >
                 Quick Links
               </h3>
               <ul className="space-y-3">
@@ -167,19 +158,22 @@ const Footer = () => {
             </div>
 
             <div className="lg:col-span-5">
-              <h3 className="hidden lg:block text-sm font-heading font-bold tracking-wider text-white uppercase mb-4">
+              <h3
+                className="hidden lg:block text-sm font-bold tracking-wider text-white uppercase mb-4"
+                style={{ fontFamily: "'Queensides', serif" }}
+              >
                 Contact Us
               </h3>
               <ul className="space-y-4">
                 {contactInfo.map((item, index) => (
                   <li key={index}>
-                    <a 
-                      href={item.href} 
-                      className="flex items-start text-gray-300 hover:text-[#066b70] transition-colors duration-200"
+                    <a
+                      href={item.href}
+                      className="flex items-start text-gray-300 hover:text-[#425036] transition-colors duration-200"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <item.icon className="w-4 h-4 mt-1 mr-3 flex-shrink-0 text-[#066b70]" />
+                      <item.icon className="w-4 h-4 mt-1 mr-3 flex-shrink-0 text-[#425036]" />
                       <span className="text-sm">{item.text}</span>
                     </a>
                   </li>
@@ -188,7 +182,10 @@ const Footer = () => {
             </div>
 
             <div className="lg:col-span-4">
-              <h3 className="hidden lg:block text-sm font-heading font-bold tracking-wider text-white uppercase mb-4">
+              <h3
+                className="hidden lg:block text-sm font-bold tracking-wider text-white uppercase mb-4"
+                style={{ fontFamily: "'Queensides', serif" }}
+              >
                 Location
               </h3>
               <div className="w-full h-48 rounded-md overflow-hidden shadow-lg border border-gray-700">
@@ -202,11 +199,11 @@ const Footer = () => {
                   className="border-0"
                 />
               </div>
-              <a 
-                href="https://maps.app.goo.gl/b9wppF2RowaC14Ck8" 
-                target="_blank" 
+              <a
+                href="https://maps.app.goo.gl/b9wppF2RowaC14Ck8"
+                target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 inline-block text-sm text-[#066b70] hover:underline"
+                className="mt-2 inline-block text-sm text-[#425036] hover:underline"
               >
                 View on Google Maps
               </a>

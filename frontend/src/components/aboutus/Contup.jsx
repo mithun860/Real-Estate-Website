@@ -8,6 +8,7 @@ const CountUp = ({
   delay = 0,
   separator = ",",
   className = "",
+  style = {},
 }) => {
   const ref = useRef(null);
   const motionValue = useMotionValue(from);
@@ -45,7 +46,14 @@ const CountUp = ({
     return () => unsubscribe();
   }, [springValue, separator]);
 
-  return <span ref={ref} className={className}></span>;
+  return (
+    <span
+      ref={ref}
+      className={`font-medium text-[#425036] ${className}`}
+      style={{ fontFamily: "'Queensides', serif", ...style }}
+      aria-label={`Animated count up to ${to}`}
+    />
+  );
 };
 
 export default CountUp;

@@ -40,17 +40,58 @@ export default function ContactPopup() {
         >
           ×
         </button>
-        <h3 className="text-2xl font-bold mb-4">Get in Touch</h3>
+
+        <h3
+          className="text-2xl font-bold mb-4 text-[#425036]"
+          style={{ fontFamily: "'Queensides', serif" }}
+        >
+          Get in Touch
+        </h3>
+
         <form onSubmit={handleSubmit} className="space-y-4">
-          <input name="name" type="text" required placeholder="Name" onChange={handleChange}
-            className="w-full border border-gray-300 rounded px-3 py-2" />
-          <input name="email" type="email" required placeholder="Email" onChange={handleChange}
-            className="w-full border border-gray-300 rounded px-3 py-2" />
-          <input name="phone" type="text" required placeholder="Phone Number" onChange={handleChange}
-            className="w-full border border-gray-300 rounded px-3 py-2" />
-          <textarea name="message" placeholder="Message" rows={3} onChange={handleChange}
-            className="w-full border border-gray-300 rounded px-3 py-2" />
-          <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">
+          <input
+            name="name"
+            type="text"
+            required
+            placeholder="Name"
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
+            style={{ fontFamily: "'Montserrat', sans-serif" }}
+          />
+          <input
+            name="email"
+            type="email"
+            required
+            placeholder="Email"
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
+            style={{ fontFamily: "'Montserrat', sans-serif" }}
+          />
+          <input
+            name="phone"
+            type="text"
+            required
+            placeholder="Phone Number"
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
+            style={{ fontFamily: "'Montserrat', sans-serif" }}
+          />
+          <textarea
+            name="message"
+            placeholder="Message"
+            rows={3}
+            onChange={handleChange}
+            className="w-full border border-gray-300 rounded px-3 py-2 text-sm"
+            style={{ fontFamily: "'Montserrat', sans-serif" }}
+          />
+          <button
+            type="submit"
+            className="w-full py-2 rounded text-white transition-colors"
+            style={{
+              backgroundColor: '#425036',
+              fontFamily: "'Montserrat', sans-serif",
+            }}
+          >
             Submit
           </button>
         </form>

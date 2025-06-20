@@ -2,11 +2,7 @@ import React from "react";
 import { motion, useViewportScroll, useTransform } from "framer-motion";
 
 export default function Mission() {
-  // Get scroll progress for parallax
   const { scrollY } = useViewportScroll();
-
-  // Move the glow overlay slower than scroll (parallax)
-  // Map scrollY (0 - 500) to translateY (0 to -50px)
   const yParallax = useTransform(scrollY, [0, 500], [0, -50]);
 
   return (
@@ -18,12 +14,11 @@ export default function Mission() {
         fontFamily: "'Montserrat', sans-serif",
       }}
     >
-      {/* Parallax soft overlay for elegant glow */}
       <motion.div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at top right, rgba(6,107,112,0.3), transparent 60%)",
+            "radial-gradient(ellipse at top right, rgba(66,80,54,0.3), transparent 60%)",
           filter: "blur(100px)",
           zIndex: 0,
           y: yParallax,
@@ -40,7 +35,7 @@ export default function Mission() {
         >
           <h2
             className="text-4xl font-bold mb-4"
-            style={{ fontFamily: "'Oswald', sans-serif", color: "#066b70" }}
+            style={{ fontFamily: "'Queensides Medium', serif", color: "#425036" }}
           >
             Our Mission at SPLR
           </h2>
@@ -52,7 +47,7 @@ export default function Mission() {
             className="max-w-3xl mx-auto text-lg leading-relaxed"
             style={{ fontFamily: "'Montserrat', sans-serif", color: "#333" }}
           >
-            At <span className="font-semibold" style={{ color: "#066b70" }}> SPLR</span>, we don’t just build homes—we cultivate trust, lifestyle, and luxury. 
+            At <span className="font-semibold" style={{ color: "#425036" }}> SPLR</span>, we don’t just build homes—we cultivate trust, lifestyle, and luxury. 
             Our mission is to craft premium living experiences that blend architectural excellence with human values.
           </p>
         </motion.div>
@@ -90,7 +85,7 @@ export default function Mission() {
               <div className="text-4xl mb-4">{item.icon}</div>
               <h3
                 className="text-xl font-semibold mb-2"
-                style={{ fontFamily: "'Oswald', sans-serif", color: "#066b70" }}
+                style={{ fontFamily: "'Queensides Medium', serif", color: "#425036" }}
               >
                 {item.title}
               </h3>

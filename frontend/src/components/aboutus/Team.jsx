@@ -7,7 +7,6 @@ export default function Team() {
   const { scrollY } = useScroll();
   const [selectedMember, setSelectedMember] = useState(null);
 
-  // Parallax layers
   const y1 = useTransform(scrollY, [0, 500], [0, 60]);
   const y2 = useTransform(scrollY, [0, 500], [0, 40]);
   const y3 = useTransform(scrollY, [0, 500], [0, 20]);
@@ -16,12 +15,12 @@ export default function Team() {
     <section
       className="relative py-24 px-6 sm:px-12 lg:px-24 overflow-hidden"
       style={{
-        backgroundColor: "#066b70",
+        backgroundColor: "#425036",
         fontFamily: "'Montserrat', sans-serif",
         color: "#f5f5f5",
       }}
     >
-      {/* Parallax background layers */}
+      {/* Parallax Layers */}
       <motion.div
         style={{
           position: "absolute",
@@ -47,7 +46,7 @@ export default function Team() {
           width: "120vw",
           height: "120vh",
           background:
-            "radial-gradient(circle at center, rgba(6,107,112,0.25), transparent 70%)",
+            "radial-gradient(circle at center, rgba(66,80,54,0.25), transparent 70%)",
           y: y2,
           translateX: "50%",
           pointerEvents: "none",
@@ -83,10 +82,10 @@ export default function Team() {
         className="relative max-w-4xl mx-auto text-center mb-20 z-10"
       >
         <h2
-          className="text-5xl font-oswald font-bold mb-3"
+          className="text-5xl font-bold mb-3"
           style={{
             color: "#e3b070",
-            fontFamily: "'Oswald', sans-serif",
+            fontFamily: "'Queensides Medium', serif",
             letterSpacing: "0.05em",
           }}
         >
@@ -127,12 +126,12 @@ export default function Team() {
               />
             </div>
             <h3
-              className="text-xl font-oswald mb-1"
-              style={{ color: "#066b70" }}
+              className="text-xl mb-1"
+              style={{ fontFamily: "'Queensides Medium', serif", color: "#425036" }}
             >
               {member.name}
             </h3>
-            <p className="text-sm font-semibold text-[#066b70] mb-2">
+            <p className="text-sm font-semibold text-[#425036] mb-2">
               {member.position}
             </p>
             <p className="text-sm text-gray-600 line-clamp-2">
@@ -142,7 +141,7 @@ export default function Team() {
         ))}
       </div>
 
-      {/* Modal for selected member */}
+      {/* Modal */}
       {selectedMember && (
         <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-50">
           <motion.div
@@ -156,16 +155,19 @@ export default function Team() {
             >
               ✕
             </button>
-            <div className="flex flex-col items-center text-center text-[#066b70]">
+            <div className="flex flex-col items-center text-center text-[#425036]">
               <img
                 src={selectedMember.image}
                 alt={selectedMember.name}
                 className="w-28 h-28 object-cover rounded-full border-4 border-[#e3b070] mb-4"
               />
-              <h3 className="text-2xl font-bold mb-1">
+              <h3
+                className="text-2xl font-bold mb-1"
+                style={{ fontFamily: "'Queensides Medium', serif" }}
+              >
                 {selectedMember.name}
               </h3>
-              <p className="text-sm font-semibold mb-3 text-[#066b70]">
+              <p className="text-sm font-semibold mb-3 text-[#425036]">
                 {selectedMember.position}
               </p>
               <p className="text-sm text-gray-700">{selectedMember.bio}</p>

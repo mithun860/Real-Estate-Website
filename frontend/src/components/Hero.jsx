@@ -19,42 +19,44 @@ const Hero = () => {
 
       {/* Main Content */}
       <div className="relative z-10 max-w-5xl">
+        {/* THREE LEAF with gradient */}
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-4xl sm:text-6xl md:text-7xl font-bold uppercase tracking-wide mb-2"
-          style={{
-            fontFamily: "'Oswald', sans-serif",
-            color: "#0284c7",
-          }}
+          className="text-4xl sm:text-6xl md:text-7xl font-bold uppercase tracking-wide mb-2 bg-gradient-to-r from-[#2C6930] to-white bg-clip-text text-transparent"
+          style={{ fontFamily: "'Queensides', serif", textShadow: "1px 1px 2px rgba(0,0,0,0.3)" }}
         >
           THREE LEAF
         </motion.h1>
+
+        {/* GREEN SPACE with solid white and shadow */}
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="text-2xl sm:text-4xl font-semibold uppercase tracking-wide"
+          className="text-2xl sm:text-4xl font-semibold uppercase tracking-wide text-white"
           style={{
-            fontFamily: "'Oswald', sans-serif",
-            color: "#0284c7",
+            fontFamily: "'Queensides', serif",
+            textShadow: "1px 1px 3px rgba(0,0,0,0.5)",
           }}
         >
           GREEN SPACE
         </motion.h2>
 
+        {/* Description */}
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 1 }}
-          className="mt-6 text-lg sm:text-xl max-w-3xl mx-auto leading-relaxed"
-          style={{ fontFamily: "'Montserrat', sans-serif", color: "#f1f5f9" }}
+          className="mt-6 text-lg sm:text-xl text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] max-w-3xl mx-auto"
         >
-          A villa that makes every day<br />
+          A villa that makes every day
+          <br />
           <span className="text-[#e3b07b]">A picnic in nature</span>
         </motion.p>
 
+        {/* Feature Bullets */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

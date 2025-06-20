@@ -36,7 +36,7 @@ const MoreDetails = () => {
       >
         <h1
           className="text-2xl sm:text-3xl md:text-4xl text-center font-bold mb-8"
-          style={{ fontFamily: "'Playfair Display', serif", color: "#066b70" }}
+          style={{ fontFamily: "'Queensides', serif", color: "#425036" }}
         >
           Discover More from SPLR Developers
         </h1>
@@ -49,7 +49,8 @@ const MoreDetails = () => {
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.03 }}
-              className="flex items-center justify-between px-5 py-4 bg-white hover:bg-[#e3b07b]/10 text-[#066b70] rounded-xl shadow-md transition-all duration-300 font-medium text-sm sm:text-base"
+              className="flex items-center justify-between px-5 py-4 bg-white hover:bg-[#d9e7d5] text-[#425036] rounded-xl shadow-md transition-all duration-300 font-medium text-sm sm:text-base"
+              style={{ fontFamily: "'Montserrat', sans-serif" }}
             >
               <span>{label}</span>
               <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />

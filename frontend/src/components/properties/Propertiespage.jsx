@@ -73,7 +73,7 @@ const PropertiesPage = () => {
           className="text-center flex flex-col items-center"
         >
           <motion.div
-            className="w-24 h-24 bg-gradient-to-br from-[#066b70] to-[#e3b07b] rounded-2xl flex items-center justify-center shadow-xl mb-6"
+            className="w-24 h-24 bg-gradient-to-br from-[#425036] to-[#e3b07b] rounded-2xl flex items-center justify-center shadow-xl mb-6"
             animate={{
               rotate: [0, 360],
               scale: [1, 1.1, 1],
@@ -83,8 +83,12 @@ const PropertiesPage = () => {
           >
             <Home className="w-12 h-12 text-white" />
           </motion.div>
-          <h3 className="text-2xl font-semibold text-[#066b70] mb-2">Loading Properties</h3>
-          <p className="text-gray-500">Curating the perfect farm plots for you...</p>
+          <h3 className="text-2xl font-semibold text-[#425036] mb-2" style={{ fontFamily: "'Queensides', serif" }}>
+            Loading Properties
+          </h3>
+          <p className="text-gray-500" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+            Curating the perfect farm plots for you...
+          </p>
         </motion.div>
       </div>
     );
@@ -98,14 +102,22 @@ const PropertiesPage = () => {
           animate={{ y: 0, opacity: 1 }}
           className="text-center mb-12"
         >
-          <h1 className="text-4xl md:text-5xl font-serif text-[#066b70] mb-4">
+          <h1
+            className="text-4xl md:text-5xl mb-4"
+            style={{ fontFamily: "'Queensides', serif", color: "#425036" }}
+          >
             Explore Farm Plots at SPLR
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p
+            className="text-lg text-gray-600 max-w-2xl mx-auto"
+            style={{ fontFamily: "'Montserrat', sans-serif" }}
+          >
             Scenic, secure, and investment-ready plots.
           </p>
           {propertyState.error && (
-            <p className="mt-4 text-sm text-red-500">{propertyState.error}</p>
+            <p className="mt-4 text-sm text-red-500" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+              {propertyState.error}
+            </p>
           )}
         </motion.header>
 
@@ -123,8 +135,12 @@ const PropertiesPage = () => {
                 className="col-span-full text-center py-12 bg-white rounded-lg shadow"
               >
                 <MapPin className="w-10 h-10 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-800">No properties found</h3>
-                <p className="text-gray-500">Try changing your search or filters.</p>
+                <h3 className="text-lg font-medium text-gray-800" style={{ fontFamily: "'Queensides', serif" }}>
+                  No properties found
+                </h3>
+                <p className="text-gray-500" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                  Try changing your search or filters.
+                </p>
               </motion.div>
             )}
           </AnimatePresence>

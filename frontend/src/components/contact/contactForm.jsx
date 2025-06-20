@@ -13,14 +13,19 @@ function ContactForm() {
       viewport={{ once: true }}
       className="bg-[#f0faf9] p-8 rounded-2xl shadow-sm font-montserrat"
     >
-      <h2 className="text-2xl font-oswald font-bold mb-6 text-[#066b70]">
+      <h2
+        className="text-2xl font-bold mb-6 text-[#066b70]"
+        style={{ fontFamily: "'Queensides', serif" }}
+      >
         Send Us a Message
       </h2>
+
       <form onSubmit={handleSubmit} className="space-y-6">
         <div>
           <label
             htmlFor="name"
-            className="block text-sm font-oswald font-semibold mb-1 text-[#066b70]"
+            className="block text-sm font-semibold mb-1 text-[#066b70]"
+            style={{ fontFamily: "'Queensides', serif" }}
           >
             Name *
           </label>
@@ -40,7 +45,8 @@ function ContactForm() {
         <div>
           <label
             htmlFor="phone"
-            className="block text-sm font-oswald font-semibold mb-1 text-[#066b70]"
+            className="block text-sm font-semibold mb-1 text-[#066b70]"
+            style={{ fontFamily: "'Queensides', serif" }}
           >
             Phone Number *
           </label>
@@ -62,7 +68,8 @@ function ContactForm() {
         <div>
           <label
             htmlFor="message"
-            className="block text-sm font-oswald font-semibold mb-1 text-[#066b70]"
+            className="block text-sm font-semibold mb-1 text-[#066b70]"
+            style={{ fontFamily: "'Queensides', serif" }}
           >
             Message (Optional)
           </label>
