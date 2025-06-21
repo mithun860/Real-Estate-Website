@@ -11,19 +11,19 @@ const TeamMember = ({ name, position, bio, image }) => {
         />
         <h3
           className="text-lg md:text-xl font-semibold text-center mb-1"
-          style={{ fontFamily: "'Queensides Medium', serif", color: '#425036' }}
+          style={{ fontFamily: "'Queensides', serif", color: '#066b70' }}
         >
           {name}
         </h3>
         <p
           className="text-xs md:text-sm text-center mb-2 md:mb-3"
-          style={{ fontFamily: "'Montserrat', sans-serif", color: '#425036' }}
+          style={{ fontFamily: "'Montserrat', sans-serif", color: '#066b70' }}
         >
           {position}
         </p>
         <p
           className="text-gray-600 text-sm md:text-base text-center mb-3 md:mb-4"
-          style={{ fontFamily: "'Montserrat', sans-serif'"}}
+          style={{ fontFamily: "'Montserrat', sans-serif'" }}
         >
           {bio}
         </p>

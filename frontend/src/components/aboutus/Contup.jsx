@@ -49,7 +49,7 @@ const CountUp = ({
   return (
     <span
       ref={ref}
-      className={`font-medium text-[#425036] ${className}`}
+      className={`font-medium text-[#DAA520] ${className}`}
       style={{ fontFamily: "'Queensides', serif", ...style }}
       aria-label={`Animated count up to ${to}`}
     />

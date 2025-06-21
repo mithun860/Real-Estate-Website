@@ -3,9 +3,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Quote } from 'lucide-react';
 
 const quotes = [
-  { text: "A house is made of walls and beams; a home is built with love and dreams.", author: "Ralph Waldo Emerson" },
-  { text: "The ache for home lives in all of us, the safe place where we can go as we are.", author: "Maya Angelou" },
-  { text: "Home is not a place... it's a feeling.", author: "Cecelia Ahern" },
+  {
+    text: "A house is made of walls and beams; a home is built with love and dreams.",
+    author: "Ralph Waldo Emerson",
+  },
+  {
+    text: "The ache for home lives in all of us, the safe place where we can go as we are.",
+    author: "Maya Angelou",
+  },
+  {
+    text: "Home is not a place... it's a feeling.",
+    author: "Cecelia Ahern",
+  },
 ];
 
 const MinimalQuoteSlider = () => {
@@ -14,36 +23,39 @@ const MinimalQuoteSlider = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % quotes.length);
-    }, 5000); // Rotate every 5 seconds
+    }, 5000);
     return () => clearInterval(timer);
   }, []);
 
   return (
-    <div className="bg-green-50/30 py-8 px-4 rounded-lg">
+    <div className="bg-[#f5f5f4]/60 py-10 px-6 rounded-2xl shadow-sm">
       <div className="max-w-2xl mx-auto relative">
         <AnimatePresence mode="wait">
           <motion.div
             key={index}
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.5 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.6 }}
             className="flex items-start"
           >
-            <Quote
-              className="w-5 h-5 mt-0.5 mr-3 flex-shrink-0"
-              style={{ color: '#425036' }}
-            />
+            <Quote className="w-6 h-6 mt-1 mr-4 flex-shrink-0 text-[#066b70]" />
             <div>
               <p
-                className="font-medium leading-snug"
-                style={{ fontFamily: "'Queensides', serif", color: '#1f2937' }}
+                className="text-lg leading-relaxed mb-2"
+                style={{
+                  fontFamily: "'Queensides', serif",
+                  color: '#1f2937',
+                }}
               >
-                "{quotes[index].text}"
+                “{quotes[index].text}”
               </p>
               <p
-                className="text-sm mt-1"
-                style={{ fontFamily: "'Montserrat', sans-serif", color: '#4b5563' }}
+                className="text-sm"
+                style={{
+                  fontFamily: "'Montserrat', sans-serif",
+                  color: '#6b7280',
+                }}
               >
                 — {quotes[index].author}
               </p>

@@ -1,3 +1,4 @@
+// tailwind.config.js
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
   darkMode: "class",
@@ -33,11 +34,12 @@ module.exports = {
           900: "#1e3a8a",
           950: "#172554",
         },
-        primaryGreen: '#066b70', // your custom green color
+        primaryGreen: '#066b70',
       },
       fontFamily: {
         oswald: ['Oswald', 'sans-serif'],
         montserrat: ['Montserrat', 'sans-serif'],
+        queensides: ['Queensides', 'serif'], // ✅ Newly added font
       },
     },
   },

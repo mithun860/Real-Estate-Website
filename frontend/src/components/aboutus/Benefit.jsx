@@ -29,7 +29,6 @@ export default function Benefits() {
   return (
     <section className="py-24 bg-[#e3b070] relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-
         {/* Section Header */}
         <motion.div
           initial={{ y: 30, opacity: 0 }}
@@ -40,11 +39,11 @@ export default function Benefits() {
         >
           <h2
             className="text-4xl font-extrabold mb-4"
-            style={{ fontFamily: "'Queensides', serif", color: '#425036' }}
+            style={{ fontFamily: "'Queensides', serif", color: '#066b70' }}
           >
             Why Choose SPLR?
           </h2>
-          <div className="w-24 h-1 bg-[#425036] mx-auto mb-6 rounded-full" />
+          <div className="w-24 h-1 bg-[#066b70] mx-auto mb-6 rounded-full" />
           <p
             className="text-white text-lg max-w-2xl mx-auto"
             style={{ fontFamily: "'Montserrat', sans-serif" }}
@@ -67,12 +66,12 @@ export default function Benefits() {
                 whileHover={{ scale: 1.05 }}
                 className="bg-white p-8 rounded-3xl shadow-md hover:shadow-xl transition-all duration-300 text-center"
               >
-                <div className="w-16 h-16 bg-[#425036]/10 rounded-xl flex items-center justify-center mx-auto mb-5">
-                  <Icon className="w-8 h-8 text-[#425036]" />
+                <div className="w-16 h-16 bg-[#066b70]/10 rounded-xl flex items-center justify-center mx-auto mb-5">
+                  <Icon className="w-8 h-8 text-[#066b70]" />
                 </div>
                 <h3
                   className="text-xl font-semibold mb-3"
-                  style={{ fontFamily: "'Queensides', serif", color: '#425036' }}
+                  style={{ fontFamily: "'Queensides', serif", color: '#066b70' }}
                 >
                   {benefit.title}
                 </h3>
@@ -90,7 +89,7 @@ export default function Benefits() {
 
       {/* Optional Decorative Blur Elements */}
       <div className="absolute top-0 left-0 w-72 h-72 bg-white/10 rounded-full blur-3xl opacity-20"></div>
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-[#425036]/20 rounded-full blur-3xl opacity-30"></div>
+      <div className="absolute bottom-0 right-0 w-80 h-80 bg-[#066b70]/20 rounded-full blur-3xl opacity-30"></div>
     </section>
   );
 }

@@ -1,40 +1,43 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Home, TreePalm, Umbrella, Shield, Sparkles, Infinity, Download } from 'lucide-react';
+import {
+  Home, TreePalm, Umbrella, Shield,
+  Sparkles, Infinity, Download
+} from 'lucide-react';
 import ThreeLeafBrochure from '../assets/Three_Leaf_Brochure.pdf';
 import backgroundImage from '../assets/how-it-works-bg.JPG';
 
-const customGreen = "#425036";
+const customGreen = "#066b70";
 
 const LifestyleShowcase = () => {
   const features = [
     {
-      icon: <Home className="w-6 h-6 text-[#425036]" />,
+      icon: <Home className="w-6 h-6 text-[#066b70]" />,
       title: "Premium Residences",
       description: "Thoughtfully designed homes with luxury finishes and smart technology"
     },
     {
-      icon: <TreePalm className="w-6 h-6 text-[#425036]" />,
+      icon: <TreePalm className="w-6 h-6 text-[#066b70]" />,
       title: "Lush Green Spaces",
       description: "52 acres of beautifully landscaped gardens and walking trails"
     },
     {
-      icon: <Umbrella className="w-6 h-6 text-[#425036]" />,
+      icon: <Umbrella className="w-6 h-6 text-[#066b70]" />,
       title: "Resort-Style Amenities",
       description: "Clubhouse, pools, and recreational facilities for all ages"
     },
     {
-      icon: <Shield className="w-6 h-6 text-[#425036]" />,
+      icon: <Shield className="w-6 h-6 text-[#066b70]" />,
       title: "24/7 Security",
       description: "Gated community with advanced surveillance and patrols"
     },
     {
-      icon: <Sparkles className="w-6 h-6 text-[#425036]" />,
+      icon: <Sparkles className="w-6 h-6 text-[#066b70]" />,
       title: "Exclusive Lifestyle",
       description: "Curated events and community activities year-round"
     },
     {
-      icon: <Infinity className="w-6 h-6 text-[#425036]" />,
+      icon: <Infinity className="w-6 h-6 text-[#066b70]" />,
       title: "Sustainable Living",
       description: "Eco-friendly design with renewable energy solutions"
     }
@@ -139,7 +142,7 @@ const LifestyleShowcase = () => {
               </div>
               <div>
                 <h3 
-                  className="text-lg font-medium text-gray-900 transition-colors group-hover:text-[#425036]"
+                  className="text-lg font-medium text-gray-900 transition-colors group-hover:text-[#066b70]"
                   style={{ fontFamily: "'Queensides', serif" }}
                 >
                   {feature.title}
@@ -167,7 +170,7 @@ const LifestyleShowcase = () => {
             onClick={handleDownloadBrochure}
             className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white transition-colors duration-200 shadow-sm"
             style={{ backgroundColor: customGreen }}
-            whileHover={{ scale: 1.05, backgroundColor: '#36412e' }}
+            whileHover={{ scale: 1.05, backgroundColor: '#05594f' }}
             whileTap={{ scale: 0.95 }}
           >
             <Download className="w-5 h-5 mr-2" />

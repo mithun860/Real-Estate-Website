@@ -5,7 +5,6 @@ import { MapPin, Home } from "lucide-react";
 import PropertyCard from "./Propertycard.jsx";
 import { Backendurl } from "../../App.jsx";
 
-// 🧪 Dummy data to show if API fails
 const DUMMY_PROPERTIES = [
   {
     _id: "dummy1",
@@ -47,7 +46,6 @@ const PropertiesPage = () => {
       });
     } catch (err) {
       console.error("API Error:", err.message);
-      // Fall back to dummy data
       setPropertyState({
         properties: DUMMY_PROPERTIES,
         loading: false,
@@ -83,10 +81,16 @@ const PropertiesPage = () => {
           >
             <Home className="w-12 h-12 text-white" />
           </motion.div>
-          <h3 className="text-2xl font-semibold text-[#425036] mb-2" style={{ fontFamily: "'Queensides', serif" }}>
+          <h3
+            className="text-2xl font-semibold mb-2"
+            style={{ fontFamily: "'Queensides', serif", color: "#425036" }}
+          >
             Loading Properties
           </h3>
-          <p className="text-gray-500" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+          <p
+            className="text-gray-500"
+            style={{ fontFamily: "'Montserrat', sans-serif" }}
+          >
             Curating the perfect farm plots for you...
           </p>
         </motion.div>
@@ -95,7 +99,11 @@ const PropertiesPage = () => {
   }
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="min-h-screen bg-[#f7f9f8] pt-24">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      className="min-h-screen bg-[#f7f9f8] pt-24"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <motion.header
           initial={{ y: -20, opacity: 0 }}
@@ -115,7 +123,10 @@ const PropertiesPage = () => {
             Scenic, secure, and investment-ready plots.
           </p>
           {propertyState.error && (
-            <p className="mt-4 text-sm text-red-500" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+            <p
+              className="mt-4 text-sm text-red-500"
+              style={{ fontFamily: "'Montserrat', sans-serif" }}
+            >
               {propertyState.error}
             </p>
           )}
@@ -135,10 +146,16 @@ const PropertiesPage = () => {
                 className="col-span-full text-center py-12 bg-white rounded-lg shadow"
               >
                 <MapPin className="w-10 h-10 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-gray-800" style={{ fontFamily: "'Queensides', serif" }}>
+                <h3
+                  className="text-lg font-medium text-gray-800"
+                  style={{ fontFamily: "'Queensides', serif" }}
+                >
                   No properties found
                 </h3>
-                <p className="text-gray-500" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                <p
+                  className="text-gray-500"
+                  style={{ fontFamily: "'Montserrat', sans-serif" }}
+                >
                   Try changing your search or filters.
                 </p>
               </motion.div>

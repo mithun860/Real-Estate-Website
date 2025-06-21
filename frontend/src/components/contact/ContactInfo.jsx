@@ -35,7 +35,7 @@ export default function ContactInfo() {
       initial={{ x: 20, opacity: 0 }}
       whileInView={{ x: 0, opacity: 1 }}
       viewport={{ once: true }}
-      className="bg-[#f0faf9] p-8 rounded-2xl shadow-sm font-montserrat"
+      className="bg-[#f0faf9] p-8 rounded-2xl shadow-sm font-[Montserrat]"
     >
       <h2
         className="text-2xl font-bold mb-8 text-[#066b70]"
@@ -43,6 +43,7 @@ export default function ContactInfo() {
       >
         Our Office
       </h2>
+
       <div className="space-y-6">
         {contactInfo.map((info, index) => (
           <ContactInfoItem key={index} {...info} />

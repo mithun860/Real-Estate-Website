@@ -66,13 +66,13 @@ const PropertyCard = ({ property, viewType }) => {
       onMouseEnter={() => setShowControls(true)}
       onMouseLeave={() => setShowControls(false)}
     >
-      {/* 🖼 Image Section */}
+      {/* Image Section */}
       <div className={`relative ${isGrid ? 'h-64' : 'w-96'}`}>
         <AnimatePresence mode="wait">
           <motion.img
             key={currentImageIndex}
             src={images[currentImageIndex]}
-            alt={property.title}
+            alt={property.title || "Property image"}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -113,6 +113,7 @@ const PropertyCard = ({ property, viewType }) => {
           </div>
         )}
 
+        {/* Labels */}
         <div className="absolute top-4 left-4 flex flex-col gap-2">
           <span className="bg-[#425036] text-white px-3 py-1 rounded-full text-sm font-semibold">
             {property.type}
@@ -121,6 +122,7 @@ const PropertyCard = ({ property, viewType }) => {
             {property.availability}
           </span>
         </div>
+
         <div className="absolute top-4 right-4">
           <motion.button
             whileHover={{ scale: 1.1 }}
@@ -132,7 +134,7 @@ const PropertyCard = ({ property, viewType }) => {
         </div>
       </div>
 
-      {/* 🏡 Content Section */}
+      {/* Content Section */}
       <div className={`flex-1 p-6 ${isGrid ? '' : 'flex flex-col justify-between'}`}>
         <div className="space-y-4">
           <div className="flex justify-between items-center text-sm text-gray-500">
@@ -164,7 +166,7 @@ const PropertyCard = ({ property, viewType }) => {
           </div>
         </div>
 
-        {/* 📐 Area Section Only */}
+        {/* Area Section */}
         <div className="mt-6">
           <div className="flex flex-col items-center bg-[#f0fdfa] p-3 rounded-md">
             <Maximize className="w-5 h-5 text-[#425036]" />

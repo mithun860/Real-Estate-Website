@@ -14,6 +14,7 @@ export default function Mission() {
         fontFamily: "'Montserrat', sans-serif",
       }}
     >
+      {/* Soft blur radial highlight */}
       <motion.div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -26,6 +27,7 @@ export default function Mission() {
       />
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 text-gray-800">
+        {/* Section Header */}
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           whileInView={{ y: 0, opacity: 1 }}
@@ -35,7 +37,7 @@ export default function Mission() {
         >
           <h2
             className="text-4xl font-bold mb-4"
-            style={{ fontFamily: "'Queensides Medium', serif", color: "#425036" }}
+            style={{ fontFamily: "'Queensides', serif", color: "#425036" }}
           >
             Our Mission at SPLR
           </h2>
@@ -47,11 +49,12 @@ export default function Mission() {
             className="max-w-3xl mx-auto text-lg leading-relaxed"
             style={{ fontFamily: "'Montserrat', sans-serif", color: "#333" }}
           >
-            At <span className="font-semibold" style={{ color: "#425036" }}> SPLR</span>, we don’t just build homes—we cultivate trust, lifestyle, and luxury. 
+            At <span className="font-semibold" style={{ color: "#425036" }}>SPLR</span>, we don’t just build homes—we cultivate trust, lifestyle, and luxury.
             Our mission is to craft premium living experiences that blend architectural excellence with human values.
           </p>
         </motion.div>
 
+        {/* Mission Cards */}
         <div className="grid md:grid-cols-3 gap-8 text-center">
           {[
             {
@@ -80,12 +83,18 @@ export default function Mission() {
               whileInView={{ y: 0, opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.2 }}
-              style={{ fontFamily: "'Montserrat', sans-serif", color: "#333" }}
+              style={{
+                fontFamily: "'Montserrat', sans-serif",
+                color: "#333",
+              }}
             >
               <div className="text-4xl mb-4">{item.icon}</div>
               <h3
                 className="text-xl font-semibold mb-2"
-                style={{ fontFamily: "'Queensides Medium', serif", color: "#425036" }}
+                style={{
+                  fontFamily: "'Queensides', serif",
+                  color: "#425036",
+                }}
               >
                 {item.title}
               </h3>

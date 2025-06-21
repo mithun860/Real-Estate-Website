@@ -19,29 +19,34 @@ const Hero = () => {
 
       {/* Main Content */}
       <div className="relative z-10 max-w-5xl">
-        {/* THREE LEAF with gradient */}
+        {/* "Three Leaf" */}
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-4xl sm:text-6xl md:text-7xl font-bold uppercase tracking-wide mb-2 bg-gradient-to-r from-[#2C6930] to-white bg-clip-text text-transparent"
-          style={{ fontFamily: "'Queensides', serif", textShadow: "1px 1px 2px rgba(0,0,0,0.3)" }}
+          className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-wide mb-2 capitalize"
+          style={{
+            fontFamily: "'Queensides', serif",
+            color: "#425036",
+            textShadow: "2px 2px 6px rgba(255, 255, 255, 0.7)",
+          }}
         >
-          THREE LEAF
+          Three Leaf
         </motion.h1>
 
-        {/* GREEN SPACE with solid white and shadow */}
+        {/* "Green Space" */}
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="text-2xl sm:text-4xl font-semibold uppercase tracking-wide text-white"
+          className="text-2xl sm:text-4xl font-semibold tracking-wide capitalize"
           style={{
             fontFamily: "'Queensides', serif",
-            textShadow: "1px 1px 3px rgba(0,0,0,0.5)",
+            color: "#ffffff",
+            textShadow: "2px 2px 8px rgba(0, 0, 0, 0.6)",
           }}
         >
-          GREEN SPACE
+          Green Space
         </motion.h2>
 
         {/* Description */}
@@ -49,11 +54,17 @@ const Hero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 1 }}
-          className="mt-6 text-lg sm:text-xl text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] max-w-3xl mx-auto"
+          className="mt-6 text-lg sm:text-xl text-white font-medium max-w-3xl mx-auto text-shadow"
+          style={{
+            fontFamily: "'Montserrat', sans-serif",
+            textShadow: "1px 1px 4px rgba(0, 0, 0, 0.85)",
+          }}
         >
           A villa that makes every day
           <br />
-          <span className="text-[#e3b07b]">A picnic in nature</span>
+          <span className="text-[#e3b07b]" style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.5)" }}>
+            A picnic in nature
+          </span>
         </motion.p>
 
         {/* Feature Bullets */}
@@ -62,7 +73,11 @@ const Hero = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 1 }}
           className="mt-14 flex flex-wrap justify-center gap-6 text-sm sm:text-base"
-          style={{ fontFamily: "'Montserrat', sans-serif", color: "#f1f5f9" }}
+          style={{
+            fontFamily: "'Montserrat', sans-serif",
+            color: "#f1f5f9",
+            textShadow: "1px 1px 2px rgba(0,0,0,0.6)",
+          }}
         >
           {[
             "52 Acres Gated Community",
@@ -70,7 +85,7 @@ const Hero = () => {
             "Luxury Amenities",
           ].map((feature, i) => (
             <div key={i} className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-[#030925]/60 rounded-full"></div>
+              <div className="w-2 h-2 bg-[#e3b07b] rounded-full"></div>
               <span>{feature}</span>
             </div>
           ))}

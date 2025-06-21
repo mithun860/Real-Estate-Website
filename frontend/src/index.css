@@ -1,11 +1,22 @@
-/* src/index.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Add to your global CSS or relevant component */
+/* ✅ Add the Queensides font face */
+@font-face {
+  font-family: 'Queensides';
+  src: url('./assets/fonts/Queensides-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
+/* ✅ Reusable Tailwind utility override if needed */
+.font-queensides {
+  font-family: 'Queensides', serif;
+}
 
+/* Filter section utilities */
 .filter-group {
   @apply space-y-3;
 }

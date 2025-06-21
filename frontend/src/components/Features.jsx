@@ -47,7 +47,7 @@ const Features = () => {
   };
 
   return (
-    <section className="py-24 overflow-hidden" style={{ backgroundColor: "#425036" }}>
+    <section className="py-24 overflow-hidden" style={{ backgroundColor: "#066b70" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
@@ -64,7 +64,7 @@ const Features = () => {
             style={{
               fontFamily: "'Montserrat', sans-serif",
               backgroundColor: "#f3f4f6",
-              color: "#425036"
+              color: "#066b70"
             }}
           >
             Our Strengths
@@ -99,7 +99,7 @@ const Features = () => {
               }}
             >
               <div className="w-16 h-16 bg-[#f3f4f6] rounded-2xl flex items-center justify-center mb-6">
-                <feature.icon className="h-8 w-8" style={{ color: "#425036" }} />
+                <feature.icon className="h-8 w-8" style={{ color: "#066b70" }} />
               </div>
 
               <h3
@@ -118,7 +118,7 @@ const Features = () => {
 
               <motion.button
                 onClick={() => navigate(getRouteForFeature(feature.title))}
-                className="inline-flex items-center text-[#425036] text-sm font-medium hover:text-[#2c3a2a] transition-colors"
+                className="inline-flex items-center text-[#066b70] text-sm font-medium hover:text-[#05594f] transition-colors"
                 whileHover={{ x: 5 }}
                 style={{ fontFamily: "'Montserrat', sans-serif" }}
               >

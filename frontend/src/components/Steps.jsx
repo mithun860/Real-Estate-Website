@@ -31,8 +31,8 @@ function Step({ icon: Icon, title, description }) {
   return (
     <motion.div variants={itemVariants} className="relative flex flex-col items-center">
       <div className="w-20 h-20 bg-gradient-to-br from-[#f4f7f5] to-[#f7f3f3] rounded-2xl flex items-center justify-center mb-5 shadow-md relative overflow-hidden group">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#425036] to-[#425036] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-        <Icon className="h-10 w-10 text-[#425036] group-hover:text-[#F9B113] relative z-10 transition-colors duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#066b70] to-[#066b70] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+        <Icon className="h-10 w-10 text-[#066b70] group-hover:text-[#F9B113] relative z-10 transition-colors duration-300" />
       </div>
       <h3
         className="text-xl font-bold mb-3"
@@ -53,7 +53,7 @@ function Step({ icon: Icon, title, description }) {
         onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#d3dfd2')}
         onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#ecf1ea')}
       >
-        <ChevronRight className="h-5 w-5" style={{ color: '#425036' }} />
+        <ChevronRight className="h-5 w-5" style={{ color: '#066b70' }} />
       </motion.div>
     </motion.div>
   );
@@ -70,10 +70,7 @@ export default function HowItWorks() {
   };
 
   return (
-    <section
-      className="relative overflow-hidden py-28"
-      style={{ backgroundColor: '#e3b070' }}
-    >
+    <section className="relative overflow-hidden py-28" style={{ backgroundColor: '#e3b070' }}>
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -87,7 +84,7 @@ export default function HowItWorks() {
             style={{
               fontFamily: "'Montserrat', sans-serif",
               backgroundColor: '#ecf1ea',
-              color: '#425036',
+              color: '#066b70',
               display: 'inline-block',
             }}
           >
@@ -101,7 +98,7 @@ export default function HowItWorks() {
           </h2>
           <div
             className="w-24 h-1 mx-auto mb-6 rounded-full"
-            style={{ backgroundColor: '#425036' }}
+            style={{ backgroundColor: '#066b70' }}
           />
           <p
             className="text-xl max-w-2xl mx-auto"
@@ -118,7 +115,7 @@ export default function HowItWorks() {
           viewport={{ once: true, margin: '-100px' }}
           className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8 lg:gap-16 relative"
         >
-          <div className="hidden md:block absolute top-10 left-[20%] right-[20%] h-0.5 bg-[#425036]" />
+          <div className="hidden md:block absolute top-10 left-[20%] right-[20%] h-0.5 bg-[#066b70]" />
           {steps.map((step, index) => (
             <React.Fragment key={index}>
               <Step {...step} />
@@ -139,7 +136,7 @@ export default function HowItWorks() {
                       repeatType: 'reverse',
                     }}
                   >
-                    <ArrowRight className="h-8 w-8" style={{ color: '#425036' }} />
+                    <ArrowRight className="h-8 w-8" style={{ color: '#066b70' }} />
                   </motion.div>
                 </div>
               )}
@@ -160,8 +157,8 @@ export default function HowItWorks() {
             whileTap={{ scale: 0.95 }}
             className="inline-flex items-center px-6 py-3 text-white font-medium rounded-lg hover:shadow-lg transition-all"
             style={{
-              backgroundColor: '#425036',
-              boxShadow: '0 10px 20px rgba(66, 80, 54, 0.3)',
+              backgroundColor: '#066b70',
+              boxShadow: '0 10px 20px rgba(6, 107, 112, 0.3)',
               fontFamily: "'Montserrat', sans-serif",
             }}
           >
@@ -175,13 +172,13 @@ export default function HowItWorks() {
             whileTap={{ scale: 0.95 }}
             className="inline-flex items-center px-6 py-3 border-2 font-medium rounded-lg hover:bg-green-50 transition-all"
             style={{
-              borderColor: '#425036',
-              color: '#425036',
+              borderColor: '#066b70',
+              color: '#066b70',
               fontFamily: "'Montserrat', sans-serif",
             }}
           >
             Schedule a Visit
-            <ArrowRight className="ml-2 h-5 w-5" style={{ color: '#425036' }} />
+            <ArrowRight className="ml-2 h-5 w-5" style={{ color: '#066b70' }} />
           </motion.a>
         </motion.div>
       </div>

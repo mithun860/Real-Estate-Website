@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function ContactInfoItem({ icon: Icon, title, content, link }) {
   const ContentWrapper = link ? 'a' : 'div';
-  const props = link ? { href: link } : {};
+  const props = link ? { href: link, target: '_blank', rel: 'noopener noreferrer' } : {};
 
   return (
     <ContentWrapper

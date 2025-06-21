@@ -6,7 +6,11 @@ export default function Hero() {
     <div className="relative h-[40vh] flex flex-col items-center justify-center mt-24 mx-6 rounded-xl overflow-hidden font-[Montserrat]">
       {/* Animated gradient background */}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-br from-[#066b70] via-teal-600 to-[#e3b070]"
+        className="absolute inset-0"
+        style={{
+          background:
+            'linear-gradient(to bottom right, #066b70, #14b8a6, #e3b070)',
+        }}
         animate={{
           background: [
             'linear-gradient(to bottom right, #066b70, #14b8a6, #e3b070)',
@@ -26,7 +30,7 @@ export default function Hero() {
           animate={{ scale: 1 }}
           transition={{ duration: 0.5 }}
         >
-          Find Your <span className="text-yellow-300">Ideal Plot</span>
+          Find Your <span className="text-[#F9B113]">Ideal Plot</span>
         </motion.h1>
       </motion.div>
     </div>

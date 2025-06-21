@@ -15,7 +15,7 @@ export default function Team() {
     <section
       className="relative py-24 px-6 sm:px-12 lg:px-24 overflow-hidden"
       style={{
-        backgroundColor: "#425036",
+        backgroundColor: "#066b70",
         fontFamily: "'Montserrat', sans-serif",
         color: "#f5f5f5",
       }}
@@ -46,7 +46,7 @@ export default function Team() {
           width: "120vw",
           height: "120vh",
           background:
-            "radial-gradient(circle at center, rgba(66,80,54,0.25), transparent 70%)",
+            "radial-gradient(circle at center, rgba(6,107,112,0.25), transparent 70%)",
           y: y2,
           translateX: "50%",
           pointerEvents: "none",
@@ -85,7 +85,7 @@ export default function Team() {
           className="text-5xl font-bold mb-3"
           style={{
             color: "#e3b070",
-            fontFamily: "'Queensides Medium', serif",
+            fontFamily: "'Queensides', serif",
             letterSpacing: "0.05em",
           }}
         >
@@ -127,11 +127,11 @@ export default function Team() {
             </div>
             <h3
               className="text-xl mb-1"
-              style={{ fontFamily: "'Queensides Medium', serif", color: "#425036" }}
+              style={{ fontFamily: "'Queensides', serif", color: "#066b70" }}
             >
               {member.name}
             </h3>
-            <p className="text-sm font-semibold text-[#425036] mb-2">
+            <p className="text-sm font-semibold text-[#066b70] mb-2">
               {member.position}
             </p>
             <p className="text-sm text-gray-600 line-clamp-2">
@@ -155,7 +155,7 @@ export default function Team() {
             >
               ✕
             </button>
-            <div className="flex flex-col items-center text-center text-[#425036]">
+            <div className="flex flex-col items-center text-center text-[#066b70]">
               <img
                 src={selectedMember.image}
                 alt={selectedMember.name}
@@ -163,11 +163,11 @@ export default function Team() {
               />
               <h3
                 className="text-2xl font-bold mb-1"
-                style={{ fontFamily: "'Queensides Medium', serif" }}
+                style={{ fontFamily: "'Queensides', serif" }}
               >
                 {selectedMember.name}
               </h3>
-              <p className="text-sm font-semibold mb-3 text-[#425036]">
+              <p className="text-sm font-semibold mb-3 text-[#066b70]">
                 {selectedMember.position}
               </p>
               <p className="text-sm text-gray-700">{selectedMember.bio}</p>

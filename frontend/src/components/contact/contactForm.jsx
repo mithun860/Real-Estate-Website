@@ -11,7 +11,7 @@ function ContactForm() {
       initial={{ x: -20, opacity: 0 }}
       whileInView={{ x: 0, opacity: 1 }}
       viewport={{ once: true }}
-      className="bg-[#f0faf9] p-8 rounded-2xl shadow-sm font-montserrat"
+      className="bg-[#f0faf9] p-8 rounded-2xl shadow-sm font-[Montserrat]"
     >
       <h2
         className="text-2xl font-bold mb-6 text-[#066b70]"
@@ -21,6 +21,7 @@ function ContactForm() {
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Name Field */}
         <div>
           <label
             htmlFor="name"
@@ -39,9 +40,12 @@ function ContactForm() {
               errors.name ? 'border-red-500' : 'border-gray-300'
             }`}
           />
-          {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name}</p>}
+          {errors.name && (
+            <p className="mt-1 text-sm text-red-500">{errors.name}</p>
+          )}
         </div>
 
+        {/* Phone Field */}
         <div>
           <label
             htmlFor="phone"
@@ -65,6 +69,7 @@ function ContactForm() {
           )}
         </div>
 
+        {/* Message Field */}
         <div>
           <label
             htmlFor="message"
@@ -80,9 +85,11 @@ function ContactForm() {
             onChange={handleChange}
             rows={4}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#066b70]"
+            style={{ fontFamily: "'Montserrat', sans-serif" }}
           />
         </div>
 
+        {/* Submit Button */}
         <button
           type="submit"
           className="w-full bg-[#066b70] text-white py-3 rounded-lg hover:bg-[#05594f] transition-colors flex items-center justify-center"

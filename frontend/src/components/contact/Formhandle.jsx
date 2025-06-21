@@ -94,7 +94,9 @@ const ContactForm = () => {
             errors.message ? 'border-red-500' : 'border-gray-300'
           } rounded-lg focus:outline-none focus:ring-2 focus:ring-[#425036]`}
         />
-        {errors.message && <p className="text-sm text-red-500 mt-1">{errors.message}</p>}
+        {errors.message && (
+          <p className="text-sm text-red-500 mt-1">{errors.message}</p>
+        )}
       </div>
 
       <button

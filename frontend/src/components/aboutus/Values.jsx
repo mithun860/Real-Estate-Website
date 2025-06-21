@@ -54,7 +54,7 @@ export default function Values() {
         >
           <motion.h2
             className="text-4xl font-extrabold mb-4"
-            style={{ color: '#425036', fontFamily: "'Queensides Medium', serif" }}
+            style={{ color: '#425036', fontFamily: "'Queensides', serif" }}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -98,7 +98,7 @@ export default function Values() {
               </div>
               <h3
                 className="text-2xl font-semibold mb-3"
-                style={{ color: '#425036', fontFamily: "'Queensides Medium', serif" }}
+                style={{ color: '#425036', fontFamily: "'Queensides', serif" }}
               >
                 {title}
               </h3>

@@ -17,9 +17,9 @@ import credaiLogo from '../assets/credaiLogo.png';
 const FooterLink = ({ href, children }) => (
   <a
     href={href}
-    className="group flex items-center text-base text-gray-300 transition-all duration-200 hover:text-[#425036] hover:translate-x-1 py-1.5 lg:py-0"
+    className="group flex items-center text-base text-gray-300 transition-all duration-200 hover:text-[#066b70] hover:translate-x-1 py-1.5 lg:py-0"
   >
-    <ChevronRight className="w-3.5 h-3.5 mr-1 text-[#425036] opacity-0 transition-all duration-200 group-hover:opacity-100" />
+    <ChevronRight className="w-3.5 h-3.5 mr-1 text-[#066b70] opacity-0 transition-all duration-200 group-hover:opacity-100" />
     {children}
   </a>
 );
@@ -99,11 +99,11 @@ const Footer = () => {
             <div className="flex flex-col items-center lg:items-start gap-6 w-full lg:w-auto">
               <div className="flex flex-col items-center lg:items-start w-full">
                 <div className="flex items-center justify-center lg:justify-start">
-                  <div className="p-2 bg-[#425036] rounded-lg">
+                  <div className="p-2 bg-[#066b70] rounded-lg">
                     <Home className="h-6 w-6 text-white" />
                   </div>
                   <span
-                    className="ml-3 text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#425036] to-[#425036]"
+                    className="ml-3 text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#066b70] to-[#066b70]"
                     style={{ fontFamily: "'Queensides', serif" }}
                   >
                     SPLR Developers
@@ -169,11 +169,11 @@ const Footer = () => {
                   <li key={index}>
                     <a
                       href={item.href}
-                      className="flex items-start text-gray-300 hover:text-[#425036] transition-colors duration-200"
+                      className="flex items-start text-gray-300 hover:text-[#066b70] transition-colors duration-200"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      <item.icon className="w-4 h-4 mt-1 mr-3 flex-shrink-0 text-[#425036]" />
+                      <item.icon className="w-4 h-4 mt-1 mr-3 flex-shrink-0 text-[#066b70]" />
                       <span className="text-sm">{item.text}</span>
                     </a>
                   </li>
@@ -203,7 +203,7 @@ const Footer = () => {
                 href="https://maps.app.goo.gl/b9wppF2RowaC14Ck8"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 inline-block text-sm text-[#425036] hover:underline"
+                className="mt-2 inline-block text-sm text-[#066b70] hover:underline"
               >
                 View on Google Maps
               </a>

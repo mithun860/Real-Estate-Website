@@ -15,18 +15,18 @@ const TestimonialCard = ({ testimonial, index, activeIndex, direction }) => {
       style={{ fontFamily: 'Montserrat, sans-serif' }}
     >
       <div className="absolute top-4 right-4 opacity-10">
-        <Quote className="w-12 h-12" style={{ color: '#425036' }} />
+        <Quote className="w-12 h-12" style={{ color: '#066b70' }} />
       </div>
       <p className="italic mb-6 text-lg leading-relaxed relative z-10" style={{ color: '#374151' }}>
         "{testimonial.text}"
       </p>
       <div className="mt-8 flex items-center">
         <div>
-          <h3 className="font-bold text-lg" style={{ fontFamily: "'Queensides', serif", color: '#425036' }}>
+          <h3 className="font-bold text-lg" style={{ fontFamily: "'Queensides', serif", color: '#066b70' }}>
             {testimonial.name}
           </h3>
           <p className="text-sm flex items-center" style={{ color: '#4b5563' }}>
-            <span className="inline-block w-1.5 h-1.5 rounded-full mr-2 bg-[#425036]" />
+            <span className="inline-block w-1.5 h-1.5 rounded-full mr-2 bg-[#066b70]" />
             {testimonial.location}
           </p>
           <div className="flex mt-1">
@@ -46,7 +46,7 @@ const TestimonialCard = ({ testimonial, index, activeIndex, direction }) => {
           <div
             key={i}
             className={`rounded-full ${i === index ? 'w-6 transition-all duration-300' : 'w-2'}`}
-            style={{ backgroundColor: i === index ? '#425036' : '#d1d5db', height: '0.5rem' }}
+            style={{ backgroundColor: i === index ? '#066b70' : '#d1d5db', height: '0.5rem' }}
           />
         ))}
       </div>
@@ -90,13 +90,13 @@ const Testimonials = () => {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <span className="font-semibold tracking-wider text-sm uppercase" style={{ fontFamily: "'Montserrat', sans-serif", color: '#425036' }}>
+          <span className="font-semibold tracking-wider text-sm uppercase" style={{ fontFamily: "'Montserrat', sans-serif", color: '#066b70' }}>
             Testimonials
           </span>
           <h2 className="text-4xl font-bold mt-2 mb-4" style={{ fontFamily: "'Queensides', serif", color: '#1f2937' }}>
             What Our Clients Say
           </h2>
-          <div className="mx-auto mb-6 rounded-full" style={{ width: '6rem', height: '0.25rem', backgroundColor: '#425036' }} />
+          <div className="mx-auto mb-6 rounded-full" style={{ width: '6rem', height: '0.25rem', backgroundColor: '#066b70' }} />
           <p className="text-xl max-w-3xl mx-auto" style={{ fontFamily: "'Montserrat', sans-serif", color: '#4B5563' }}>
             Discover why homeowners trust SPLR to find their perfect property
           </p>
@@ -116,18 +116,18 @@ const Testimonials = () => {
                 className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl transition-all duration-300 relative"
               >
                 <div className="absolute top-4 right-4 opacity-10">
-                  <Quote className="w-12 h-12" style={{ color: '#425036' }} />
+                  <Quote className="w-12 h-12" style={{ color: '#066b70' }} />
                 </div>
                 <p className="italic mb-6 text-lg leading-relaxed relative z-10" style={{ color: '#374151' }}>
                   "{testimonial.text}"
                 </p>
                 <div className="mt-8 flex items-center">
                   <div>
-                    <h3 className="font-bold text-lg" style={{ fontFamily: "'Queensides', serif", color: '#425036' }}>
+                    <h3 className="font-bold text-lg" style={{ fontFamily: "'Queensides', serif", color: '#066b70' }}>
                       {testimonial.name}
                     </h3>
                     <p className="text-sm flex items-center" style={{ fontFamily: "'Montserrat', sans-serif", color: '#4b5563' }}>
-                      <span className="inline-block w-1.5 h-1.5 rounded-full mr-2 bg-[#425036]" />
+                      <span className="inline-block w-1.5 h-1.5 rounded-full mr-2 bg-[#066b70]" />
                       {testimonial.location}
                     </p>
                     <div className="flex mt-1">
@@ -163,14 +163,14 @@ const Testimonials = () => {
           <div className="flex justify-center mt-10 space-x-4">
             <button
               onClick={handlePrev}
-              className="p-3 rounded-full bg-white shadow-md border border-gray-200 text-gray-700 hover:bg-[#425036] hover:text-white transition-colors"
+              className="p-3 rounded-full bg-white shadow-md border border-gray-200 text-gray-700 hover:bg-[#066b70] hover:text-white transition-colors"
               aria-label="Previous testimonial"
             >
               <ArrowLeft className="w-5 h-5" />
             </button>
             <button
               onClick={handleNext}
-              className="p-3 rounded-full bg-white shadow-md border border-gray-200 text-gray-700 hover:bg-[#425036] hover:text-white transition-colors"
+              className="p-3 rounded-full bg-white shadow-md border border-gray-200 text-gray-700 hover:bg-[#066b70] hover:text-white transition-colors"
               aria-label="Next testimonial"
             >
               <ArrowRight className="w-5 h-5" />
@@ -190,12 +190,12 @@ const Testimonials = () => {
             href="/contact"
             className="inline-flex items-center py-3 px-6 rounded-lg font-medium shadow-lg transition-colors"
             style={{
-              backgroundColor: '#425036',
+              backgroundColor: '#066b70',
               color: '#fff',
               fontFamily: "'Montserrat', sans-serif",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#2c3626')}
-            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#425036')}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = '#054e53')}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = '#066b70')}
           >
             Share Your Experience
             <ArrowRight className="ml-2 w-4 h-4" />
