@@ -24,11 +24,11 @@ const Hero = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-wide mb-2 capitalize"
+          className="text-5xl sm:text-7xl md:text-8xl font-bold tracking-wide mb-4 capitalize"
           style={{
             fontFamily: "'Queensides', serif",
-            color: "#425036",
-            textShadow: "2px 2px 6px rgba(255, 255, 255, 0.7)",
+            color: "#06607b", // updated color
+            textShadow: "2px 2px 6px rgba(255, 255, 255, 0.7)", // white overlay glow
           }}
         >
           Three Leaf
@@ -39,7 +39,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="text-2xl sm:text-4xl font-semibold tracking-wide capitalize"
+          className="text-3xl sm:text-5xl font-semibold tracking-wide capitalize"
           style={{
             fontFamily: "'Queensides', serif",
             color: "#ffffff",
@@ -49,12 +49,12 @@ const Hero = () => {
           Green Space
         </motion.h2>
 
-        {/* Description */}
+        {/* Description / Tagline */}
         <motion.p
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 1 }}
-          className="mt-6 text-lg sm:text-xl text-white font-medium max-w-3xl mx-auto text-shadow"
+          className="mt-8 text-xl sm:text-2xl md:text-3xl text-white font-medium max-w-3xl mx-auto text-shadow"
           style={{
             fontFamily: "'Montserrat', sans-serif",
             textShadow: "1px 1px 4px rgba(0, 0, 0, 0.85)",
@@ -62,7 +62,10 @@ const Hero = () => {
         >
           A villa that makes every day
           <br />
-          <span className="text-[#e3b07b]" style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.5)" }}>
+          <span
+            className="text-[#e3b07b]"
+            style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.5)" }}
+          >
             A picnic in nature
           </span>
         </motion.p>
@@ -72,7 +75,7 @@ const Hero = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 1 }}
-          className="mt-14 flex flex-wrap justify-center gap-6 text-sm sm:text-base"
+          className="mt-16 flex flex-wrap justify-center gap-8 text-lg sm:text-xl md:text-2xl"
           style={{
             fontFamily: "'Montserrat', sans-serif",
             color: "#f1f5f9",
@@ -84,8 +87,8 @@ const Hero = () => {
             "Premium Farm Plots",
             "Luxury Amenities",
           ].map((feature, i) => (
-            <div key={i} className="flex items-center gap-2">
-              <div className="w-2 h-2 bg-[#e3b07b] rounded-full"></div>
+            <div key={i} className="flex items-center gap-3">
+              <div className="w-3 h-3 bg-[#e3b07b] rounded-full"></div>
               <span>{feature}</span>
             </div>
           ))}

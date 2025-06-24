@@ -25,7 +25,7 @@ const contactInfo = [
   {
     icon: Clock,
     title: 'Working Hours',
-    content: 'All Day: 24/7',
+    content: 'All Day: 9 a.m to 7 p.m',
   },
 ];
 

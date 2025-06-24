@@ -106,8 +106,8 @@ export default function Team() {
         </p>
       </motion.div>
 
-      {/* Team Grid */}
-      <div className="relative max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 z-10">
+      {/* Team Grid (updated for 4 members) */}
+      <div className="relative max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-10 z-10">
         {teamMembers.map((member, index) => (
           <motion.div
             key={index}

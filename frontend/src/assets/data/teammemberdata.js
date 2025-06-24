@@ -39,17 +39,6 @@ export const teamMembers = [
     },
   },
   {
-    name: 'Kiran Deshmukh',
-    position: 'Director',
-    bio: '',
-    image: kiranImage,
-    social: {
-      linkedin: '',
-      twitter: '',
-      instagram: '',
-    },
-  },
-  {
     name: 'Shreyas Malve',
     position: 'Sales',
     bio: '',

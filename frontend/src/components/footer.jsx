@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Home,
   Facebook,
@@ -6,10 +6,9 @@ import {
   Mail,
   MapPin,
   Phone,
-  ChevronRight,
-  ChevronDown
+  ChevronRight
 } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import credaiLogo from '../assets/credaiLogo.png';
@@ -74,9 +73,8 @@ const companyLinks = [
 const contactInfo = [
   {
     icon: MapPin,
-    text:
-      'FLAT NO 15 SHIVOM APT, NEAR MADHU ELECTRONICS, MAHATMA NAGAR NASHIK',
-    href: 'https://maps.app.goo.gl/b9wppF2RowaC14Ck8'
+    text: 'Three Leaf Green Space, Koroli, Nashik',
+    href: 'https://www.google.com/maps/place/19%C2%B052\'41.8%22N+73%C2%B030\'35.6%22E/@19.878280,73.509895,19z'
   },
   {
     icon: Phone,
@@ -120,8 +118,7 @@ const Footer = () => {
                 <p className="text-gray-300 mt-4 leading-relaxed">
                   Your reliable companion in discovering your ideal home. We
                   streamline property searching, making it effortless,
-                  efficient, and perfectly suited to your individual
-                  preferences.
+                  efficient, and perfectly suited to your individual preferences.
                 </p>
                 <SocialLinks />
               </div>
@@ -188,19 +185,20 @@ const Footer = () => {
               >
                 Location
               </h3>
-              <div className="w-full h-48 rounded-md overflow-hidden shadow-lg border border-gray-700">
+              <div className="w-full h-64 rounded-md overflow-hidden shadow-lg border border-gray-700">
                 <iframe
-                  title="SPLR Developers Location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3749.074097642072!2d73.756031!3d20.0079378!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bddeb08bc13e3ff%3A0x4e4e4f4d7a441390!2sFlat%20No.%2015%20Shivom%20Apt%2C%20Near%20Madhuel%20Electronics%2C%20Mahatma%20Nagar%2C%20Nashik%2C%20Maharashtra%20422003!5e0!3m2!1sen!2sin!4v1683380318345!5m2!1sen!2sin"
+                  title="Three Leaf Green Space Location"
+                  src="https://www.google.com/maps?q=19.878280,73.509895&z=19&output=embed"
                   width="100%"
                   height="100%"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   className="border-0"
+                  allowFullScreen
                 />
               </div>
               <a
-                href="https://maps.app.goo.gl/b9wppF2RowaC14Ck8"
+                href="https://www.google.com/maps/place/19%C2%B052'41.8%22N+73%C2%B030'35.6%22E/@19.878280,73.509895,19z"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-2 inline-block text-sm text-[#066b70] hover:underline"
