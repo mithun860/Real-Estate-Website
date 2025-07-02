@@ -70,6 +70,7 @@ const companyLinks = [
   }
 ];
 
+// ✅ Combined contact numbers into one line with one icon
 const contactInfo = [
   {
     icon: MapPin,
@@ -78,7 +79,7 @@ const contactInfo = [
   },
   {
     icon: Phone,
-    text: '8600315351',
+    text: '8600315351 / 9850582219 / 9545453288',
     href: 'tel:8600315351'
   },
   {

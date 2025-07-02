@@ -27,8 +27,8 @@ const Hero = () => {
           className="text-5xl sm:text-7xl md:text-8xl font-bold tracking-wide mb-4 capitalize"
           style={{
             fontFamily: "'Queensides', serif",
-            color: "#06607b", // updated color
-            textShadow: "2px 2px 6px rgba(255, 255, 255, 0.7)", // white overlay glow
+            color: "#2c5f2d", // Forest Green
+            textShadow: "2px 2px 6px rgba(255, 255, 255, 0.7)",
           }}
         >
           Three Leaf
