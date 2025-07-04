@@ -1,25 +1,25 @@
 #!/bin/bash
-set -e # Exit immediately if any command fails
+set -e # Exit immediately on error
 
-echo "Installing root dependencies..."
+echo "=== INSTALLING ROOT DEPENDENCIES ==="
 npm install
 
-echo "Building backend..."
+echo "=== BUILDING BACKEND ==="
 cd backend
-npm install
+npm install --production=false # Include devDependencies
 npm run build
 cd ..
 
-echo "Building frontend..."
+echo "=== BUILDING FRONTEND ==="
 cd frontend
-npm install
+npm install --production=false # Critical - installs Vite
 npm run build
 cd ..
 
-echo "Building admin panel..."
+echo "=== BUILDING ADMIN PANEL ==="
 cd admin
-npm install
+npm install --production=false
 npm run build
 cd ..
 
-echo "Build completed successfully!"
+echo "=== BUILD COMPLETED SUCCESSFULLY ==="
