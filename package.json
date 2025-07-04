@@ -6,9 +6,10 @@
   "scripts": {
     "setup": "npm install && cd backend && npm install && cd ../frontend && npm install && cd ../admin && npm install",
     "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\" \"cd admin && npm run dev\"",
-    "build": "cd backend && npm run build && cd ../frontend && npm run build && cd ../admin && npm run build",
+    "build": "npm run setup && cd backend && npm run build && cd ../frontend && npm run build && cd ../admin && npm run build",
     "start": "cd backend && npm start",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "render-build": "./render-build.sh"
   },
   "workspaces": [
     "backend",
