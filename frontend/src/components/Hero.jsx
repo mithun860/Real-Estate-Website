@@ -27,7 +27,7 @@ const Hero = () => {
           className="text-5xl sm:text-7xl md:text-8xl font-bold tracking-wide mb-4 capitalize"
           style={{
             fontFamily: "'Queensides', serif",
-            color: "#2c5f2d", // Forest Green
+            color: "#DAA520", // 🔁 Change this to try other shades (see above)
             textShadow: "2px 2px 6px rgba(255, 255, 255, 0.7)",
           }}
         >

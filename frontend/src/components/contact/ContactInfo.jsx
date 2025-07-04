@@ -7,8 +7,21 @@ const contactInfo = [
   {
     icon: Phone,
     title: 'Phone',
-    content: '8600315351',
-    link: 'tel:+918600315351',
+    content: (
+      <div className="flex flex-wrap gap-x-4">
+        <a href="tel:+918600315351" className="hover:text-[#066b70] transition">
+          8600315351
+        </a>
+        /
+        <a href="tel:+919850582219" className="hover:text-[#066b70] transition">
+          9850582219
+        </a>
+        /
+        <a href="tel:+919545453288" className="hover:text-[#066b70] transition">
+          9545453288
+        </a>
+      </div>
+    ),
   },
   {
     icon: Mail,
@@ -19,7 +32,8 @@ const contactInfo = [
   {
     icon: MapPin,
     title: 'Address',
-    content: 'FLAT NO 15 SHIVOM APT, NEAR MADHU ELECTRONICS, MAHATMA NAGAR NASHIK',
+    content:
+      'FLAT NO 15 SHIVOM APT, NEAR MADHU ELECTRONICS, MAHATMA NAGAR NASHIK',
     link: '#Map',
   },
   {

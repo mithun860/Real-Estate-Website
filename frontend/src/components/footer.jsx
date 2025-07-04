@@ -70,7 +70,7 @@ const companyLinks = [
   }
 ];
 
-// ✅ Combined contact numbers into one line with one icon
+// ✅ Updated contact info
 const contactInfo = [
   {
     icon: MapPin,
@@ -79,8 +79,11 @@ const contactInfo = [
   },
   {
     icon: Phone,
-    text: '8600315351 / 9850582219 / 9545453288',
-    href: 'tel:8600315351'
+    phones: [
+      { number: '8600315351', link: 'tel:8600315351' },
+      { number: '9850582219', link: 'tel:9850582219' },
+      { number: '9545453288', link: 'tel:9545453288' }
+    ]
   },
   {
     icon: Mail,
@@ -165,15 +168,36 @@ const Footer = () => {
               <ul className="space-y-4">
                 {contactInfo.map((item, index) => (
                   <li key={index}>
-                    <a
-                      href={item.href}
-                      className="flex items-start text-gray-300 hover:text-[#066b70] transition-colors duration-200"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <item.icon className="w-4 h-4 mt-1 mr-3 flex-shrink-0 text-[#066b70]" />
-                      <span className="text-sm">{item.text}</span>
-                    </a>
+                    {item.phones ? (
+                      <div className="flex items-start text-gray-300">
+                        <item.icon className="w-4 h-4 mt-1 mr-3 flex-shrink-0 text-[#066b70]" />
+                        <span className="text-sm space-x-1">
+                          {item.phones.map((phone, i) => (
+                            <React.Fragment key={i}>
+                              <a
+                                href={phone.link}
+                                className="text-gray-300 hover:text-[#066b70] underline"
+                              >
+                                {phone.number}
+                              </a>
+                              {i < item.phones.length - 1 && (
+                                <span className="mx-1">/</span>
+                              )}
+                            </React.Fragment>
+                          ))}
+                        </span>
+                      </div>
+                    ) : (
+                      <a
+                        href={item.href}
+                        className="flex items-start text-gray-300 hover:text-[#066b70] transition-colors duration-200"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <item.icon className="w-4 h-4 mt-1 mr-3 flex-shrink-0 text-[#066b70]" />
+                        <span className="text-sm">{item.text}</span>
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>
