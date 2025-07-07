@@ -18,20 +18,21 @@ const Hero = () => {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 max-w-5xl">
+      <div className="relative z-10 max-w-4xl w-full flex flex-col items-center">
         {/* "Three Leaf" */}
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="text-5xl sm:text-7xl md:text-8xl font-bold tracking-wide mb-4 capitalize"
+          className="text-[2.75rem] sm:text-[4rem] md:text-[4.5rem] uppercase mb-2 tracking-[0.1em] leading-tight"
           style={{
-            fontFamily: "'Queensides', serif",
-            color: "#DAA520", // 🔁 Change this to try other shades (see above)
-            textShadow: "2px 2px 6px rgba(255, 255, 255, 0.7)",
+            fontFamily: "'La Piedrita', serif",
+            color: "#f5c141",
+            textShadow: "3px 3px 10px rgba(0,0,0,0.5)",
+            letterSpacing: "0.12em",
           }}
         >
-          Three Leaf
+          THREE LEAF
         </motion.h1>
 
         {/* "Green Space" */}
@@ -39,14 +40,15 @@ const Hero = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="text-3xl sm:text-5xl font-semibold tracking-wide capitalize"
+          className="text-[1.5rem] sm:text-[2rem] md:text-[2.25rem] uppercase mb-8 tracking-[0.1em]"
           style={{
-            fontFamily: "'Queensides', serif",
+            fontFamily: "'La Piedrita', serif",
             color: "#ffffff",
-            textShadow: "2px 2px 8px rgba(0, 0, 0, 0.6)",
+            textShadow: "2px 2px 6px rgba(0, 0, 0, 0.6)",
+            letterSpacing: "0.1em",
           }}
         >
-          Green Space
+          GREEN SPACE
         </motion.h2>
 
         {/* Description / Tagline */}
@@ -54,7 +56,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 1 }}
-          className="mt-8 text-xl sm:text-2xl md:text-3xl text-white font-medium max-w-3xl mx-auto text-shadow"
+          className="mt-2 text-lg sm:text-2xl md:text-3xl text-white font-medium max-w-3xl mx-auto"
           style={{
             fontFamily: "'Montserrat', sans-serif",
             textShadow: "1px 1px 4px rgba(0, 0, 0, 0.85)",
@@ -64,7 +66,9 @@ const Hero = () => {
           <br />
           <span
             className="text-[#e3b07b]"
-            style={{ textShadow: "1px 1px 2px rgba(0,0,0,0.5)" }}
+            style={{
+              textShadow: "1px 1px 2px rgba(0,0,0,0.5)",
+            }}
           >
             A picnic in nature
           </span>
@@ -75,7 +79,7 @@ const Hero = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 1 }}
-          className="mt-16 flex flex-wrap justify-center gap-8 text-lg sm:text-xl md:text-2xl"
+          className="mt-14 flex flex-wrap justify-center gap-8 text-base sm:text-xl md:text-2xl"
           style={{
             fontFamily: "'Montserrat', sans-serif",
             color: "#f1f5f9",
