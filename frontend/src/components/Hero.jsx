@@ -26,7 +26,7 @@ const Hero = () => {
           transition={{ duration: 1 }}
           className="text-[2.75rem] sm:text-[4rem] md:text-[4.5rem] uppercase mb-2 tracking-[0.1em] leading-tight"
           style={{
-            fontFamily: "'La Piedrita', serif",
+            fontFamily: "'Marigold Magic Bold', cursive",
             color: "#f5c141",
             textShadow: "3px 3px 10px rgba(0,0,0,0.5)",
             letterSpacing: "0.12em",
@@ -42,7 +42,7 @@ const Hero = () => {
           transition={{ duration: 1, delay: 0.2 }}
           className="text-[1.5rem] sm:text-[2rem] md:text-[2.25rem] uppercase mb-8 tracking-[0.1em]"
           style={{
-            fontFamily: "'La Piedrita', serif",
+            fontFamily: "'Marigold Magic Bold', cursive",
             color: "#ffffff",
             textShadow: "2px 2px 6px rgba(0, 0, 0, 0.6)",
             letterSpacing: "0.1em",

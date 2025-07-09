@@ -39,6 +39,48 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Brillant';
+  src: url('/fonts/brillant.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Moot Jungle';
+  src: url('/fonts/Mootjunglefreeversion-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'The Munday';
+  src: url('/fonts/Themundayfreeversion-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Ngetic Modern';
+  src: url('/fonts/NgeticModern-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Treova Demo';
+  src: url('/fonts/Treova-Demo.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Marigold Magic Bold';
+  src: url('/fonts/MarigoldMagic-PersonalUse-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
 /* ✅ Reusable Tailwind utility override if needed */
 .font-queensides {
   font-family: 'Queensides', serif;
