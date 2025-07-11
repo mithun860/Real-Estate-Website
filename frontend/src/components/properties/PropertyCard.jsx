@@ -166,7 +166,6 @@ const PropertyCard = ({ property, viewType }) => {
           </div>
         </div>
 
-        {/* Area Section */}
         <div className="mt-6">
           <div className="flex flex-col items-center bg-[#f0fdfa] p-3 rounded-md">
             <Maximize className="w-5 h-5 text-[#425036]" />
