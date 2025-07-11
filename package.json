@@ -4,18 +4,10 @@
   "description": "BuildEstate - Premium Real Estate Platform with AI-Powered Insights",
   "private": true,
   "scripts": {
-    "setup": "npm install && cd backend && npm install && cd ../frontend && npm install && cd ../admin && npm install",
-    "dev": "concurrently \"cd backend && npm run dev\" \"cd frontend && npm run dev\" \"cd admin && npm run dev\"",
-    "build": "npm run setup && cd backend && npm run build && cd ../frontend && npm run build && cd ../admin && npm run build",
-    "start": "cd backend && npm start",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "render-build": "./render-build.sh"
+    "start": "node backend/server.js",
+    "dev": "cd backend && npm run dev",
+    "build": "cd backend && npm install && npm run build"
   },
-  "workspaces": [
-    "backend",
-    "frontend",
-    "admin"
-  ],
   "keywords": [
     "real-estate",
     "property",
