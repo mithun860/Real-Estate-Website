@@ -20,7 +20,7 @@ export default function ContactPopup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:4000/api/contact', form);
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/contact', form);
       alert('Thanks for contacting us!');
       setIsOpen(false);
     } catch (err) {
