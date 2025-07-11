@@ -1,11 +1,13 @@
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
+
 import Stats from "../models/statsModel.js";
 import Property from "../models/propertyModel.js";
 import Appointment from "../models/appointmentModel.js";
 import User from "../models/Usermodel.js";
 import transporter from "../config/nodemailer.js";
 import { getEmailTemplate } from "../email.js";
-import bcrypt from 'bcryptjs';
+import Admin from '../models/AdminModel.js'; // ✅ Using correct Admin model
 
 // ======================
 //  ADMIN AUTHENTICATION
@@ -14,20 +16,16 @@ export const adminLogin = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // 1. Check if user exists and is admin
-    const admin = await User.findOne({ email, isAdmin: true });
-    if (!admin) {
+    const admin = await Admin.findOne({ email });
+
+    if (!admin || !admin.isAdmin) {
       return res.status(401).json({
         success: false,
         message: "Invalid admin credentials"
       });
     }
 
-    // 2. Verify password
-    console.log("Password from request:", password);
-    console.log("Hashed password in DB:", admin.password);
     const isPasswordValid = await bcrypt.compare(password, admin.password);
-    console.log("Password valid?", isPasswordValid);
     if (!isPasswordValid) {
       return res.status(401).json({
         success: false,
@@ -35,33 +33,30 @@ export const adminLogin = async (req, res) => {
       });
     }
 
-    // 3. Generate JWT token
     const token = jwt.sign(
-      { 
-        id: admin._id, 
+      {
+        id: admin._id,
         email: admin.email,
-        isAdmin: true 
+        isAdmin: true
       },
       process.env.JWT_SECRET,
       { expiresIn: '1d' }
     );
 
-    // 4. Return success response
-    return res.status(200).json({
+    res.status(200).json({
       success: true,
       message: "Admin login successful",
       token,
       admin: {
         id: admin._id,
         name: admin.name,
-        email: admin.email,
-        phone: admin.phone
+        email: admin.email
       }
     });
 
   } catch (error) {
     console.error("Admin login error:", error);
-    return res.status(500).json({
+    res.status(500).json({
       success: false,
       message: "Internal server error"
     });
@@ -134,7 +129,6 @@ const getViewsData = async (days = 30) => {
       { $sort: { _id: 1 } }
     ]);
 
-    // Fill in missing dates
     const result = [];
     for (let i = 0; i < days; i++) {
       const currentDate = new Date();
@@ -264,7 +258,6 @@ export const updateAppointmentStatus = async (req, res) => {
       });
     }
 
-    // Send status update email
     const mailOptions = {
       from: process.env.EMAIL,
       to: appointment.userId.email,
