@@ -40,16 +40,17 @@ app.use(trackAPIStats);
 
 
 // CORS Configuration
+// Update just the CORS part in your existing server.js
 app.use(cors({
   origin: [
     'http://localhost:4000',
     'http://localhost:5174',
     'http://localhost:5173',
-    'https://splrdevelopers-gules.vercel.app/',
-    'https://real-estate-website-admin.vercel.app/',
+    'https://splrdevelopers-gules.vercel.app',
+    'https://real-estate-website-admin.vercel.app',
   ],
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD'], // Added HEAD
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'HEAD'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 

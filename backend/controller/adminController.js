@@ -16,17 +16,29 @@ export const adminLogin = async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    // Debug: Log the incoming credentials
+    console.log('Login attempt for:', email);
+    
     const admin = await Admin.findOne({ email });
-
+    
+    // Debug: Log admin document
+    console.log('Found admin:', admin ? admin.email : 'Not found');
+    
     if (!admin || !admin.isAdmin) {
+      console.log('Admin not found or not an admin');
       return res.status(401).json({
         success: false,
         message: "Invalid admin credentials"
       });
     }
 
-    const isPasswordValid = await bcrypt.compare(password, admin.password);
+    // Debug: Log password comparison
+    console.log('Comparing password for:', admin.email);
+    const isPasswordValid = await admin.comparePassword(password);
+    console.log('Password match:', isPasswordValid);
+    
     if (!isPasswordValid) {
+      console.log('Password mismatch');
       return res.status(401).json({
         success: false,
         message: "Invalid admin credentials"
@@ -43,6 +55,7 @@ export const adminLogin = async (req, res) => {
       { expiresIn: '1d' }
     );
 
+    console.log('Login successful for:', admin.email);
     res.status(200).json({
       success: true,
       message: "Admin login successful",

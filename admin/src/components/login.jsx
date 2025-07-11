@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import axios from "axios";
@@ -9,17 +9,42 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [systemCheck, setSystemCheck] = useState(null);
   const navigate = useNavigate();
+
+  // Check system status on component mount
+  useEffect(() => {
+    const checkSystem = async () => {
+      try {
+        const response = await axios.get(`${backendUrl}/api/admin/verify-credentials`);
+        setSystemCheck(response.data);
+        console.log("System check:", response.data);
+      } catch (error) {
+        console.error("System check failed:", error);
+        setSystemCheck({ error: "Unable to verify system status" });
+      }
+    };
+    checkSystem();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     
+    console.log("Login attempt with:", { email, password });
+
     try {
       const response = await axios.post(`${backendUrl}/api/admin/login`, {
         email,
         password
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        withCredentials: true
       });
+
+      console.log("Login response:", response.data);
 
       if (response.data.success) {
         localStorage.setItem('token', response.data.token);
@@ -28,11 +53,22 @@ const Login = () => {
         toast.success("Login successful!");
         navigate("/dashboard");
       } else {
+        console.error("Login failed:", response.data);
         toast.error(response.data.message || "Login failed");
       }
     } catch (error) {
-      console.error('Error logging in:', error);
-      toast.error(error.response?.data?.message || 'Invalid credentials');
+      console.error('Detailed login error:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status,
+        config: error.config
+      });
+      
+      toast.error(
+        error.response?.data?.message || 
+        error.message || 
+        'Login failed. Please check console for details.'
+      );
     } finally {
       setLoading(false);
     }
@@ -46,6 +82,19 @@ const Login = () => {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
               Admin Portal Login
             </h1>
+            
+            {systemCheck && (
+              <div className="p-3 bg-gray-100 rounded-md text-sm">
+                <p>System check: {systemCheck.error || "OK"}</p>
+                {!systemCheck.error && (
+                  <>
+                    <p>Admin exists: {systemCheck.adminExists ? "Yes" : "No"}</p>
+                    <p>Password matches: {systemCheck.passwordMatch ? "Yes" : "No"}</p>
+                  </>
+                )}
+              </div>
+            )}
+
             <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">
