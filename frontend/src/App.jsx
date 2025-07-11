@@ -20,7 +20,7 @@ import NotFoundPage from './components/Notfound';
 import StructuredData from './components/SEO/StructuredData';
 import { AuthProvider } from './context/AuthContext';
 import MoreDetails from './pages/MoreDetails';
-import PropertyDetails from './components/properties/PropertyDetail';
+import PropertyDetails from './components/properties/PropertyDetails';
 
 import 'react-toastify/dist/ReactToastify.css';
 
