@@ -1,15 +1,22 @@
 // models/Contact.js
-const mongoose = require("mongoose");
+
+import mongoose from 'mongoose';
 
 const ContactSchema = new mongoose.Schema({
-  name: String,
-  email: String,
-  phone: String,
-  message: String,
+  name: { type: String, required: true },
+  email: { type: String, default: '' },
+  phone: { type: String, required: true },
+  message: { type: String, default: '' },
+  status: {
+    type: String,
+    enum: ['pending', 'responded', 'archived'],
+    default: 'pending'
+  },
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
 
-module.exports = mongoose.model("Contact", ContactSchema);
+const Contact = mongoose.model("Contact", ContactSchema);
+export default Contact;

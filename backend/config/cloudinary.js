@@ -10,8 +10,8 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
   cloudinary,
   params: {
-    folder: 'splr-properties',
-    allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
+    folder: 'properties',
+    allowed_formats: ['jpg', 'png', 'jpeg'],
   },
 });
 

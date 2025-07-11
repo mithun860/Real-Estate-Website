@@ -13,6 +13,7 @@ import newsrouter from './routes/newsRoute.js';
 import appointmentRouter from './routes/appointmentRoute.js';
 import adminRouter from './routes/adminRoute.js';
 import propertyRoutes from './routes/propertyRoutes.js';
+import contactRouter from './routes/contact.js';
 
 dotenv.config();
 
@@ -69,7 +70,7 @@ app.use('/api/news', newsrouter);
 app.use('/api/appointments', appointmentRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api', propertyRoutes);
-
+app.use('/api/contacts', contactRouter);
 
 app.use((err, req, res, next) => {
   console.error('Error:', err);

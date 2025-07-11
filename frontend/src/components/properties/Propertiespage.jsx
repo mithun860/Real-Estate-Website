@@ -2,31 +2,8 @@ import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Home } from "lucide-react";
-import PropertyCard from "./Propertycard.jsx";
-import { Backendurl } from "../../App.jsx";
-
-const DUMMY_PROPERTIES = [
-  {
-    _id: "dummy1",
-    title: "Green Valley Retreat",
-    location: "Igatpuri, Nashik",
-    type: "Farm Plot",
-    availability: "Buy",
-    price: 1250000,
-    sqft: 2200,
-    images: ["/images/three-leaf-1.jpg", "/images/three-leaf-2.jpg"],
-  },
-  {
-    _id: "dummy2",
-    title: "Lakeside Serenity",
-    location: "Trimbakeshwar, Nashik",
-    type: "Lake View",
-    availability: "Buy",
-    price: 980000,
-    sqft: 1800,
-    images: ["/images/three-leaf-3.jpg", "/images/three-leaf-4.jpg"],
-  },
-];
+import PropertyCard from "./PropertyCard.jsx";
+import { Backendurl } from "../../App";
 
 const PropertiesPage = () => {
   const [propertyState, setPropertyState] = useState({
@@ -37,7 +14,6 @@ const PropertiesPage = () => {
 
   const fetchProperties = async () => {
     try {
-      setPropertyState((prev) => ({ ...prev, loading: true }));
       const response = await axios.get(`${Backendurl}/api/properties`);
       setPropertyState({
         properties: response.data,
@@ -47,9 +23,9 @@ const PropertiesPage = () => {
     } catch (err) {
       console.error("API Error:", err.message);
       setPropertyState({
-        properties: DUMMY_PROPERTIES,
+        properties: [],
         loading: false,
-        error: "Connected to dummy data due to server issue.",
+        error: "Could not fetch properties. Please try again.",
       });
     }
   };
@@ -87,10 +63,7 @@ const PropertiesPage = () => {
           >
             Loading Properties
           </h3>
-          <p
-            className="text-gray-500"
-            style={{ fontFamily: "'Montserrat', sans-serif" }}
-          >
+          <p className="text-gray-500" style={{ fontFamily: "'Montserrat', sans-serif" }}>
             Curating the perfect farm plots for you...
           </p>
         </motion.div>
@@ -123,10 +96,7 @@ const PropertiesPage = () => {
             Scenic, secure, and investment-ready plots.
           </p>
           {propertyState.error && (
-            <p
-              className="mt-4 text-sm text-red-500"
-              style={{ fontFamily: "'Montserrat', sans-serif" }}
-            >
+            <p className="mt-4 text-sm text-red-500" style={{ fontFamily: "'Montserrat', sans-serif" }}>
               {propertyState.error}
             </p>
           )}
@@ -146,16 +116,10 @@ const PropertiesPage = () => {
                 className="col-span-full text-center py-12 bg-white rounded-lg shadow"
               >
                 <MapPin className="w-10 h-10 text-gray-400 mx-auto mb-4" />
-                <h3
-                  className="text-lg font-medium text-gray-800"
-                  style={{ fontFamily: "'Queensides', serif" }}
-                >
+                <h3 className="text-lg font-medium text-gray-800" style={{ fontFamily: "'Queensides', serif" }}>
                   No properties found
                 </h3>
-                <p
-                  className="text-gray-500"
-                  style={{ fontFamily: "'Montserrat', sans-serif" }}
-                >
+                <p className="text-gray-500" style={{ fontFamily: "'Montserrat', sans-serif" }}>
                   Try changing your search or filters.
                 </p>
               </motion.div>

@@ -10,6 +10,8 @@ import Dashboard from "./pages/Dashboard";
 import Appointments from "./pages/Appointments";
 import AddProperty from "./pages/Add"; // ✅ new
 import UploadProperty from "./pages/UploadProperty";
+import EditProperty from "./pages/EditProperty"; // ⬅️ Add this
+import ManageProperties from './pages/ManageProperties';
 
 export const backendurl = import.meta.env.VITE_BACKEND_URL;
 
@@ -41,6 +43,8 @@ const App = () => {
                 <Route path="/appointments" element={<Appointments />} />
                 <Route path="/add-property" element={<AddProperty />} /> {/* ✅ new */}
                 <Route path="/upload-property" element={<UploadProperty />} />
+                <Route path="/edit-property/:id" element={<EditProperty />} />
+                <Route path="/manage-properties" element={<ManageProperties />} />
               </Route>
 
               <Route path="*" element={<Navigate to="/dashboard" replace />} />

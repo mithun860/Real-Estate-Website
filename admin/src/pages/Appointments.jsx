@@ -3,9 +3,8 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import {
   Calendar,
-  Clock,
   User,
-  Mail,
+  Phone,
   Check,
   X,
   Loader,
@@ -24,7 +23,7 @@ const Appointments = () => {
   const fetchContacts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`${backendurl}/api/contacts`, {
+      const response = await axios.get(`${backendurl}/api/contacts/all`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
 
@@ -69,7 +68,7 @@ const Appointments = () => {
     const matchesSearch =
       searchTerm === "" ||
       contact.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      contact.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      contact.phone?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       contact.message?.toLowerCase().includes(searchTerm.toLowerCase());
 
     const matchesFilter = filter === "all" || contact.status === filter;
@@ -144,7 +143,7 @@ const Appointments = () => {
                     Name
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Email
+                    Phone
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Message
@@ -171,18 +170,14 @@ const Appointments = () => {
                     <td className="px-6 py-4">
                       <div className="flex items-center">
                         <User className="w-5 h-5 text-gray-400 mr-2" />
-                        <p className="font-medium text-gray-900">
-                          {contact.name}
-                        </p>
+                        <p className="font-medium text-gray-900">{contact.name}</p>
                       </div>
                     </td>
 
                     <td className="px-6 py-4">
                       <div className="flex items-center">
-                        <Mail className="w-5 h-5 text-gray-400 mr-2" />
-                        <p className="text-gray-900">
-                          {contact.email}
-                        </p>
+                        <Phone className="w-5 h-5 text-gray-400 mr-2" />
+                        <p className="text-gray-900">{contact.phone}</p>
                       </div>
                     </td>
 
@@ -205,8 +200,7 @@ const Appointments = () => {
                           contact.status
                         )}`}
                       >
-                        {contact.status.charAt(0).toUpperCase() +
-                          contact.status.slice(1)}
+                        {contact.status.charAt(0).toUpperCase() + contact.status.slice(1)}
                       </span>
                     </td>
 

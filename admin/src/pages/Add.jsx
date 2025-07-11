@@ -5,92 +5,99 @@ import toast from "react-hot-toast";
 const AddProperty = () => {
   const [formData, setFormData] = useState({
     title: "",
-    shortDesc: "",
-    fullDesc: "",
     location: "",
     price: "",
-    images: [],
-    amenities: [],
+    description: "",
+    amenities: "",
   });
 
-  const [imageFiles, setImageFiles] = useState([]);
+  const [images, setImages] = useState([]);
+  const [uploading, setUploading] = useState(false);
+
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+  const uploadPreset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleAmenityToggle = (amenity) => {
-    setFormData((prev) => {
-      const exists = prev.amenities.includes(amenity);
-      return {
-        ...prev,
-        amenities: exists
-          ? prev.amenities.filter((a) => a !== amenity)
-          : [...prev.amenities, amenity],
-      };
-    });
+  const handleImageChange = (e) => {
+    setImages([...e.target.files].slice(0, 4));
   };
 
-  const handleImageChange = (e) => {
-    setImageFiles([...e.target.files]);
+  const uploadImagesToCloudinary = async () => {
+    const urls = [];
+    for (let file of images) {
+      const data = new FormData();
+      data.append("file", file);
+      data.append("upload_preset", uploadPreset);
+
+      const res = await axios.post(
+        `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+        data
+      );
+      urls.push(res.data.secure_url);
+    }
+    return urls;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      // Convert image files to base64 or upload them and store URLs instead
-      const imageURLs = imageFiles.map((file) => URL.createObjectURL(file));
+    if (images.length === 0) {
+      toast.error("Please upload at least 1 image");
+      return;
+    }
 
-      const dataToSend = {
+    try {
+      setUploading(true);
+      const uploadedImageUrls = await uploadImagesToCloudinary();
+
+      const payload = {
         ...formData,
-        images: imageURLs, // Replace this with real upload URLs in production
+        amenities: formData.amenities
+          .split(",")
+          .map((a) => a.trim())
+          .filter(Boolean),
+        images: uploadedImageUrls,
       };
 
-      const res = await axios.post("http://localhost:4000/api/properties/add", dataToSend);
+      const res = await axios.post(`${backendUrl}/api/properties/add`, payload);
       toast.success("Property added successfully!");
-      setFormData({ title: "", shortDesc: "", fullDesc: "", location: "", price: "", images: [], amenities: [] });
-      setImageFiles([]);
-    } catch (error) {
+
+      setFormData({
+        title: "",
+        location: "",
+        price: "",
+        description: "",
+        amenities: "",
+      });
+      setImages([]);
+    } catch (err) {
       toast.error("Failed to add property");
-      console.error(error);
+      console.error("Upload error:", err.response?.data || err.message);
+    } finally {
+      setUploading(false);
     }
   };
 
-  const amenityOptions = ["Lake View", "Power Backup", "Fencing", "Clubhouse", "Road Access"];
-
   return (
-    <div className="max-w-3xl mx-auto p-6">
-      <h2 className="text-2xl font-semibold mb-4">Add New Property</h2>
+    <div className="max-w-3xl mx-auto p-6 bg-white rounded shadow">
+      <h2 className="text-2xl font-semibold mb-4 text-[#066b70] text-center">Add Property</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
-        <input name="title" placeholder="Title" value={formData.title} onChange={handleChange} className="w-full border p-2" required />
-        <input name="shortDesc" placeholder="Short Description" value={formData.shortDesc} onChange={handleChange} className="w-full border p-2" required />
-        <textarea name="fullDesc" placeholder="Full Description" value={formData.fullDesc} onChange={handleChange} className="w-full border p-2" rows={4} required />
-        <input name="location" placeholder="Location" value={formData.location} onChange={handleChange} className="w-full border p-2" required />
-        <input name="price" placeholder="Price" value={formData.price} onChange={handleChange} className="w-full border p-2" required />
-        
-        <label className="block mt-4 font-semibold">Upload Images:</label>
-        <input type="file" multiple accept="image/*" onChange={handleImageChange} />
+        <input name="title" placeholder="Title" value={formData.title} onChange={handleChange} className="w-full border p-3 rounded" required />
+        <input name="location" placeholder="Location" value={formData.location} onChange={handleChange} className="w-full border p-3 rounded" required />
+        <input name="price" placeholder="Price" value={formData.price} onChange={handleChange} className="w-full border p-3 rounded" required />
+        <textarea name="description" placeholder="Description" value={formData.description} onChange={handleChange} rows={4} className="w-full border p-3 rounded" required />
+        <input name="amenities" placeholder="Amenities (comma separated)" value={formData.amenities} onChange={handleChange} className="w-full border p-3 rounded" />
 
-        <div className="mt-4">
-          <label className="block font-semibold mb-2">Select Amenities:</label>
-          <div className="flex flex-wrap gap-3">
-            {amenityOptions.map((amenity) => (
-              <label key={amenity} className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  checked={formData.amenities.includes(amenity)}
-                  onChange={() => handleAmenityToggle(amenity)}
-                />
-                <span>{amenity}</span>
-              </label>
-            ))}
-          </div>
-        </div>
+        <input type="file" accept="image/*" multiple onChange={handleImageChange} className="w-full" />
+        <p className="text-sm text-gray-500">Upload up to 4 images</p>
 
-        <button type="submit" className="bg-[#066b70] text-white px-6 py-2 rounded mt-4">
-          Submit Property
+        <button type="submit" disabled={uploading} className="w-full bg-[#066b70] text-white py-3 rounded hover:bg-[#055e64]">
+          {uploading ? "Uploading..." : "Submit Property"}
         </button>
       </form>
     </div>

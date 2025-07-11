@@ -20,6 +20,7 @@ import NotFoundPage from './components/Notfound';
 import StructuredData from './components/SEO/StructuredData';
 import { AuthProvider } from './context/AuthContext';
 import MoreDetails from './pages/MoreDetails';
+import PropertyDetails from './components/properties/PropertyDetail';
 
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -60,6 +61,7 @@ const App = () => {
               <Route path="/about" element={<Aboutus />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/properties" element={<Properties />} />
+              <Route path="/properties/single/:id" element={<PropertyDetails />} />
               <Route path="/more-details" element={<MoreDetails />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>

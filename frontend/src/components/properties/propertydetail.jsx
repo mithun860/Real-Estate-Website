@@ -111,7 +111,7 @@ const PropertyDetails = () => {
             <AnimatePresence mode="wait">
               <motion.img
                 key={activeImage}
-                src={property.image[activeImage]}
+                src={property.images[activeImage]}
                 alt={property.title}
                 className="w-full h-full object-cover"
                 initial={{ opacity: 0 }}
@@ -121,11 +121,11 @@ const PropertyDetails = () => {
               />
             </AnimatePresence>
 
-            {property.image.length > 1 && (
+            {property.images.length > 1 && (
               <>
                 <button
                   onClick={() =>
-                    setActiveImage((prev) => (prev === 0 ? property.image.length - 1 : prev - 1))
+                    setActiveImage((prev) => (prev === 0 ? property.images.length - 1 : prev - 1))
                   }
                   className="absolute left-4 top-1/2 -translate-y-1/2 p-2 bg-white/80 rounded-full"
                 >
@@ -133,7 +133,7 @@ const PropertyDetails = () => {
                 </button>
                 <button
                   onClick={() =>
-                    setActiveImage((prev) => (prev === property.image.length - 1 ? 0 : prev + 1))
+                    setActiveImage((prev) => (prev === property.images.length - 1 ? 0 : prev + 1))
                   }
                   className="absolute right-4 top-1/2 -translate-y-1/2 p-2 bg-white/80 rounded-full"
                 >
@@ -143,7 +143,7 @@ const PropertyDetails = () => {
             )}
 
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-sm bg-black/50 px-4 py-1 rounded-full">
-              {activeImage + 1} / {property.image.length}
+              {activeImage + 1} / {property.images.length}
             </div>
           </div>
 
@@ -172,22 +172,6 @@ const PropertyDetails = () => {
                 <p className="text-gray-500 text-sm">
                   {property.availability === "buy" ? "For Sale" : "For Rent"}
                 </p>
-              </div>
-            </div>
-
-            {/* Features */}
-            <div className="grid grid-cols-3 gap-4">
-              <div className="flex flex-col items-center bg-gray-100 rounded-lg p-4">
-                <BedDouble className="text-[#425036]" />
-                <span className="text-sm text-gray-600">{property.beds} Beds</span>
-              </div>
-              <div className="flex flex-col items-center bg-gray-100 rounded-lg p-4">
-                <Bath className="text-[#425036]" />
-                <span className="text-sm text-gray-600">{property.baths} Baths</span>
-              </div>
-              <div className="flex flex-col items-center bg-gray-100 rounded-lg p-4">
-                <Maximize className="text-[#425036]" />
-                <span className="text-sm text-gray-600">{property.sqft} sqft</span>
               </div>
             </div>
 

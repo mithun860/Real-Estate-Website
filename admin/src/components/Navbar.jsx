@@ -28,7 +28,8 @@ const Navbar = () => {
   const navItems = [
     { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { path: '/appointments', label: 'Contacts', icon: Calendar },
-    { path: '/add-property', label: 'Upload Property', icon: UploadCloud }, // ✅ Added
+    { path: '/add-property', label: 'Upload Property', icon: UploadCloud },
+    { path: '/manage-properties', label: 'Manage Properties', icon: LayoutDashboard }, // ✅ Added
   ];
 
   return (
