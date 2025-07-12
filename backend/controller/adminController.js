@@ -7,7 +7,7 @@ import Appointment from "../models/appointmentModel.js";
 import User from "../models/Usermodel.js";
 import transporter from "../config/nodemailer.js";
 import { getEmailTemplate } from "../email.js";
-import Admin from '../models/AdminModel.js'; // ✅ Using correct Admin model
+import Admin from '../models/adminModel.js'; // ✅ Using correct Admin model
 
 // ======================
 //  ADMIN AUTHENTICATION

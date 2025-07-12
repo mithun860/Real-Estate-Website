@@ -10,7 +10,7 @@ const List = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">All Properties</h2>
+      <h2 className="text-2xl font-bold mb-4">All Properties</h2> 
       <table className="w-full border">
         <thead>
           <tr className="bg-gray-200">
