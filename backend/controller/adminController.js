@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcrypt';
 
 import Stats from "../models/statsModel.js";
 import Property from "../models/propertyModel.js";
