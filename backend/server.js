@@ -15,6 +15,7 @@ import adminRouter from './routes/adminRoute.js';
 import propertyRoutes from './routes/propertyRoutes.js';
 import contactRouter from './routes/contact.js';
 import createAdminRoute from './routes/createAdminRoute.js';
+import uploadRouter from './routes/uploadRoute.js';
 
 dotenv.config();
 
@@ -73,6 +74,7 @@ app.use('/api/admin', adminRouter);
 app.use('/api', propertyRoutes);
 app.use('/api/contacts', contactRouter);
 app.use('/api', createAdminRoute);
+app.use('/api/upload', uploadRouter);
 
 app.use((err, req, res, next) => {
   console.error('Error:', err);
