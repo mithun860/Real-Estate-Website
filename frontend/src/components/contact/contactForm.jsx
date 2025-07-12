@@ -13,21 +13,14 @@ function ContactForm() {
       viewport={{ once: true }}
       className="bg-[#f0faf9] p-8 rounded-2xl shadow-sm font-[Montserrat]"
     >
-      <h2
-        className="text-2xl font-bold mb-6 text-[#066b70]"
-        style={{ fontFamily: "'Queensides', serif" }}
-      >
+      <h2 className="text-2xl font-bold mb-6 text-[#066b70]" style={{ fontFamily: "'Queensides', serif" }}>
         Send Us a Message
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Name Field */}
         <div>
-          <label
-            htmlFor="name"
-            className="block text-sm font-semibold mb-1 text-[#066b70]"
-            style={{ fontFamily: "'Queensides', serif" }}
-          >
+          <label htmlFor="name" className="block text-sm font-semibold mb-1 text-[#066b70]" style={{ fontFamily: "'Queensides', serif" }}>
             Name *
           </label>
           <input
@@ -40,18 +33,12 @@ function ContactForm() {
               errors.name ? 'border-red-500' : 'border-gray-300'
             }`}
           />
-          {errors.name && (
-            <p className="mt-1 text-sm text-red-500">{errors.name}</p>
-          )}
+          {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name}</p>}
         </div>
 
         {/* Phone Field */}
         <div>
-          <label
-            htmlFor="phone"
-            className="block text-sm font-semibold mb-1 text-[#066b70]"
-            style={{ fontFamily: "'Queensides', serif" }}
-          >
+          <label htmlFor="phone" className="block text-sm font-semibold mb-1 text-[#066b70]" style={{ fontFamily: "'Queensides', serif" }}>
             Phone Number *
           </label>
           <input
@@ -64,18 +51,12 @@ function ContactForm() {
               errors.phone ? 'border-red-500' : 'border-gray-300'
             }`}
           />
-          {errors.phone && (
-            <p className="mt-1 text-sm text-red-500">{errors.phone}</p>
-          )}
+          {errors.phone && <p className="mt-1 text-sm text-red-500">{errors.phone}</p>}
         </div>
 
         {/* Message Field */}
         <div>
-          <label
-            htmlFor="message"
-            className="block text-sm font-semibold mb-1 text-[#066b70]"
-            style={{ fontFamily: "'Queensides', serif" }}
-          >
+          <label htmlFor="message" className="block text-sm font-semibold mb-1 text-[#066b70]" style={{ fontFamily: "'Queensides', serif" }}>
             Message (Optional)
           </label>
           <textarea
