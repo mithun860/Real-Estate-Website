@@ -1,22 +1,34 @@
-// TEMPORARY ONLY — delete after use
 import express from 'express';
-import bcrypt from 'bcryptjs';
 import Admin from '../models/adminModel.js';
+import bcrypt from 'bcrypt';
 
 const router = express.Router();
 
-router.post('/create-admin', async (req, res) => {
+// ✅ Allow public access — no middleware here
+router.post('/create', async (req, res) => {
   try {
-    const hashedPassword = await bcrypt.hash('admin123', 10);
-    const admin = await Admin.create({
-      name: 'Super Admin',
-      email: 'admin@splr.com',
+    const { email, password, name } = req.body;
+
+    const existing = await Admin.findOne({ email });
+    if (existing) {
+      return res.status(400).json({ success: false, message: 'Admin already exists' });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const newAdmin = new Admin({
+      email,
       password: hashedPassword,
-      phone: '9876543210'
+      name,
+      isAdmin: true
     });
-    res.status(201).json({ success: true, admin });
+
+    await newAdmin.save();
+
+    res.status(201).json({ success: true, message: 'Admin created successfully' });
   } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
+    console.error('Error creating admin:', error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
   }
 });
 
