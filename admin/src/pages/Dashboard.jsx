@@ -64,14 +64,14 @@ const Dashboard = () => {
 
   const fetchStats = async () => {
     try {
-      const response = await axios.get(`${backendurl}/api/admin/stats`, {
+      const response = await axios.get(`${backendurl}/api/admin/dashboard`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       if (response.data.success) {
         setStats({
-          totalViews: response.data.totalViews,
-          pendingContacts: response.data.pendingContacts,
-          viewsData: response.data.viewsData,
+          totalViews: response.data.stats.viewsData.datasets[0]?.data.reduce((a, b) => a + b, 0) || 0,
+          pendingContacts: response.data.stats.pendingAppointments,
+          viewsData: response.data.stats.viewsData,
           loading: false,
           error: null,
         });
