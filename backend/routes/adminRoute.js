@@ -8,6 +8,7 @@ import {
 import { isAdmin } from '../middleware/authMiddleware.js';
 import Admin from '../models/adminModel.js';
 import bcrypt from 'bcrypt';
+import createAdminRoute from './createAdminRoute.js';
 
 const router = express.Router();
 
@@ -69,6 +70,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
+router.use(createAdminRoute);
 // Protected routes (require admin authentication)
 router.use(isAdmin);
 

@@ -1,7 +1,7 @@
 // TEMPORARY ONLY — delete after use
 import express from 'express';
 import bcrypt from 'bcryptjs';
-import Admin from '../models/AdminModel.js';
+import Admin from '../models/adminModel.js';
 
 const router = express.Router();
 
