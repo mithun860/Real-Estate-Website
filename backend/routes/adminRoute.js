@@ -17,26 +17,28 @@ console.log("Admin router loaded");
 // Verification endpoint (temporary - remove after debugging)
 router.get('/verify-credentials', async (req, res) => {
   try {
-    console.log("Verifying admin credentials in database...");
-    
     const admin = await Admin.findOne({ email: "admin@splr.com" });
-    const exists = !!admin;
+
     let passwordMatch = false;
-    
-    if (admin) {
-      passwordMatch = await bcrypt.compare("admin123", admin.password);
+    const raw = "admin123";
+    const hash = admin?.password;
+    if (admin && hash) {
+      console.log("HASH from DB:", hash);
+      passwordMatch = await bcrypt.compare(raw, hash);
+      console.log("Comparing", raw, "to", hash, "=", passwordMatch);
     }
-    
+
     res.json({
-      adminExists: exists,
+      adminExists: !!admin,
       passwordMatch,
+      hashFromDb: hash,
       databaseConnected: true,
       environment: process.env.NODE_ENV,
       timestamp: new Date().toISOString()
     });
-  } catch (error) {
-    console.error("Verification error:", error);
-    res.status(500).json({ error: error.message });
+  } catch (err) {
+    console.error("Verification error:", err);
+    res.status(500).json({ error: err.message });
   }
 });
 
