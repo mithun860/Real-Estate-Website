@@ -1,8 +1,9 @@
 import jwt from "jsonwebtoken";
 import userModel from "../models/Usermodel.js";
+import Admin from "../models/adminModel.js";
 import Appointment from "../models/appointmentModel.js";
 
-// Middleware to protect routes
+// Middleware to protect user routes
 export const protect = async (req, res, next) => {
   try {
     const token = req.headers.authorization?.split(" ")[1];
@@ -26,7 +27,7 @@ export const protect = async (req, res, next) => {
   }
 };
 
-// Admin access middleware
+// ✅ Middleware to protect admin routes (uses Admin model)
 export const isAdmin = async (req, res, next) => {
   try {
     const token = req.headers.authorization?.split(" ")[1];
@@ -36,17 +37,17 @@ export const isAdmin = async (req, res, next) => {
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await userModel.findById(decoded.id).select("-password");
+    const admin = await Admin.findById(decoded.id).select("-password");
 
-    if (!user) {
-      return res.status(401).json({ success: false, message: "User not found" });
+    if (!admin) {
+      return res.status(401).json({ success: false, message: "Admin user not found" });
     }
 
-    if (!user.isAdmin) {
+    if (!admin.isAdmin) {
       return res.status(403).json({ success: false, message: "Admin access required" });
     }
 
-    req.user = user;
+    req.user = admin;
     next();
   } catch (error) {
     console.error("Admin auth error:", error);
@@ -54,7 +55,7 @@ export const isAdmin = async (req, res, next) => {
   }
 };
 
-// Appointment ownership check
+// Appointment ownership check for user actions
 export const checkAppointmentOwnership = async (req, res, next) => {
   try {
     const appointment = await Appointment.findById(req.params.id);
