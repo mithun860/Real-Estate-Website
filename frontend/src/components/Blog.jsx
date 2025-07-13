@@ -5,7 +5,7 @@ import {
   Sparkles, Infinity, Download
 } from 'lucide-react';
 import ThreeLeafBrochure from '../assets/Three_Leaf_Brochure.pdf';
-import backgroundImage from '../assets/how-it-works-bg.JPG';
+import backgroundImage from '../assets/how-it-works-bg.jpg';
 
 const customGreen = "#066b70";
 

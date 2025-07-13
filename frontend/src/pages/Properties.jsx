@@ -1,5 +1,5 @@
 import React from 'react'
-import PropertiesPage from '../components/properties/PropertiesPage'
+import PropertiesPage from '../components/properties/PropertiesPage';
 
 const Properties = () => {
   return (
