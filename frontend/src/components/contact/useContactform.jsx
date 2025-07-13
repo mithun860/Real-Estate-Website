@@ -38,22 +38,27 @@ export default function useContactForm() {
     }
   };
   
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      try {
-        const response = await axios.post(`${Backendurl}/api/form/submit`, formData);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (validateForm()) {
+    try {
+      const response = await axios.post(`${Backendurl}/api/forms/submit`, formData);
+
+      console.log("📦 Server Response:", response);
+
+      if (response.data.success) {
         toast.success('Form submitted successfully!');
-        // Reset form
         setFormData({ name: '', phone: '', message: '' });
-      } catch (error) {
-        toast.error('Error submitting form. Please try again.');
-        console.error('Error submitting form:', error);
+      } else {
+        toast.error(response.data.message || 'Submission failed.');
       }
-    } else {
-      console.log('Validation errors:', errors); // Debugging log
+
+    } catch (error) {
+      console.error('❌ Error submitting form:', error);
+      toast.error('Error submitting form. Please try again.');
     }
-  };
+  }
+};
 
   return { formData, errors, handleChange, handleSubmit };
 }
