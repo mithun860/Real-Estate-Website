@@ -40,9 +40,9 @@ export const submitForm = async (req, res) => {
 
     // ✅ Send email to admin
     await transporter.sendMail({
-      from: '"Website Contact" <no-reply@buildestate.com>',
+      from: '"Website Contact" <no-reply@splr.com>',
       to: process.env.ADMIN_EMAIL,
-      subject: "📩 New Contact Submission - BuildEstate",
+      subject: "📩 New Contact Submission",
       html: `
         <h3>New Contact Form Submitted</h3>
         <p><strong>Name:</strong> ${name}</p>
@@ -58,7 +58,7 @@ export const submitForm = async (req, res) => {
       await twilioClient.messages.create({
         from: process.env.TWILIO_PHONE_NUMBER,
         to: process.env.ADMIN_PHONE,
-        body: `📩 New contact from ${name} (${phone}) on BuildEstate. Check email for full message.`
+        body: `📩 New contact from ${name} (${phone}) on SPLR. Check email for full message.`
       });
     }
 

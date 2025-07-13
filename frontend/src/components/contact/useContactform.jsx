@@ -37,12 +37,12 @@ export default function useContactForm() {
       setErrors(prev => ({ ...prev, [name]: undefined }));
     }
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validateForm()) {
       try {
-        const response = await axios.post(`${Backendurl}/api/forms/submit`, formData);
+        const response = await axios.post(`${Backendurl}/api/form/submit`, formData);
         toast.success('Form submitted successfully!');
         // Reset form
         setFormData({ name: '', phone: '', message: '' });
