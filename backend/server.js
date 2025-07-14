@@ -47,7 +47,7 @@ app.use(cors({
     'http://localhost:5174',
     'http://localhost:5173',
     'https://threeleafworld.com',
-    'https://www.threeleafworld.com'
+    'https://www.threeleafworld.com',
     'https://splrdevelopers-gules.vercel.app',
     'https://real-estate-website-admin.vercel.app',
   ],
