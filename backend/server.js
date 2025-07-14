@@ -14,8 +14,6 @@ import appointmentRouter from './routes/appointmentRoute.js';
 import adminRouter from './routes/adminRoute.js';
 import propertyRoutes from './routes/propertyRoutes.js';
 import contactRouter from './routes/contact.js';
-import createAdminRoute from './routes/createAdminRoute.js';
-import uploadRouter from './routes/uploadRoute.js';
 
 dotenv.config();
 
@@ -48,6 +46,7 @@ app.use(cors({
     'http://localhost:4000',
     'http://localhost:5174',
     'http://localhost:5173',
+    'https://threeleafworld.com',
     'https://splrdevelopers-gules.vercel.app',
     'https://real-estate-website-admin.vercel.app',
   ],
@@ -73,8 +72,6 @@ app.use('/api/appointments', appointmentRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api', propertyRoutes);
 app.use('/api/contacts', contactRouter);
-app.use('/api', createAdminRoute);
-app.use('/api/upload', uploadRouter);
 
 app.use((err, req, res, next) => {
   console.error('Error:', err);
