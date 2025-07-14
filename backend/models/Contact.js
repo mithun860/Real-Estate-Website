@@ -12,10 +12,8 @@ const ContactSchema = new mongoose.Schema({
     enum: ['pending', 'responded', 'archived'],
     default: 'pending'
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+}, {
+  timestamps: true,
 });
 
 const Contact = mongoose.model("Contact", ContactSchema);
