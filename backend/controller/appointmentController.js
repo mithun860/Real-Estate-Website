@@ -342,7 +342,7 @@ export const updateAppointmentMeetingLink = async (req, res) => {
     const mailOptions = {
       from: '"SPLR Developers" <91cd8a001@smtp-brevo.com>',
       to: appointment.userId.email,
-      subject: "Meeting Link Updated - BuildEstate",
+      subject: "Meeting Link Updated - SPLR Developers",
       html: `<p>Your meeting link for <b>${appointment.propertyId.title}</b> has been updated:</p><a href="${meetingLink}">Join Now</a>`
     };
 
