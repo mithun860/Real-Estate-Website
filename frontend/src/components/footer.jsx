@@ -26,14 +26,14 @@ const FooterLink = ({ href, children }) => (
 const socialLinks = [
   {
     icon: Facebook,
-    href: '#',
+    href: 'https://www.facebook.com/people/SPLR-Developers/61567176615367/',
     label: 'Facebook',
     color: 'bg-[#1877F2]',
     hoverColor: 'hover:bg-[#1877F2]/90'
   },
   {
     icon: Instagram,
-    href: '#',
+    href: 'https://www.instagram.com/threeleaftrimbak/',
     label: 'Instagram',
     color: 'bg-gradient-to-tr from-[#fd5949] via-[#d6249f] to-[#285AEB]',
     hoverColor: 'hover:opacity-90'
