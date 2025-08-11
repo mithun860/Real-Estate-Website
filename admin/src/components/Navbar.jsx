@@ -29,7 +29,8 @@ const Navbar = () => {
     { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { path: '/appointments', label: 'Contacts', icon: Calendar },
     { path: '/add-property', label: 'Upload Property', icon: UploadCloud },
-    { path: '/manage-properties', label: 'Manage Properties', icon: LayoutDashboard }, // ✅ Added
+    { path: '/manage-properties', label: 'Manage Properties', icon: LayoutDashboard },
+    { path: '/BlogAdmin', label: 'Blog', icon: LayoutDashboard }, // ✅ Added
   ];
 
   return (

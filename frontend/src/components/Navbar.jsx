@@ -60,7 +60,7 @@ const Navbar = () => {
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
   const handleLogout = () => {
     logout();
-    setIsDropdownOpen(false);
+    setIsDropdownOpen(false); 
   };
 
   const getInitials = (name) =>
@@ -72,6 +72,7 @@ const Navbar = () => {
     { name: "Contact", path: "/contact", icon: MessageCircle },
     { name: "Properties", path: "/properties", icon: Building },
     { name: "More Details", path: "/more-details", icon: LinkIcon },
+    { name: "Blog", path: "/Blogs", icon: MessageCircle }
   ];
 
   const NavLinks = ({ currentPath }) => (
