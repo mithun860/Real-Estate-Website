@@ -72,7 +72,7 @@ const Navbar = () => {
     { name: "Contact", path: "/contact", icon: MessageCircle },
     { name: "Properties", path: "/properties", icon: Building },
     { name: "More Details", path: "/more-details", icon: LinkIcon },
-    { name: "Blog", path: "/Blogs", icon: MessageCircle }
+    { name: "Blog", path: "/blog", icon: MessageCircle }
   ];
 
   const NavLinks = ({ currentPath }) => (
