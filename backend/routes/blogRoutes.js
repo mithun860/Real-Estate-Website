@@ -1,6 +1,6 @@
 import express from 'express';
 import Blog from '../models/Blog.js';
-import { authenticateAdmin } from '../middleware/authMiddleware.js';
+import { isAdmin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
@@ -37,7 +37,7 @@ router.get('/:slug', async (req, res) => {
 });
 
 // Create new blog post (admin only)
-router.post('/', authenticateAdmin, async (req, res) => {
+router.post('/', isAdmin, async (req, res) => {
   const { title, slug, content, excerpt, coverImage, tags, published } = req.body;
 
   try {
@@ -59,7 +59,7 @@ router.post('/', authenticateAdmin, async (req, res) => {
 });
 
 // Update blog post (admin only)
-router.put('/:id', authenticateAdmin, async (req, res) => {
+router.put('/:id', isAdmin, async (req, res) => {
   try {
     const updated = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!updated) return res.status(404).json({ message: 'Post not found' });
@@ -70,7 +70,7 @@ router.put('/:id', authenticateAdmin, async (req, res) => {
 });
 
 // Delete blog post (admin only)
-router.delete('/:id', authenticateAdmin, async (req, res) => {
+router.delete('/:id', isAdmin, async (req, res) => {
   try {
     const deleted = await Blog.findByIdAndDelete(req.params.id);
     if (!deleted) return res.status(404).json({ message: 'Post not found' });
