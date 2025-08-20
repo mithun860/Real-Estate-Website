@@ -5,7 +5,7 @@ import { HelmetProvider } from 'react-helmet-async';
 
 import Navbar from './components/Navbar';
 import Footer from './components/footer';
-import ScrollToTop from "./components/ScrollToTop"; // ✅ import
+import ScrollToTop from "./components/ScrollToTop";
 
 import Home from './pages/Home';
 import Aboutus from './pages/About';
@@ -24,9 +24,7 @@ import PropertyDetails from './components/properties/PropertyDetails';
 import BlogSingle from "./pages/BlogSingle";
 import BlogList from "./pages/BlogList";
 
-
 import 'react-toastify/dist/ReactToastify.css';
-import BlogSingle from './pages/BlogSingle';
 
 export const Backendurl = import.meta.env.VITE_API_BASE_URL;
 
@@ -51,7 +49,7 @@ const App = () => {
     <HelmetProvider>
       <AuthProvider>
         <Router>
-          <ScrollToTop /> {/* ✅ This solves the scroll issue */}
+          <ScrollToTop />
           <StructuredData type="website" />
           <StructuredData type="organization" />
 
@@ -68,7 +66,7 @@ const App = () => {
               <Route path="/properties/single/:id" element={<PropertyDetails />} />
               <Route path="/more-details" element={<MoreDetails />} />
               <Route path="/blog" element={<BlogList />} />
-              <Route path="/blog/:id" element={<BlogSingle />} />
+              <Route path="/blog/:slug" element={<BlogSingle />} /> {/* use slug instead of id */}
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </LayoutWrapper>
