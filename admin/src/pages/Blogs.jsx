@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Backendurl } from "../App"; // update to your backend URL
+import { Backendurl } from "../App";
 
 const Blogs = () => {
   const [blogs, setBlogs] = useState([]);
@@ -13,28 +13,44 @@ const Blogs = () => {
 
   const fetchBlogs = async () => {
     const res = await axios.get(`${Backendurl}/api/blogs`);
-    setBlogs(res.data);
+    setBlogs(res.data.posts || []); // ✅ backend now returns {posts, totalPages}
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem("token"); // ✅ ensure admin token is sent
+
     if (editingId) {
-      await axios.put(`${Backendurl}/api/blogs/${editingId}`, form);
+      await axios.put(`${Backendurl}/api/blogs/${editingId}`, form, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
     } else {
-      await axios.post(`${Backendurl}/api/blogs`, form);
+      await axios.post(`${Backendurl}/api/blogs`, form, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
     }
+
     setForm({ title: "", slug: "", content: "", excerpt: "", coverImage: "" });
     setEditingId(null);
     fetchBlogs();
   };
 
   const handleEdit = (blog) => {
-    setForm(blog);
+    setForm({
+      title: blog.title,
+      slug: blog.slug,
+      content: blog.content,
+      excerpt: blog.excerpt,
+      coverImage: blog.coverImage,
+    });
     setEditingId(blog._id);
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`${Backendurl}/api/blogs/${id}`);
+    const token = localStorage.getItem("token");
+    await axios.delete(`${Backendurl}/api/blogs/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
     fetchBlogs();
   };
 

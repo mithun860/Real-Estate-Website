@@ -1,57 +1,82 @@
-import express from "express";
-import Blog from "../models/Blog.js";
+import express from 'express';
+import Blog from '../models/Blog.js';
+import { authenticateAdmin } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 
-// Create Blog
-router.post("/", async (req, res) => {
+// Get all blog posts (paginated)
+router.get('/', async (req, res) => {
   try {
-    const blog = new Blog(req.body);
-    await blog.save();
-    res.status(201).json(blog);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+    const page = parseInt(req.query.page) || 1;
+    const limit = 6;
+    const skip = (page - 1) * limit;
+
+    const posts = await Blog.find()
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    const totalPosts = await Blog.countDocuments();
+    const totalPages = Math.ceil(totalPosts / limit);
+
+    res.json({ posts, totalPages });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 });
 
-// Read all blogs
-router.get("/", async (req, res) => {
+// Get single blog post by slug
+router.get('/:slug', async (req, res) => {
   try {
-    const blogs = await Blog.find().sort({ createdAt: -1 });
-    res.json(blogs);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+    const post = await Blog.findOne({ slug: req.params.slug });
+    if (!post) return res.status(404).json({ message: 'Post not found' });
+    res.json(post);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 });
 
-// Read single blog
-router.get("/:slug", async (req, res) => {
+// Create new blog post (admin only)
+router.post('/', authenticateAdmin, async (req, res) => {
+  const { title, slug, content, excerpt, coverImage, tags, published } = req.body;
+
   try {
-    const blog = await Blog.findOne({ slug: req.params.slug });
-    if (!blog) return res.status(404).json({ message: "Blog not found" });
-    res.json(blog);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+    const newBlog = new Blog({
+      title,
+      slug: slug || title.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      content,
+      excerpt,
+      coverImage,
+      tags,
+      published
+    });
+
+    const saved = await newBlog.save();
+    res.status(201).json(saved);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
 });
 
-// Update Blog
-router.put("/:id", async (req, res) => {
+// Update blog post (admin only)
+router.put('/:id', authenticateAdmin, async (req, res) => {
   try {
-    const blog = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    res.json(blog);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+    const updated = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!updated) return res.status(404).json({ message: 'Post not found' });
+    res.json(updated);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
   }
 });
 
-// Delete Blog
-router.delete("/:id", async (req, res) => {
+// Delete blog post (admin only)
+router.delete('/:id', authenticateAdmin, async (req, res) => {
   try {
-    await Blog.findByIdAndDelete(req.params.id);
-    res.json({ message: "Blog deleted" });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+    const deleted = await Blog.findByIdAndDelete(req.params.id);
+    if (!deleted) return res.status(404).json({ message: 'Post not found' });
+    res.json({ message: 'Post deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 });
 
