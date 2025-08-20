@@ -21,11 +21,12 @@ import StructuredData from './components/SEO/StructuredData';
 import { AuthProvider } from './context/AuthContext';
 import MoreDetails from './pages/MoreDetails';
 import PropertyDetails from './components/properties/PropertyDetails';
-import Blogs from "./pages/Blogs";
-import BlogDetail from "./pages/BlogDetail";
+import BlogSingle from "./pages/BlogSingle";
+import BlogList from "./pages/BlogList";
 
 
 import 'react-toastify/dist/ReactToastify.css';
+import BlogSingle from './pages/BlogSingle';
 
 export const Backendurl = import.meta.env.VITE_API_BASE_URL;
 
@@ -66,8 +67,8 @@ const App = () => {
               <Route path="/properties" element={<Properties />} />
               <Route path="/properties/single/:id" element={<PropertyDetails />} />
               <Route path="/more-details" element={<MoreDetails />} />
-              <Route path="/blogs" element={<Blogs />} />
-              <Route path="/blog/:id" element={<BlogDetail />} />
+              <Route path="/blog" element={<BlogList />} />
+              <Route path="/blog/:id" element={<BlogSingle />} />
               <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </LayoutWrapper>
