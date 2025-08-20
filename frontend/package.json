@@ -15,7 +15,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "render-build": "vite build"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.2.4",
