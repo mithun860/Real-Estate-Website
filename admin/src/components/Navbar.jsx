@@ -30,7 +30,7 @@ const Navbar = () => {
     { path: '/appointments', label: 'Contacts', icon: Calendar },
     { path: '/add-property', label: 'Upload Property', icon: UploadCloud },
     { path: '/manage-properties', label: 'Manage Properties', icon: LayoutDashboard },
-    { path: '/Blogs', label: 'Blog', icon: LayoutDashboard }, // ✅ Added
+    { path: '/blogs', label: 'Blog', icon: LayoutDashboard }, // ✅ Added
   ];
 
   return (
