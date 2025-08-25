@@ -12,8 +12,7 @@ import AddProperty from "./pages/Add";
 import UploadProperty from "./pages/UploadProperty";
 import EditProperty from "./pages/EditProperty";
 import ManageProperties from "./pages/ManageProperties";
-import Blogs from "./pages/Blogs";
-import BlogManagement from "./pages/BlogManagement";
+import BlogManagement from "./pages/BlogManagement";  // ✅ only keep this
 
 export const backendurl = import.meta.env.VITE_BACKEND_URL;
 
@@ -47,7 +46,9 @@ const App = () => {
                 <Route path="/upload-property" element={<UploadProperty />} />
                 <Route path="/edit-property/:id" element={<EditProperty />} />
                 <Route path="/manage-properties" element={<ManageProperties />} />
-                <Route path="/blogs" element={<Blogs />} />
+
+                {/* ✅ replaced Blogs with BlogManagement */}
+                <Route path="/blogs" element={<BlogManagement />} />
                 <Route path="/blog-management" element={<BlogManagement />} />
               </Route>
 
