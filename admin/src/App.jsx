@@ -48,7 +48,7 @@ const App = () => {
                 <Route path="/edit-property/:id" element={<EditProperty />} />
                 <Route path="/manage-properties" element={<ManageProperties />} />
                 <Route path="/blogs" element={<Blogs />} />
-                <Route path="/blogs" element={<BlogManagement />} />
+                <Route path="/blog-management" element={<BlogManagement />} />
               </Route>
 
               <Route path="*" element={<Navigate to="/dashboard" replace />} />
