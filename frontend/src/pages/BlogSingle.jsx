@@ -50,7 +50,7 @@ const BlogSingle = () => {
         <Helmet>
           <title>Loading... - Three Leaf World Blog</title>
         </Helmet>
-        <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
+        <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 pt-32">
           <div className="max-w-4xl mx-auto p-6">
             <div className="flex justify-center items-center h-64">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-700"></div>
@@ -67,7 +67,7 @@ const BlogSingle = () => {
         <Helmet>
           <title>Blog Not Found - Three Leaf World</title>
         </Helmet>
-        <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
+        <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 pt-32">
           <div className="max-w-4xl mx-auto p-6 py-20">
             <div className="text-center">
               <div className="text-6xl mb-4">😕</div>
@@ -95,7 +95,7 @@ const BlogSingle = () => {
         <Helmet>
           <title>Blog Not Found - Three Leaf World</title>
         </Helmet>
-        <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
+        <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 pt-32">
           <div className="max-w-4xl mx-auto p-6 py-20">
             <div className="text-center">
               <h1 className="text-2xl font-bold text-gray-900 mb-4">Blog post not found</h1>
@@ -141,22 +141,7 @@ const BlogSingle = () => {
         ))}
       </Helmet>
 
-      <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
-        {/* Navigation */}
-        <div className="bg-white shadow-sm">
-          <div className="max-w-4xl mx-auto px-6 py-4">
-            <Link 
-              to="/blog" 
-              className="inline-flex items-center gap-2 text-green-700 font-medium hover:text-green-800 transition-colors"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              Back to Blog
-            </Link>
-          </div>
-        </div>
-
+      <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 pt-32">
         {/* Article Content */}
         <article className="max-w-4xl mx-auto p-6 py-12">
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
